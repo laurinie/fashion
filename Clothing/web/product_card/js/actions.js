@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         
     });
 
-    let closeBtn = document.querySelector("#closecard");
+    let closeBtn = document.querySelector("#close-card");
     let c = document.querySelector("#add-product");
     closeBtn.addEventListener('click', function () {
         if (!c.classList.contains("display-none")) {

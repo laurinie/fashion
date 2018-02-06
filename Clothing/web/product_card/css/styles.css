@@ -15,7 +15,7 @@
 
 }
 body{
-    background-color: backgroundcolor;
+    background-color: var(--backgroundcolor);
 }
 .main-grid-container {
     display: grid;
@@ -42,13 +42,13 @@ h2 ,h3{
     flex-wrap: wrap;
     background-color: var(--headercolor);
 }
-#budgetTree{
+#budget-tree{
     grid-area: t;
 }
-#addproduct{
+#add-product{
     grid-area: p;
 }
-.dispnone{
+.display-none{
     display: none;
 }
   
