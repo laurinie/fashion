@@ -1,0 +1,130 @@
+:root{
+    --btncolor: #ed6a5a;
+    --headercolor: #1f7a8c;
+    --footercolor: #50514f;
+    --lighttext: #f7fff7;
+    --backgroundcolor: #f7fff7;
+}
+
+.grid-container {
+  display: grid;
+  height: auto;
+  width: 100%;
+  grid-gap: 6px;
+  grid-template-areas: 
+    "a a a a a"
+    "c c c d d"
+    "c c c d d"
+    "e e e e e";
+  /*align-content: space-between; */
+  /*justify-content: space-around; */
+}
+h2 ,h3{
+    font-family: 'Bitter', serif;
+}
+label{
+    font-family: 'Raleway', sans-serif;
+}
+
+.section {
+  grid-area: c;
+  border: dashed 2px var(--btncolor);
+  border-radius: 5px;
+  display: grid;
+  grid-template-areas:
+  "a a a"
+  "b b c";
+}
+
+
+.add-prod{
+    grid-area: a;
+    text-align: center;
+} 
+.details{
+    grid-area: b;
+    height: auto;
+    padding: 10px;
+}
+.specs{
+    grid-area: c;
+    height: auto;
+    padding: 10px;
+    
+}
+.row{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-gap: 6px;
+}
+.col{
+    display: grid;
+    grid-gap: 6px;
+}
+input[type=text], textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--headercolor);
+    background-color: rgba(224, 224, 224, 0.432);
+    outline: none;
+}
+input:hover{
+    background-color: rgba(139, 253, 215, 0.274);
+}
+form :focus {
+    box-shadow: 3px 3px #022b3a;
+    background-color: rgba(139, 253, 215, 0.274);
+}
+.input-desc {
+    height: 150px;
+    
+}.center{
+    align-self: flex-start;
+    width: 100%;
+    text-align: center;
+}
+.close-btn{
+    display: flex;
+    float: right;
+    margin: 6px;
+}
+@media (min-width:650px) and (max-width:999px) {
+    .grid-container {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-areas: 
+          "a"
+          "c"
+          "d"
+          "e";
+      }
+      .aside{
+          width: 100%;
+      }
+      
+}
+@media (min-width:100px) and (max-width:649px) {
+    .grid-container {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-areas: 
+          "a"
+          "c"
+          "d"
+          "e";
+      }
+      .aside{
+          width: 100%;
+      }
+      .section{
+          display: block;
+      }
+      .row{
+          display: block;
+      }
+      
+}
