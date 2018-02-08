@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /*-----This opens and scrolls to productcard------*/
     let addProductBtn = document.querySelector("#add-button");
     let productCard = document.querySelector("#add-product");
-    tn.addEventListener('click', function () {
+    addProductBtn.addEventListener('click', function () {
 
         if (productCard.classList.contains("display-none")) {
             productCard.classList.remove("display-none");
