@@ -32,4 +32,4 @@ select * from clothingarticle;
 select * from users;
 
 
---source C:\Users\Joni\Desktop\fashionproject.sql
+--source C:/fashion/Clothing/fashionproject.sql
