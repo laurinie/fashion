@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (categoryName === "Shirts") {
             for (let itemTypeName of shirtsTypeArray) {
                 let itemTypeContainer = createNewItemType(itemTypeName);
-                categoryContainer.appendChild(itemTypeContainer);
+                categoryContainer.insertBefore(itemTypeContainer, categoryContainer.querySelector(".bottom"));
             }
         }
     }
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         category.textContent = name;
 
         let newItemTypeDiv = document.createElement("div");
+        newItemTypeDiv.className = "bottom";
 
         categoryContainer.appendChild(category);
         newItemTypeDiv.appendChild(createForm(categoryContainer, "text",
@@ -80,8 +81,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         btn.addEventListener('click', function () {
             /*shirtsTypeArray.push(btn.form.input.value);*/
-            console.log(input.value);
-            container.appendChild(createMethod(input.value));
+            container.insertBefore(createMethod(input.value), container.querySelector(".bottom"));
         });
         btn.textContent = btnText;
         btn.setAttribute("type", "submit");
@@ -100,14 +100,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         itemType.textContent = itemTypeInput;
 
 
-        let createPriceRangeBtn = createBtn("btn create-button new-price-range");
-        createPriceRangeBtn.addEventListener('click', function () {
-            itemTypeContainer.appendChild(createNewPriceRange());
-        });
-        createPriceRangeBtn.textContent = "Create price ranges";
-
         itemTypeContainer.appendChild(itemType);
-        itemTypeContainer.appendChild(createPriceRangeBtn);
 
         createNewPriceRange(itemTypeContainer);
         return itemTypeContainer;
