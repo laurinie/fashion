@@ -1,13 +1,15 @@
 /**
- * Created by Bulle on 05-Feb-18.
+ * Created by Emily on 05-Feb-18.
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
     let budgetTree = document.querySelector("#budget-tree");
 
     let categoriesArray = ["Shirts", "Pants", "Jackets", "Dresses"];
-/*    let priceRangesArray = ["Affordable", "Middle-priced", "Expensive"];
-    let itemTypeArray =  ["Summer", "Winter", "Fall", "Spring"]*/
+/*    let priceRangesArray = ["Affordable", "Middle-priced", "Expensive"];*/
+    let shirtsTypeArray = ["T-Shirts", "Tops", "Long-sleeved"];
+
+    let priceRanges = ["Affordable", "Middle-price", "Expensive"];
 
     function createBtn (className) {
         let btn = document.createElement("button");
@@ -19,7 +21,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
     for (let categoryName of categoriesArray) {
         let categoryContainer = createNewCategory(categoryName);
         budgetTree.appendChild(categoryContainer);
+
+        if (categoryName === "Shirts") {
+            for (let itemTypeName of shirtsTypeArray) {
+                let itemTypeContainer = createNewItemType(itemTypeName);
+                categoryContainer.appendChild(itemTypeContainer);
+            }
+        }
     }
+
 
 
     /*let newCategoryBtn = document.createElement("button");
@@ -35,30 +45,59 @@ document.addEventListener("DOMContentLoaded", function (event) {
         categoryContainer.className = "category-container";
 
         let category = document.createElement("div");
-        category.className = "category";
+        category.className = "category " + name + "-category";
         category.textContent = name;
 
-
-        let createItemTypeBtn = createBtn("btn create-button new-item");
-        createItemTypeBtn.addEventListener('click', function () {
-            categoryContainer.appendChild(createNewItemType());
-        });
-        createItemTypeBtn.textContent = "Create new item type";
+        let newItemTypeDiv = document.createElement("div");
 
         categoryContainer.appendChild(category);
-        categoryContainer.appendChild(createItemTypeBtn);
+        newItemTypeDiv.appendChild(createForm(categoryContainer, "text",
+            "Type the item type here...", "btn create-btn new-item",
+            "Create new item type", createNewItemType));
+        categoryContainer.appendChild(newItemTypeDiv);
+
 
         return categoryContainer;
     }
 
-    function createNewItemType() {
+    function createForm(container,type, placeholder, btnClass, btnText, createMethod) {
+        let form = document.createElement("form");
+        /*form.setAttribute("action", "");*/
+        /*form.setAttribute("method", "post");*/
+        function handleForm(event) {
+            event.preventDefault();
+        }
+
+        form.addEventListener('submit', handleForm);
+
+        let input = document.createElement("input");
+        input.setAttribute("type", type);
+        input.setAttribute("placeholder", placeholder);
+        input.setAttribute("id", "inputValue")
+
+        let btn = document.createElement("button");
+        btn.className = btnClass;
+
+        btn.addEventListener('click', function () {
+            /*shirtsTypeArray.push(btn.form.input.value);*/
+            console.log(input.value);
+            container.appendChild(createMethod(input.value));
+        });
+        btn.textContent = btnText;
+        btn.setAttribute("type", "submit");
+
+        form.appendChild(input);
+        form.appendChild(btn);
+        return form;
+    }
+
+    function createNewItemType(itemTypeInput) {
         let itemTypeContainer = document.createElement("div");
         itemTypeContainer.className = "item-type-container";
 
         let itemType = document.createElement("div");
         itemType.className = "item-type";
-        itemType.textContent = "new item type";
-
+        itemType.textContent = itemTypeInput;
 
 
         let createPriceRangeBtn = createBtn("btn create-button new-price-range");
@@ -70,38 +109,44 @@ document.addEventListener("DOMContentLoaded", function (event) {
         itemTypeContainer.appendChild(itemType);
         itemTypeContainer.appendChild(createPriceRangeBtn);
 
+        createNewPriceRange(itemTypeContainer);
         return itemTypeContainer;
     }
 
-    function createNewPriceRange() {
-        let priceRangeContainer = document.createElement("div");
-        priceRangeContainer.className = "price-range-container";
+    function createNewPriceRange(itemTypeContainer) {
 
-        let priceRange = document.createElement("div");
-        priceRange.className = "price-range";
-        priceRange.textContent = "new price range";
+        for (let priceRangeName of priceRanges) {
+            let priceRangeContainer = document.createElement("div");
+            priceRangeContainer.className = "price-range-container";
 
-        priceRangeContainer.appendChild(priceRange);
+            let priceRange = document.createElement("div");
+            priceRange.className = "price-range";
+            priceRange.textContent = priceRangeName;
 
-        let createItemBtn = createBtn("btn create-button new-item");
-        createItemBtn.addEventListener('click', function () {
-                priceRangeContainer.appendChild(createNewItem());
-        });
-        createItemBtn.textContent = "Create new item";
+            priceRangeContainer.appendChild(priceRange);
 
-        priceRangeContainer.appendChild(priceRange);
-        priceRangeContainer.appendChild(createItemBtn);
+            let newItemDiv = document.createElement("div");
+            newItemDiv.appendChild(createForm(priceRangeContainer, "text",
+                "Type the item name here...", "btn create-btn new-item",
+                "Create new item", createNewItem));
 
-        return priceRangeContainer;
+
+
+            priceRangeContainer.appendChild(priceRange);
+            priceRangeContainer.appendChild(newItemDiv);
+            itemTypeContainer.appendChild(priceRangeContainer);
+
+        }
+
     }
 
-    function createNewItem() {
+    function createNewItem(name) {
         let itemContainer= document.createElement("div");
         itemContainer.className = "item-container";
 
         let item = document.createElement("div");
         item.className = "item";
-        item.textContent = "new item"; // DELETE AFTER ADDING INPUT FIELDS!!
+        item.textContent = name;
 
         itemContainer.appendChild(item);
 
