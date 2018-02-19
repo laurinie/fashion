@@ -62,7 +62,7 @@ input:hover{
     background-color: rgba(139, 253, 215, 0.274);
 }
 form :focus {
-    box-shadow: 3px 3px #022b3a;
+    box-shadow: 3px 3px var(--navhover);
     background-color: rgba(139, 253, 215, 0.274);
 }
 .inpdesc {

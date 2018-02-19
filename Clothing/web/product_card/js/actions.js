@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function closeCard() {
         if (!c.classList.contains("display-none")) {
             c.classList.add("display-none");
+            const cardForm = document.querySelectorAll(".card-form");
+            for(let form of cardForm){
+                form.reset();
+            }
         }
         scrollSmooth("#budget-tree");
     }
