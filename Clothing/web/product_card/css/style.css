@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Bitter');
+* {box-sizing: border-box;
+
+    font-family: 'Raleway', sans-serif;
+
+}
+/*This is the way for modifying colors easily*/
+:root{
+    --btncolor: #ed6a5a;
+    --headercolor: #1f7a8c;
+    --footercolor: #50514f;
+    --lighttext: #f7fff7;
+    --backgroundcolor: #f7fff7;
+    --navcolor: #022b3a;
+    --navhover: #024E61;
+
+}
+body{
+    background-color: white;
+    display: grid;
+    grid-template:
+            "head    head"
+            "nav     main"
+            "nav     footer"
+            auto / 150px auto;
+}
+
+
+header {
+    border: 1px solid dimgrey;
+    grid-area: head;
+}
+
+nav {
+    border: 1px solid dimgrey;
+    grid-area: nav;
+    background-color: var(--navcolor);
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    color: var(--lighttext);
+}
+
+nav ul li > a {
+    display: block;
+    padding: 1em;
+    color: #dfdfdf;
+    text-decoration: none;
+}
+
+nav ul li > a:hover {
+    background-color: var(--navhover);
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background-image: -webkit-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
+    background-image: -moz-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
+    background-image: -ms-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
+    background-image: -o-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
+    padding: 0;
+    margin: 0;
+}
+
+
+#project-logo {
+    height: 70px;
+}
+
+main {
+    grid-area: main;
+    border: 1px solid dimgrey;
+}
+
+footer {
+    grid-area: footer;
+    border: 1px solid dimgrey;
+}
+
+.hidden {
+    display: none;
+}
