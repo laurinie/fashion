@@ -3,19 +3,13 @@
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    let budgetTree = document.querySelector("#budget-tree");
+
 
     let categoriesArray = ["Shirts", "Pants", "Jackets", "Dresses"];
-/*    let priceRangesArray = ["Affordable", "Middle-priced", "Expensive"];*/
     let shirtsTypeArray = ["T-Shirts", "Tops", "Long-sleeved"];
-
     let priceRanges = ["Affordable", "Middle-price", "Expensive"];
 
-    function createBtn (className) {
-        let btn = document.createElement("button");
-        btn.className = className;
-        return btn;
-    }
+    let budgetTree = document.querySelector("#budget");
 
     // loops through all predefined category names, creates categories with those names.
     for (let categoryName of categoriesArray) {
@@ -74,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let input = document.createElement("input");
         input.setAttribute("type", type);
         input.setAttribute("placeholder", placeholder);
-        input.setAttribute("id", "inputValue")
+        input.setAttribute("id", "inputValue");
 
         let btn = document.createElement("button");
         btn.className = btnClass;
