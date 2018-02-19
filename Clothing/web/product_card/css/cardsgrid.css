@@ -1,0 +1,4 @@
+dl{
+    border: 2px solid var(--headercolor);
+    border-radius: 5px;
+}

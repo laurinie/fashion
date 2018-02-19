@@ -5,12 +5,13 @@
     font-family: 'Raleway', sans-serif;
 
 }
-/*This is the way for modifying colors easily*/
+/*Emily css file*/
 :root{
-    --btncolor: #ed6a5a;
-    --headercolor: #1f7a8c;
+    --btncolor: #5a7ced;
+    --headercolor: #3ee7df;
     --footercolor: #50514f;
     --lighttext: #f7fff7;
+    --darktext: #191d19;
     --backgroundcolor: #f7fff7;
     --navcolor: #022b3a;
     --navhover: #024E61;

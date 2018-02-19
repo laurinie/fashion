@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/products.css">
+    <link rel="stylesheet" href="./css/cardstyle.css">
+    <link rel="stylesheet" href="./css/cardsgrid.css">
     <script src="./js/navigation-handler.js"></script>
+    <script src="./js/actions.js"></script>
+    <script src="./js/handlers.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
+
 <body>
 
     <header>
@@ -14,10 +23,18 @@
 
     <nav>
         <ul>
-            <li data-target-section="#budget"><a href="">Budgets</a></li>
-            <li data-target-section="#products"><a href="">Products</a></li>
-            <li data-target-section="#color-cards"><a href="">Color cards</a></li>
-            <li data-target-section="#profile"><a href="">Profile</a></li>
+            <li data-target-section="#budget">
+                <a href="">Budgets</a>
+            </li>
+            <li data-target-section="#products">
+                <a href="">Products</a>
+            </li>
+            <li data-target-section="#color-cards">
+                <a href="">Color cards</a>
+            </li>
+            <li data-target-section="#profile">
+                <a href="">Profile</a>
+            </li>
         </ul>
     </nav>
 
@@ -31,7 +48,85 @@
         <!-- LAURI -->
         <!-- User can search, create, edit and delete products here. -->
         <div class="content" id="products">
-            This is the products view.
+            <div class="main-grid-container">
+                <div id="budget-tree">
+                    <button class="btn" id="add-button">Add card</button>
+                </div>
+                <div id="add-product" class="display-none">
+                    <div class="grid-container">
+                        <div class="section">
+                            <div class="addpro">
+                                <button id="close-card" class="closebtn btn btncolor">Close</button>
+                                <h2>Add Product</h2>
+                            </div>
+                            <div class="details">
+                                <h3>Product details</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <form>
+                                            <label for="name">Product name</label>
+                                            <input id="name" name="name" type="text">
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form>
+                                            <label>Item type</label>
+                                            <input id="type" type="text">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <form>
+                                            <label>Price range</label>
+                                            <input id="price-range" type="text">
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form>
+                                            <label>Category</label>
+                                            <input id="category" type="text">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <form>
+                                        <label>Product description</label>
+                                        <textarea id="description" class="inpdesc"></textarea>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="specs">
+                                <h3>Product specs</h3>
+                                <div class="col">
+                                    <form>
+                                        <label>Color</label>
+                                        <input type="text">
+                                        <label>Guantity</label>
+                                        <input type="text">
+                                        <label>Price</label>
+                                        <input type="text">
+                                        <label>Wholesale price</label>
+                                        <input type="text">
+                                        <label>Retail price</label>
+                                        <input type="text">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="savecard">
+                                <button id="save-card" class="savebtn btn btncolor">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cards">
+                    <div id="cards-container" class="card-column">
+                        <p id="p">Cards</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- User can create, edit and delete color cards here. -->
@@ -46,7 +141,8 @@
     </main>
 
     <footer>
-    <p>footer</p>
+        <p>footer</p>
     </footer>
 </body>
+
 </html>

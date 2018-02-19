@@ -1,0 +1,33 @@
+/*
+Lauri css file
+*/
+.main-grid-container {
+    display: grid;
+    height: auto;
+    width: 100%;
+    grid-gap: 6px;
+    grid-template-areas:
+      "t t t t t"
+      "p p p p p"
+      "e e e e e";
+    /*align-content: space-between; */
+    /*justify-content: space-around; */
+  }
+
+#budget-tree{
+    grid-area: t;
+}
+#add-product{
+    grid-area: p;
+}
+.display-none{
+    display: none;
+}
+.btn{
+    border-radius: 10px;
+    outline: none;
+    background-color:var(--btncolor);
+    color: var(--lighttext);
+    height: 40px;
+
+}

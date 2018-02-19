@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     for (let navElement of navElements) {
         hideElements(".content");
         navElement.addEventListener('click', function(event) {
-            hideElements("main div");
+            hideElements(".content");
             event.preventDefault();
             let e = event.target.parentNode;
             let target = e.getAttribute('data-target-section');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     function hideElements(selector) {
         let elements = document.querySelectorAll(selector);
         for (let element of elements) {
-            element.className = "hidden";
+            element.classList.add("hidden");
         }
     }
 

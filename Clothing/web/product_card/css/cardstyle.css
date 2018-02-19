@@ -1,24 +1,4 @@
-:root{
-    --btncolor: #ed6a5a;
-    --headercolor: #1f7a8c;
-    --footercolor: #50514f;
-    --lighttext: #f7fff7;
-    --backgroundcolor: #f7fff7;
-}
 
-.grid-container {
-  display: grid;
-  height: auto;
-  width: 100%;
-  grid-gap: 6px;
-  grid-template-areas: 
-    "a a a a a"
-    "c c c d d"
-    "c c c d d"
-    "e e e e e";
-  /*align-content: space-between; */
-  /*justify-content: space-around; */
-}
 h2 ,h3{
     font-family: 'Bitter', serif;
 }
@@ -27,7 +7,7 @@ label{
 }
 
 .section {
-  grid-area: c;
+  
   border: dashed 2px var(--btncolor);
   border-radius: 5px;
   display: grid;
@@ -38,7 +18,7 @@ label{
 }
 
 
-.add-prod{
+.addpro{
     grid-area: a;
     text-align: center;
 } 
@@ -52,6 +32,11 @@ label{
     height: auto;
     padding: 10px;
     
+}
+.savecard{
+    grid-area: d;
+    text-align: center;
+    padding: 20px;
 }
 .row{
     display: grid;
@@ -80,7 +65,7 @@ form :focus {
     box-shadow: 3px 3px #022b3a;
     background-color: rgba(139, 253, 215, 0.274);
 }
-.input-desc {
+.inpdesc {
     height: 150px;
     
 }.center{
@@ -88,15 +73,10 @@ form :focus {
     width: 100%;
     text-align: center;
 }
-.close-btn{
+.closebtn{
     display: flex;
     float: right;
     margin: 6px;
-}
-.savecard{
-    grid-area: d;
-    text-align: center;
-    padding: 20px;
 }
 @media (min-width:650px) and (max-width:999px) {
     .grid-container {
