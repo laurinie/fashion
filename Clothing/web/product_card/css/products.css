@@ -14,7 +14,7 @@ Lauri css file
     /*justify-content: space-around; */
   }
 
-#budget-tree{
+#main-product{
     grid-area: t;
 }
 #add-product{
