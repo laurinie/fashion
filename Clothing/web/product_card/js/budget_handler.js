@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let name = document.createElement("input");
         name.name = "name";
+        name.setAttribute("type", "text");
         name.className = "budget-item__name";
 
         let nameDiv = document.createElement("div");
@@ -131,14 +132,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let budget = document.createElement("input");
         budget.name = "budget";
+        budget.setAttribute("type", "number");
         budget.className = "budget-item__budget";
 
         let budgetDiv = document.createElement("div");
         budgetDiv.className = "budget-item-row__column";
         budgetDiv.appendChild(budget);
 
+
         let type = document.createElement("input");
         type.name = "type";
+        type.setAttribute("type", "text");
         type.className = "budget-item__type";
 
         let typeDiv = document.createElement("div");

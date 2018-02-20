@@ -1,3 +1,7 @@
+.budget-group {
+    margin-bottom: 2.5rem;
+}
+
 .budget-group-header {
     display: grid;
     grid-template-columns: auto 100px 100px;
@@ -5,17 +9,11 @@
 
 }
 
-.budget-group-header__column {
-}
 
 .budget-item-row {
+    display: grid;
+    grid-template-columns: auto 100px 100px;
 }
 
-budget-item-row > * {
 
-}
-
-.budget-group-header__column:first-child {
-
-}
 
