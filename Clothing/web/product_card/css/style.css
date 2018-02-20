@@ -30,9 +30,9 @@ body {
     height: inherit;
     display: grid;
     grid-template-columns: 200px auto;
-    grid-template-rows: 100px auto 70px;
+    grid-template-rows: 80px auto 70px;
     grid-template-areas:
-            "head    head"
+            "head    main"
             "nav     main"
             "nav     footer";
 }
