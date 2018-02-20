@@ -87,30 +87,57 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         budgetGroup.appendChild(createHeader(name));
         budgetGroup.appendChild(itemsContainer);
+        budgetGroup.appendChild(createBudgetGroupFooter());
 
         return budgetGroup;
+    }
+
+    function createBudgetGroupFooter() {
+        let footerRow = document.createElement("div");
+        footerRow.className = "budget-group__footer";
+
+        let addButton = document.createElement("button");
+        addButton.className = "budget-group__add-new-item";
+        addButton.textContent = "Add new item";
+        addButton.addEventListener('click', function(event) {
+            let target = event.target;
+            let budgetGroup = target.parentNode.parentNode;
+            let itemsContainer = budgetGroup.querySelector(".budget-items-container");
+            let newItem = createBudgetItemRow();
+            itemsContainer.appendChild(newItem);
+        });
+
+        footerRow.appendChild(addButton);
+
+        return footerRow;
     }
 
     function createHeader(name) {
         let budgetGroupHeader = document.createElement("div");
         budgetGroupHeader.className = "budget-group-header";
 
-        let budgetHeader = document.createElement("div");
-        let productTypeHeader = document.createElement("div");
+
+        let budgetHeaderColumn = document.createElement("div");
+        let productTypeHeaderColumn = document.createElement("div");
+
         let budgetGroupName = document.createElement("div");
+        let budgetGroupNameContainer = document.createElement("div");
+        budgetGroupNameContainer.className = "budget-group-header__column";
 
-        budgetHeader.textContent = "Budget";
-        budgetHeader.className = "budget-group-header__column";
 
-        productTypeHeader.textContent = "Type";
-        productTypeHeader.className = "budget-group-header__column";
+        budgetHeaderColumn.textContent = "Budget";
+        budgetHeaderColumn.className = "budget-group-header__column";
+
+        productTypeHeaderColumn.textContent = "Type";
+        productTypeHeaderColumn.className = "budget-group-header__column";
 
         budgetGroupName.textContent = name;
-        budgetGroupName.className = "budget-group-header__tab budget-group-header__column";
+        budgetGroupName.className = "budget-group-header__tab";
 
-        budgetGroupHeader.appendChild(budgetGroupName);
-        budgetGroupHeader.appendChild(productTypeHeader);
-        budgetGroupHeader.appendChild(budgetHeader);
+        budgetGroupNameContainer.appendChild(budgetGroupName);
+        budgetGroupHeader.appendChild(budgetGroupNameContainer);
+        budgetGroupHeader.appendChild(productTypeHeaderColumn);
+        budgetGroupHeader.appendChild(budgetHeaderColumn);
 
         return budgetGroupHeader;
     }
