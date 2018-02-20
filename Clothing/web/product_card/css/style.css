@@ -9,13 +9,13 @@
 :root{
     --btncolor: #5a7ced;
     --headercolor: #3ee7df;
-    --footercolor: #50514f;
+    --footercolor: #9d9e9c;
     --lighttext: #f7fff7;
     --darktext: #191d19;
-    --backgroundcolor: #FCFCFC;
-    --navcolor: #042A2B;
-    --navhover: #1A3D3E;
-    --tabcolor: #5EB1BF;
+    --backgroundcolor: #eeeeee;
+    --navcolor: #090909;
+    --navhover: #282828;
+    --tabcolor: #57BC90;
 
 }
 
@@ -30,7 +30,7 @@ body {
     height: inherit;
     display: grid;
     grid-template-columns: 200px auto;
-    grid-template-rows: 80px auto 70px;
+    grid-template-rows: 20% auto 70px;
     grid-template-areas:
             "head    main"
             "nav     main"
@@ -39,16 +39,25 @@ body {
 
 
 header {
-    border: 1px solid dimgrey;
-    background-color: var(--footercolor);
+    background-color: var(--navcolor);
     grid-area: head;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
 }
 
 nav {
-    border: 1px solid dimgrey;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     grid-area: nav;
+    padding-top: 1rem;
     background-color: var(--navcolor);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 0.15rem;
 }
 
 
@@ -56,17 +65,22 @@ nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 nav ul li {
     color: var(--lighttext);
+    width: inherit;
 }
 
 nav ul li > a {
     display: block;
+    justify-content: center;
+    width: inherit;
     padding: 1em;
     color: #dfdfdf;
     text-decoration: none;
+
 }
 
 nav ul li > a:hover {
@@ -86,17 +100,27 @@ hr {
 
 
 #project-logo {
-    height: 70px;
+    height: 80px;
 }
 
 main {
     grid-area: main;
-    border: 1px solid dimgrey;
+    padding: 0.75rem;
+    background-color: var(--backgroundcolor);
 }
 
 footer {
     background-color: var(--footercolor);
     grid-area: footer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--lighttext);
+}
+
+footer p {
+    font-size: 1rem;
 }
 
 .hidden {
