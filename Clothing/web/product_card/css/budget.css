@@ -23,12 +23,13 @@
     padding: 12px 20px;
     box-sizing: border-box;
     border: none;
-    border-radius: 0;
+    border-radius: inherit;
     margin: 0;
-    border-bottom: 1px solid var(--tabcolor);
+    border-bottom: 1px solid var(--backgroundcolor);
     background-color: #FFFFFF;
     outline: none;
 }
+
 
 #budget input:hover{
     background-color: rgba(139, 253, 215, 0.274);
@@ -45,4 +46,25 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 0.3em 1.5em;
+}
+
+.budget-group__footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 1px solid var(--tabcolor);
+    padding: 12px 20px;
+    margin: 0;
+    background-color: white;
+}
+
+.budget-group__add-button {
+    border-bottom-left-radius: inherit;
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    height: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    outline: none;
 }

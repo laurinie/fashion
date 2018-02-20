@@ -94,11 +94,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function createBudgetGroupFooter() {
         let footerRow = document.createElement("div");
-        footerRow.className = "budget-group__footer";
+        footerRow.className = "budget-group__footer budget-item-row";
 
         let addButton = document.createElement("button");
-        addButton.className = "budget-group__add-new-item";
-        addButton.textContent = "Add new item";
+        addButton.className = "budget-group__add-button";
+        addButton.innerHTML = "<img src='img/add.png' alt='Application logo'> Add new item";
         addButton.addEventListener('click', function(event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
@@ -107,7 +107,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             itemsContainer.appendChild(newItem);
         });
 
+        let textDiv = document.createElement("div");
+        textDiv.textContent = "Total budget:";
+
+        let budgetGroupTotal = document.createElement("div");
         footerRow.appendChild(addButton);
+        footerRow.appendChild(textDiv);
+        footerRow.appendChild(budgetGroupTotal);
 
         return footerRow;
     }
