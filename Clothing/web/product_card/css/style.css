@@ -12,30 +12,41 @@
     --footercolor: #50514f;
     --lighttext: #f7fff7;
     --darktext: #191d19;
-    --backgroundcolor: #f7fff7;
-    --navcolor: #022b3a;
-    --navhover: #024E61;
-    --tabcolor: #1f84a8;
+    --backgroundcolor: #FCFCFC;
+    --navcolor: #042A2B;
+    --navhover: #1A3D3E;
+    --tabcolor: #5EB1BF;
 
 }
-body{
+
+html {
+    background-color: var(--backgroundcolor);
+    height: 100%;
+}
+
+body {
+    margin: 0;
     background-color: white;
+    height: inherit;
     display: grid;
-    grid-template:
+    grid-template-columns: 200px auto;
+    grid-template-rows: 100px auto 70px;
+    grid-template-areas:
             "head    head"
             "nav     main"
-            "nav     footer"
-            auto / 150px auto;
+            "nav     footer";
 }
 
 
 header {
     border: 1px solid dimgrey;
+    background-color: var(--footercolor);
     grid-area: head;
 }
 
 nav {
     border: 1px solid dimgrey;
+    display: block;
     grid-area: nav;
     background-color: var(--navcolor);
 }
@@ -84,8 +95,8 @@ main {
 }
 
 footer {
+    background-color: var(--footercolor);
     grid-area: footer;
-    border: 1px solid dimgrey;
 }
 
 .hidden {
