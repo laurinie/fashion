@@ -1,19 +1,50 @@
+#budget {
+    padding: 0.75rem;
+}
+
 .budget-group {
     margin-bottom: 2.5rem;
 }
 
 .budget-group-header {
     display: grid;
+    text-transform: uppercase;
+    font-weight: bold;
     grid-template-columns: auto 100px 100px;
-    border: 1px solid #022b3a;
-
+    border-bottom: 1px solid var(--tabcolor);
+    padding-bottom: 5px;
 }
-
 
 .budget-item-row {
     display: grid;
     grid-template-columns: auto 100px 100px;
 }
 
+#budget input[type=text], input[type=number], textarea {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    border-bottom: 1px solid var(--headercolor);
+    background-color: white;
+    outline: none;
+}
 
+#budget input:hover{
+    background-color: rgba(139, 253, 215, 0.274);
+}
 
+#budget form :focus {
+    box-shadow: 3px 3px var(--navhover);
+    background-color: rgba(139, 253, 215, 0.274);
+}
+
+.budget-group-header__tab {
+    display: inline;
+    background-color: var(--tabcolor);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0.3em 1.5em;
+}
