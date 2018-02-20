@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 form.reset();
             }
         }
-        scrollSmooth("#budget-tree");
+        scrollSmooth("#main-product");
     }
 
     /*-----Save productcard------*/
