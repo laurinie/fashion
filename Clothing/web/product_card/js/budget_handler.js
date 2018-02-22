@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
     // just to test, later will be removed when JSON connection is working
-    let categoriesArray = ["Shirts", "Pants", "Jackets", "Dresses"];
-
+    let season1 = ["Shirts", "Pants", "Jackets", "Dresses"];
+    let season2 = [];
+    let season3 = [];
+    let budgets = [["season 1", season1], ["season 2", season2], ["season 3", season3]];
     let budgetPageElement = document.querySelector("#budget");
     let budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";
@@ -42,6 +44,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     budgetPageElement.appendChild(budgetContainer);
 
+    let selectBudgetElem = document.querySelector(".select-budget__select");
+    for (let budget of budgets) {
+
+        let option = document.createElement("option");
+        option.text = budget[0];
+        selectBudgetElem.appendChild(option);
+
+        console.log(option);
+        //option.text =
+    }
+
     getData(); // temporary function, until JSON connection works.
 
     /* Temporary function to fill in some information, just to check things work fine. */
@@ -58,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function getCategories() {
-        for (let category of categoriesArray) {
+        for (let category of season1) {
             let newBudgetGroup = createBudgetGroup(category);
             newBudgetGroup.classList.add("category-" + category.toLowerCase());
             budgetContainer.appendChild(newBudgetGroup);

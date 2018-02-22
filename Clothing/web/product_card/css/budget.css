@@ -1,4 +1,10 @@
-
+.select-budget {
+    display: flex;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
 
 .budget-group {
     margin-bottom: 2.5rem;
