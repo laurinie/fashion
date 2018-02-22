@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let addButton = document.createElement("button");
         addButton.className = "budget-group__add-button";
-        addButton.innerHTML = "<img src='../img/add.png' alt='Application logo'> Add new item";
+        addButton.innerHTML = "<img src='img/add.png' alt='Application logo'> Add new item";
         addButton.addEventListener('click', function(event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
