@@ -35,6 +35,12 @@ body {
             "head    main"
             "nav     main"
             "nav     footer";
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 
@@ -81,6 +87,12 @@ nav ul li > a {
     color: #dfdfdf;
     text-decoration: none;
 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
 }
 
 nav ul li > a:hover {
@@ -90,6 +102,12 @@ nav ul li > a:hover {
 
 #project-logo {
     height: 80px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 main {

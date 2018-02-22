@@ -67,7 +67,7 @@
     background-color: white;
 }
 
-.budget-group__add-button {
+.budget-group__add-button{
     border-bottom-left-radius: inherit;
     border: none;
     width: 100%;
@@ -77,6 +77,15 @@
     padding: 0;
     text-align: left;
     outline: none;
+
+}
+
+.budget-group img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .budget-group__footer > div {
