@@ -87,17 +87,6 @@ nav ul li > a:hover {
     background-color: var(--navhover);
 }
 
-hr {
-    border: 0;
-    height: 2px;
-    background-image: -webkit-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
-    background-image: -moz-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
-    background-image: -ms-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
-    background-image: -o-linear-gradient(left, var(--navcolor), var(--navhover), var(--navcolor));
-    padding: 0;
-    margin: 0;
-}
-
 
 #project-logo {
     height: 80px;

@@ -9,7 +9,7 @@
     text-transform: uppercase;
     font-weight: bold;
     grid-template-columns: auto 100px 100px;
-    border-bottom: 1px solid var(--tabcolor);
+    border-bottom: 3px solid var(--tabcolor);
     padding-bottom: 5px;
 }
 
@@ -30,6 +30,16 @@
     outline: none;
 }
 
+
+
+#budget input[type=number] {
+    -moz-appearance:textfield;
+}
+
+#budget input::-webkit-outer-spin-button,
+#budget input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 
 #budget input:hover{
     background-color: rgba(139, 253, 215, 0.274);
@@ -67,4 +77,18 @@
     padding: 0;
     text-align: left;
     outline: none;
+}
+
+.budget-group__footer > div {
+    font-size: small;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.budget-group__total-text {
+    text-align: center;
+}
+
+#budget input[type=number], .budget-group__total-budget {
+    text-align: right;
 }

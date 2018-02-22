@@ -10,33 +10,33 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let array = [{
         name : 'Summer is here',
         type : 'shorts',
-        budget: '0,00',
+        budget: '15,00',
         category : 'Pants'
     }, {
         name : 'Crop tops ugh',
         type : 'top',
-        budget: '0,00',
+        budget: '10,00',
         category : 'Shirts'
     }, {
         name : 'Mr. back pockets',
         type : 'jeans',
-        budget: '0,00',
+        budget: '7,00',
         category : 'Pants'
     },
         {
             name : 'Miss wet t-shirt',
             type : 't-shirt',
-            budget: '0,00',
+            budget: '5,00',
             category : 'Shirts'
         }, {
             name : 'Fashionable fluffy jacket',
             type : 'winter',
-            budget: '0,00',
+            budget: '20,00',
             category : 'Jackets'
         },{
             name : 'Cool suit jacket',
             type : 'suit',
-            budget: '0,00',
+            budget: '56,00',
             category : 'Jackets'
         }];
 
@@ -48,6 +48,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function getData() {
         getCategories();
         getItems();
+
+
+        let budgetGroups = document.querySelectorAll(".budget-group");
+        for (let budgetGroup of budgetGroups) {
+            updateTotalBudget(budgetGroup);
+        }
+
     }
 
     function getCategories() {
@@ -69,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let productName = newProduct.querySelector("[name='name']");
             productName.value = product.name;
             let productBudget = newProduct.querySelector("[name='budget']");
-            productBudget.value = product.budget;
+            productBudget.value = parseFloat(product.budget);
             let productType = newProduct.querySelector("[name='type']");
             productType.value = product.type;
 
@@ -77,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         }
     }
+
 
     function createBudgetGroup(name) {
         let budgetGroup = document.createElement("div");
@@ -108,9 +116,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
         let textDiv = document.createElement("div");
-        textDiv.textContent = "Total budget:";
+        textDiv.className = "budget-group__total-text";
+        textDiv.textContent = "Total:";
 
         let budgetGroupTotal = document.createElement("div");
+        budgetGroupTotal.className = "budget-group__total-budget";
         footerRow.appendChild(addButton);
         footerRow.appendChild(textDiv);
         footerRow.appendChild(budgetGroupTotal);
@@ -188,6 +198,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
         return budgetItemRow;
+
+    }
+
+    //add EventListener to all budget cells
+    //take into account that the budget group needs to update the budget also when a row is deleted!
+    function updateTotalBudget(budgetGroup) {
+        let totalBudget = 0;
+        let itemBudgets = budgetGroup.querySelectorAll(".budget-item__budget");
+
+        // loop that goes through all the items in the item group
+        // and adds the amounts to totalBudget
+        for (let itemBudget of itemBudgets) {
+            totalBudget += parseFloat(itemBudget.value);
+        }
+
+        let totalBudgetCell = budgetGroup.querySelector(".budget-group__total-budget");
+        totalBudgetCell.textContent = totalBudget.toString();
 
     }
 
