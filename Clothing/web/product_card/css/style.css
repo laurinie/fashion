@@ -160,4 +160,7 @@ footer p {
         float: left;
        
     }
+    header{
+        display: none;
+    }
 }
