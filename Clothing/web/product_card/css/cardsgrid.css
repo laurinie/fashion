@@ -1,4 +1,37 @@
-dl{
-    border: 2px solid var(--headercolor);
-    border-radius: 5px;
+#cards-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 200px 200px 200px;
+    grid-gap: 10px;
+}
+
+.small-card {
+    border: dashed 2px var(--tabcolor);
+    padding: 10px;
+    height: 300px;
+    display: grid;
+    
+}
+
+.small-card dt {
+    font-weight: bold;
+}
+
+.border-none {
+    border-bottom: none !important;
+}
+
+.button-container {
+    align-self: flex-end;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+}
+
+.edit-btn {
+    
+}
+
+.delete-btn {
+    background-color: var(--delete);
 }
