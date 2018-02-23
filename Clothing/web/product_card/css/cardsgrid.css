@@ -10,7 +10,6 @@
     padding: 10px;
     height: 300px;
     display: grid;
-    
 }
 
 .small-card dt {
@@ -28,10 +27,17 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.edit-btn {
-    
-}
+.edit-btn {}
 
 .delete-btn {
     background-color: var(--delete);
+}
+
+@media (min-width:100px) and (max-width:649px) {
+    #cards-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 200px;
+        grid-gap: 10px;
+    }
 }
