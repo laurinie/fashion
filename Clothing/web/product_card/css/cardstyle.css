@@ -79,7 +79,8 @@ form :focus {
     float: right;
     margin: 6px;
 }
-@media (min-width:880x§px) and (max-width:999px) {
+
+@media (min-width:600px) and (max-width:800px) {
     .grid-container {
         display: grid;
         grid-gap: 20px;
@@ -89,12 +90,14 @@ form :focus {
           "d"
           "e";
       }
-      .aside{
-          width: 100%;
-      }
+      .row{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 6px;
+    }
       
 }
-@media (min-width:100px) and (max-width:879px) {
+@media (min-width:100px) and (max-width:599px) {
     .grid-container {
         display: grid;
         grid-gap: 20px;

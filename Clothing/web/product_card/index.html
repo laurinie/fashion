@@ -14,7 +14,6 @@
 
     <script src="./js/navigation-handler.js"></script>
     <script src="./js/actions.js"></script>
-    <script src="./js/handlers.js"></script>
     <script src="./js/budget_handler.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -58,6 +57,17 @@
             <div class="main-grid-container">
                 <div id="main-product">
                     <button class="btn" id="add-button">Add card</button>
+                    <button class="btn search-btn" id="search-button">Search cards</button>
+
+                    <div id="search-container" class="hidden">
+                        <form id="card-search">
+                            <input id="serch" type="image" class="src-img" src="./img/search.png" alt="Search" >
+                            <input id="src-name" type="text" placeholder="Name">
+                            <input id="src-type" type="text" placeholder="Type">
+                            <input id="src-category" type="text" placeholder="Category">
+                            <input id="src-tag" type="text" placeholder="Tag">
+                        </form>
+                    </div>
                 </div>
                 <div id="add-product" class="display-none">
                     <div class="grid-container">

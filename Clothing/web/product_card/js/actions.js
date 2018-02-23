@@ -13,6 +13,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         retailPrice: null
     }
 
+    const searchCardsBtn = document.querySelector("#search-button");
+    const searchContainer = document.querySelector("#search-container");
+    searchCardsBtn.addEventListener('click', function () {
+        if (searchContainer.classList.contains("hidden")) {
+            searchContainer.classList.remove("hidden");
+        } else {
+            searchContainer.classList.add("hidden");
+        }
+    });
 
     /*-----This opens and scrolls to productcard------*/
     let addProductBtn = document.querySelector("#add-button");
@@ -177,17 +186,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     /*------Fill pc data to card for editting data-----*/
-    function editCard(data){
+    function editCard(data) {
         document.querySelector("#name").value = data.name;
-        document.querySelector("#type").value= data.type;
-        document.querySelector("#description").value=data.description;
+        document.querySelector("#type").value = data.type;
+        document.querySelector("#description").value = data.description;
         //const priceRange = document.querySelector("#price-range").value;
-        document.querySelector("#category").value=data.category;
-        document.querySelector("#color").value=data.color;
-        document.querySelector("#quantity").value=data.quantity;
-        document.querySelector("#price").value=data.price;
-        document.querySelector("#wholesale-price").value=data.wholesalePrice;
-        document.querySelector("#retail-price").value=data.retailPrice;
+        document.querySelector("#category").value = data.category;
+        document.querySelector("#color").value = data.color;
+        document.querySelector("#quantity").value = data.quantity;
+        document.querySelector("#price").value = data.price;
+        document.querySelector("#wholesale-price").value = data.wholesalePrice;
+        document.querySelector("#retail-price").value = data.retailPrice;
     }
 
 

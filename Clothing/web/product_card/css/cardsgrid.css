@@ -27,18 +27,30 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.edit-btn {}
-
 .delete-btn {
     background-color: var(--delete);
 }
 
-@media (min-width:100px) and (max-width:649px) {
+@media (min-width:440px) and (max-width:649px) {
+    
+    #cards-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 200px 200px;
+        grid-gap: 10px;
+        justify-content: center;
+    }
+    
+}
+
+@media (min-width:100px) and (max-width:439px) {
     
     #cards-container {
         display: grid;
         width: 100%;
         grid-template-columns: 200px;
         grid-gap: 10px;
+        justify-content: center;
     }
+    
 }
