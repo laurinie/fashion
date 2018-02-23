@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 form.reset();
             }
         }
-        scrollSmooth("#main-product");
+        scrollSmooth("#cards");
     }
 
     /*-----Save productcard------*/
@@ -137,10 +137,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         buttonDiv.appendChild(itemEdit);
         buttonDiv.appendChild(itemDelete);
         card.appendChild(buttonDiv);
+
         //---Append card------//
         div.appendChild(card);
         addEditListeners();
         addDeleteListeners();
+
+        /*--Add listeners to small pc edit and delete buttons--*/
     }
     function addEditListeners() {
         let editButtons = document.querySelectorAll(".edit-btn");
@@ -171,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 
+    /*------Fill pc data to card for editting data-----*/
     function editCard(data){
         document.querySelector("#name").value = data.name;
         document.querySelector("#type").value= data.type;

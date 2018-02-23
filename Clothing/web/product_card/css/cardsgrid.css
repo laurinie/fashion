@@ -34,6 +34,7 @@
 }
 
 @media (min-width:100px) and (max-width:649px) {
+    
     #cards-container {
         display: grid;
         width: 100%;

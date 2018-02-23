@@ -47,7 +47,7 @@ label{
     display: grid;
     grid-gap: 6px;
 }
-input[type=text], input[type=number], textarea {
+input[type=text], input[type=number], .inpdesc {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -58,6 +58,7 @@ input[type=text], input[type=number], textarea {
     background-color: rgba(224, 224, 224, 0.432);
     outline: none;
 }
+
 input:hover{
     background-color: rgba(139, 253, 215, 0.274);
 }
@@ -78,7 +79,7 @@ form :focus {
     float: right;
     margin: 6px;
 }
-@media (min-width:880px) and (max-width:999px) {
+@media (min-width:880x§px) and (max-width:999px) {
     .grid-container {
         display: grid;
         grid-gap: 20px;
