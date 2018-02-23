@@ -81,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /*-----Show card------*/
     function showCard(data) {
+        const advice = document.querySelector("#card-advice");
+        advice.className = "hidden";
 
         const card = document.createElement("DIV");
         const buttonDiv = document.createElement("DIV");
