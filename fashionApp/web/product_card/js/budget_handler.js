@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         option.text = budget[0];
         selectBudgetElem.appendChild(option);
 
-        console.log(option);
         //option.text =
     }
 
@@ -60,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* Temporary function to fill in some information, just to check things work fine. */
     function getData() {
         getCategories();
-        getItems();
+        // getItems();
 
 
         let budgetGroups = document.querySelectorAll(".budget-group");
@@ -71,22 +70,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function getCategories() {
-        let testcategories;
+        let testcategories = [];
         
-        fetch('/api/rest/abc')
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-            })
-            .catch(err => {
-                console.error('An error ocurred', err);
-            });
+        fetch('http://localhost:8080/fashionApp/webresources/entities.category')
+            .then(response => response.json())
+            .then(data => {
+                let categories = [];
+                for (let object of data) {
+                    categories.push(object.name);
+                }
+                return categories;
+            }).then(categories => {
+                for (let category of categories) {
+                    let newBudgetGroup = createBudgetGroup(category);
+                    newBudgetGroup.classList.add("category-" + category.toLowerCase());
+                    budgetContainer.appendChild(newBudgetGroup);
+                }
+        });
+
+        // catch errors
         
-        for (let category of season1) {
-            let newBudgetGroup = createBudgetGroup(category);
-            newBudgetGroup.classList.add("category-" + category.toLowerCase());
-            budgetContainer.appendChild(newBudgetGroup);
-        }
+        
+        
     }
 
     function getItems () {
@@ -130,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let addButton = document.createElement("button");
         addButton.className = "budget-group__add-button";
-        addButton.innerHTML = "<img src='img/add.png' alt='Application logo'> Add new item";
+        addButton.innerHTML = "<img src='./product_card/img/add.png' alt='Application logo'> Add new item";
         addButton.addEventListener('click', function(event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
