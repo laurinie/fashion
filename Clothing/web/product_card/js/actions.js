@@ -32,8 +32,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function openCard() {
         if (productCard.classList.contains("display-none")) {
             productCard.classList.remove("display-none");
+            scrollSmooth("#add-product");
         }
-        scrollSmooth("#add-product")
+
     }
 
 
@@ -152,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //---Append card------//
         div.appendChild(card);
         addEditListeners();
-        addDeleteListeners();
+        addDeleteListeners(itemDelete);
 
         /*--Add listeners to small pc edit and delete buttons--*/
     }
@@ -167,23 +168,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
             });
         }
     }
-    function addDeleteListeners() {
-        let deleteButtons = document.querySelectorAll(".delete-btn");
-
-        for (let btn of deleteButtons) {
-            btn.addEventListener('click', function (event) {
-                console.log(btn.parentElement.parentElement);
-                let parent = btn.parentElement.parentElement.parentElement;
-                let child = btn.parentElement.parentElement;
-                if (confirm(`Are you sure you want to delete this item?`)) {
-                    // Save it!
-                    parent.removeChild(child);
-                } else {
-                    // Do nothing!
-                }
-            });
-        }
+    function addDeleteListeners(deleteButton) {
+        deleteButton.addEventListener('click', function (event) {
+            console.log(deleteButton);
+            let parent = deleteButton.parentElement.parentElement.parentElement;
+            let child = deleteButton.parentElement.parentElement;
+            if (confirm(`Are you sure you want to delete this item?`)) {
+                parent.removeChild(child);
+            }
+        })
     }
+
+
 
     /*------Fill pc data to card for editting data-----*/
     function editCard(data) {

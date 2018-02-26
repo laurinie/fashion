@@ -48,7 +48,9 @@ Lauri css file
     border-radius: 3px;
 }
 .src-img:hover{
-    border: solid 2px var(--info);
+    /* border: solid 2px var(--info); */
+    padding: 3px;
+    background-color:var(--backgroundcolor); 
 }
 
 @media (min-width:100px) and (max-width:659px) {
