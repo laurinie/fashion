@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>4Budget</title>
+    <link rel="icon" href="./img/favicon.ico" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/products.css">
+    <link rel="stylesheet" href="./css/cardstyle.css">
+    <link rel="stylesheet" href="./css/cardsgrid.css">
+    <link rel="stylesheet" href="./css/budget.css">
+
+    <script src="./js/navigation-handler.js"></script>
+    <script src="./js/actions.js"></script>
+    <script src="./js/budget_handler.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <img src="img/logo_inverted.png" alt="Application logo" id="project-logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li data-target-section="#budget">
+                <a href="">Budgets</a>
+            </li>
+            <li data-target-section="#products">
+                <a href="">Products</a>
+            </li>
+            <li data-target-section="#color-cards">
+                <a href="">Color cards</a>
+            </li>
+            <li data-target-section="#profile">
+                <a href="">Profile</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- EMILY -->
+        <!-- User can budget seasons here. -->
+        <div class="content" id="budget">
+            <div class="select-budget">
+                <select class="select-budget__select"></select>
+            </div>
+        </div>
+
+        <!-- LAURI -->
+        <!-- User can search, create, edit and delete products here. -->
+        <div class="content" id="products">
+            <div class="main-grid-container">
+                <div id="main-product">
+                    <button class="btn" id="add-button">Add card</button>
+                    <button class="btn search-btn" id="search-button">Search cards</button>
+
+                    <div id="search-container" class="hidden">
+                        <form id="card-search">
+                            <input id="serch" type="image" class="src-img" src="./img/search.png" alt="Search" >
+                            <input id="src-name" type="text" placeholder="Name">
+                            <input id="src-type" type="text" placeholder="Type">
+                            <input id="src-category" type="text" placeholder="Category">
+                            <input id="src-tag" type="text" placeholder="Tag">
+                        </form>
+                    </div>
+                </div>
+                <div id="add-product" class="display-none">
+                    <div class="grid-container">
+                        <div class="section">
+                            <div class="addpro">
+                                <button id="close-card" class="closebtn btn btncolor">Close</button>
+                                <h2 id="card-header"></h2>
+                            </div>
+                            <div class="details">
+                                <h3>Product details</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <form class="card-form">
+                                            <label for="name">Product name</label>
+                                            <input id="name" name="name" type="text">
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form class="card-form">
+                                            <label for="type">Item type</label>
+                                            <input id="type" type="text">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <form class="card-form">
+                                            <label for="price-range">Price range</label>
+                                            <input id="price-range" type="text">
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form class="card-form">
+                                            <label for="category">Category</label>
+                                            <input id="category" type="text">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <form class="card-form">
+                                        <label for="description">Product description</label>
+                                        <textarea id="description" class="inpdesc"></textarea>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="specs">
+                                <h3>Product specs</h3>
+                                <div class="col">
+                                    <form class="card-form">
+                                        <label for="color">Color</label>
+                                        <input id="color" type="text">
+                                        <label for="quantity">Quantity</label>
+                                        <input id="quantity" type="text">
+                                        <label for="price">Price</label>
+                                        <input id="price" type="text">
+                                        <label for="wholesale-price">Wholesale price</label>
+                                        <input id="wholesale-price" type="text">
+                                        <label for="retail-price">Retail price</label>
+                                        <input id="retail-price" type="text">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="savecard">
+                                <button id="save-card" class="savebtn btn btncolor">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cards">
+                    <div id="card-advice">
+                        <h2>No cards yet</h2>
+                        <p>Start by adding card here or from budget</p>
+                    </div>
+                    <div id="cards-container" class="card-column">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User can create, edit and delete color cards here. -->
+        <div class="content" id="color-cards">
+            This is the color cards view.
+        </div>
+
+        <!-- User can edit their profile here. -->
+        <div class="content" id="profile">
+            This is the profile view.
+        </div>
+    </main>
+
+    <footer>
+        <p>Fantastic Four © 2018.</p>
+    </footer>
+</body>
+
+</html>

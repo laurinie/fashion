@@ -1,0 +1,120 @@
+
+h2 ,h3{
+    font-family: 'Bitter', serif;
+}
+label{
+    font-family: 'Raleway', sans-serif;
+}
+
+.section {
+  
+  border: dashed 2px var(--btncolor);
+  border-radius: 5px;
+  display: grid;
+  grid-template-areas:
+  "a a a"
+  "b b c"
+  "d d d";
+}
+
+
+.addpro{
+    grid-area: a;
+    text-align: center;
+} 
+.details{
+    grid-area: b;
+    height: auto;
+    padding: 10px;
+}
+.specs{
+    grid-area: c;
+    height: auto;
+    padding: 10px;
+    
+}
+.savecard{
+    grid-area: d;
+    text-align: center;
+    padding: 20px;
+}
+.row{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-gap: 6px;
+}
+.col{
+    display: grid;
+    grid-gap: 6px;
+}
+input[type=text], input[type=number], .inpdesc {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--headercolor);
+    background-color: rgba(224, 224, 224, 0.432);
+    outline: none;
+}
+
+input:hover{
+    background-color: rgba(139, 253, 215, 0.274);
+}
+form :focus {
+    box-shadow: 3px 3px var(--navhover);
+    background-color: rgba(139, 253, 215, 0.274);
+}
+.inpdesc {
+    height: 150px;
+    
+}.center{
+    align-self: flex-start;
+    width: 100%;
+    text-align: center;
+}
+.closebtn{
+    display: flex;
+    float: right;
+    margin: 6px;
+}
+
+@media (min-width:600px) and (max-width:800px) {
+    .grid-container {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-areas: 
+          "a"
+          "c"
+          "d"
+          "e";
+      }
+      .row{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 6px;
+    }
+      
+}
+@media (min-width:100px) and (max-width:599px) {
+    .grid-container {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-areas: 
+          "a"
+          "c"
+          "d"
+          "e";
+      }
+      .aside{
+          width: 100%;
+      }
+      .section{
+          display: block;
+      }
+      .row{
+          display: block;
+      }
+      
+}
