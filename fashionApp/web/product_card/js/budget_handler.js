@@ -71,6 +71,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function getCategories() {
+        let testcategories;
+        
+        fetch('/api/rest/abc')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+            })
+            .catch(err => {
+                console.error('An error ocurred', err);
+            });
+        
         for (let category of season1) {
             let newBudgetGroup = createBudgetGroup(category);
             newBudgetGroup.classList.add("category-" + category.toLowerCase());
