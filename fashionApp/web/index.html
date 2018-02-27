@@ -15,6 +15,7 @@
     <script src="./product_card//js/navigation-handler.js"></script>
     <script src="./product_card//js/product-actions.js"></script>
     <script src="./product_card//js/budget_handler.js"></script>
+    <script src="./product_card//js/collection_handler.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
@@ -27,8 +28,16 @@
 
     <nav>
         <ul>
+            <li data-target-section="#main">
+                <a href="">Main</a>
+            </li>
+
+            <li data-target-section="#collection">
+                <a href="">Collection</a>
+            </li>
+
             <li data-target-section="#budget">
-                <a href="">Budgets</a>
+                <a href="">Budget</a>
             </li>
             <li data-target-section="#products">
                 <a href="">Products</a>
@@ -45,6 +54,10 @@
     <main>
         <!-- EMILY -->
         <!-- User can budget seasons here. -->
+        <div class="content" id="collection">
+
+        </div>
+
         <div class="content" id="budget">
             <div class="select-budget">
                 <select class="select-budget__select"></select>
