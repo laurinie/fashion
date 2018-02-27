@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         price: null,
         wholesalePrice: null,
         retailPrice: null
-    }
+    };
 
     const searchCardsBtn = document.querySelector("#search-button");
     const searchContainer = document.querySelector("#search-container");
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             if (confirm(`Are you sure you want to delete this item?`)) {
                 parent.removeChild(child);
             }
-        })
+        });
     }
 
 
