@@ -1,18 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
     let count = 0;
-    let data = {
-        id: null,
-        name: null,
-        description: null,
-        itemType: null,
-        category: null,
-        color: null,
-        totalQty: null,
-        price: null,
-        wholesalePrice: null,
-        retailPrice: null
-    };
-
     const searchCardsBtn = document.querySelector("#search-button");
     const searchContainer = document.querySelector("#search-container");
     searchCardsBtn.addEventListener('click', function () {
@@ -55,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     /*-----Save productcard------*/
+    const addUrl = "http://localhost:8080/fashionApp/webresources/entities.item/";
     const saveBtn = document.querySelector("#save-card");
     const div = document.querySelector("#cards-container");
     //const p = document.querySelector("#p");
@@ -71,26 +59,48 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const price = document.querySelector("#price").value;
         const wholesalePrice = document.querySelector("#wholesale-price").value;
         const retailPrice = document.querySelector("#retail-price").value;
+        let data = {
+            name: name,
+            type: type,
+            //description: description,
+            category: category,
+            item: null,
+            color: color,
+            totalQty: quantity,
+            price: price,
+            wholesalePrice: wholesalePrice,
+            retailPrice: retailPrice
+        };
 
-
-        data.id = count;
-        data.name = name;
-        data.type = type;
-        console.log(data.id + data.name + data.type);
-        data.description = description;
-        data.category = category;
-        data.color = color;
-        data.quantity = quantity;
-        data.price = price;
-        data.wholesalePrice = wholesalePrice;
-        data.retailPrice = retailPrice;
-        showCard(data);
-        closeCard();
+        return fetch(addUrl, {
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(data),
+            method: 'post'
+        })
+                .then(getCards())
+                .then(closeCard());
 
     });
 
+    /*-----Get all cards from the database------*/
+    function getCards() {
+        const getAll = "http://localhost:8080/fashionApp/webresources/entities.item/";
+        const processJSON = (function (json) {
+            for (let item of json) {
+                console.log(item);
+                showCard(item);
+            }
+            ;
+        });
+        fetch(getAll)
+                .then(response => response.json())    //Returns a promise that resolves JSON object
+                .then(processJSON)
+                .catch(error => (console.log("Fetch crashed due to " + error)));
+    }
+
     /*-----Show card------*/
     function showCard(data) {
+
         const advice = document.querySelector("#card-advice");
         advice.className = "hidden";
 
@@ -109,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const itemType = document.createTextNode("Type:");
         const dtContentCategory = document.createTextNode(`${data.category}`);
         const dtContentType = document.createTextNode(`${data.type}`);
-
+        console.log(dtContentType + " " + dtContentCategory);
         //----------Edit Button-----------//
         const itemEdit = document.createElement("BUTTON");
         const btnName = document.createTextNode("Edit");
@@ -154,9 +164,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         div.appendChild(card);
         addEditListeners();
         addDeleteListeners(itemDelete);
-
-        /*--Add listeners to small pc edit and delete buttons--*/
     }
+
+    /*--Add listeners to small pc edit and delete buttons--*/
+
     function addEditListeners() {
         let editButtons = document.querySelectorAll(".edit-btn");
 
@@ -170,15 +181,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     function addDeleteListeners(deleteButton) {
         deleteButton.addEventListener('click', function (event) {
-            console.log(deleteButton);
+            let btnId =deleteButton.id.toString().split("-"); 
+            console.log(btnId[1]);
             let parent = deleteButton.parentElement.parentElement.parentElement;
             let child = deleteButton.parentElement.parentElement;
             if (confirm(`Are you sure you want to delete this item?`)) {
+                
                 parent.removeChild(child);
             }
         });
     }
 
+    function deleteCard(cardId) {
+        const url = "http://localhost:8080/fashionApp/webresources/entities.item";
+        let delUrl = url + "?id=" + cardId;
+        return fetch(delUrl, {
+            method: 'delete'
+        })
+                .then(getCards());
+    }
 
 
     /*------Fill pc data to card for editting data-----*/
