@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let parent = deleteButton.parentElement.parentElement.parentElement;
             let child = deleteButton.parentElement.parentElement;
             if (confirm(`Are you sure you want to delete this item?`)) {
-                
+                //deleteCard(btnId[1]);
                 parent.removeChild(child);
             }
         });
