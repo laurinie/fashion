@@ -4,32 +4,41 @@
 
 
 .collection-grid-container {
-    background-color: burlywood;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
 }
 
 .collection-grid__column {
-    display: inline-block;
-    background-color: bisque;
-    width: 170px;
-    height: auto;
-    padding: 5px 10px;
-    margin: 5px;
-    
-   
-}
-
-.collection-column__rows-container {
-    background-color: aquamarine;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    width: 170px;
+    padding: 10px;
+    height: auto;
+    margin: 10px;
+    background-color: gray;
+    border-radius: 5px;
 }
+
 
 .collection-grid__row {
     background-color: white;
+    border: 2px dashed #d6d6d6;
+    border-radius: 5px;
     display: block;
+    padding: 10px 0px;
+    margin: 5px 0px;
+}
+
+
+.collection-grid__row:first-child {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+
+.collection-grid__row:last-child {
+    margin: 0;
+    margin-top: 5px;
 }

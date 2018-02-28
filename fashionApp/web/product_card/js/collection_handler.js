@@ -28,14 +28,12 @@ createColumn();
 function createColumn() {
     let newColumn = document.createElement("div");
     newColumn.className = "collection-grid__column";
-    newColumn.appendChild(createRows());
+    createRows(newColumn);
     collectionGridContainer.appendChild(newColumn);
     
 }
 
-function createRows() {
-    let rowsContainer = document.createElement("div");
-    rowsContainer.className = "collection_column__rows-container";
+function createRows(column) {
     for (i = 0; i < rows; i++) {
         let newRow = document.createElement("div");
         newRow.className = "collection-grid__row";
@@ -43,9 +41,9 @@ function createRows() {
         //to be deleted
         newRow.textContent = "card";
         
-        rowsContainer.appendChild(newRow);
+        column.appendChild(newRow);
     }
-    return rowsContainer;
+ 
    
 }
 
