@@ -75,11 +75,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             retailPrice: retailPrice
         };
         const idFromHeader = document.querySelector("#card-header").firstChild;
-        
         let dataID = "id";
-
-        //console.log(splited[1]);
-        //console.log(addUrl + splited[1]);
         if (idFromHeader!=null) {
             let splited = idFromHeader.nodeValue.split(" ");
             console.log("put");
