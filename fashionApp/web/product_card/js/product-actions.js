@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
+    getCards();
     let count = 0;
     const searchCardsBtn = document.querySelector("#search-button");
     const searchContainer = document.querySelector("#search-container");
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     /*-----Save productcard------*/
-    const addUrl = "http://localhost:8080/fashionApp/webresources/entities.item/";
+    const addUrl = "http://localhost:8080/fashionApp/web/productcard/";
     const saveBtn = document.querySelector("#save-card");
     const div = document.querySelector("#cards-container");
     //const p = document.querySelector("#p");
@@ -61,10 +62,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const retailPrice = document.querySelector("#retail-price").value;
         let data = {
             name: name,
-            type: type,
-            //description: description,
-            category: category,
-            item: null,
             color: color,
             totalQty: quantity,
             price: price,
@@ -81,13 +78,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 .then(closeCard());
 
     });
+    function update() {
 
+        const cardsContainer = document.querySelector("#cards-container");
+        const cards = cardsContainer.parentNode;
+        cardsContainer.remove();
+        const newContainer = document.createElement("div");
+        newContainer.id = "cards-container";
+        newContainer.className = "card-column";
+        cards.appendChild(newContainer);
+        console.log("update");
+
+    }
     /*-----Get all cards from the database------*/
     function getCards() {
-        const getAll = "http://localhost:8080/fashionApp/webresources/entities.item/";
+        update();
+        const getAll = "http://localhost:8080/fashionApp/web/productcard/";
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item);
+                //console.log(item);
                 showCard(item);
             }
             ;
@@ -97,17 +106,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 .then(processJSON)
                 .catch(error => (console.log("Fetch crashed due to " + error)));
     }
-
+    const advice = document.querySelector("#card-advice");
     /*-----Show card------*/
     function showCard(data) {
-
-        const advice = document.querySelector("#card-advice");
-        advice.className = "hidden";
+        const div = document.querySelector("#cards-container");
+        
+        if(!advice.classList.contains("hidden")){
+            advice.className = "hidden";
+        }
 
         const card = document.createElement("DIV");
         const buttonDiv = document.createElement("DIV");
         buttonDiv.className = "button-container";
         card.className = "small-card";
+        card.id = `small-card-${data.id}`;
 
         //------card list------//
         const contentList = document.createElement("dl");
@@ -119,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const itemType = document.createTextNode("Type:");
         const dtContentCategory = document.createTextNode(`${data.category}`);
         const dtContentType = document.createTextNode(`${data.type}`);
-        console.log(dtContentType + " " + dtContentCategory);
+        //console.log(dtContentType + " " + dtContentCategory);
         //----------Edit Button-----------//
         const itemEdit = document.createElement("BUTTON");
         const btnName = document.createTextNode("Edit");
@@ -181,20 +193,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     function addDeleteListeners(deleteButton) {
         deleteButton.addEventListener('click', function (event) {
-            let btnId =deleteButton.id.toString().split("-"); 
+            let btnId = deleteButton.id.toString().split("-");
             console.log(btnId[1]);
             let parent = deleteButton.parentElement.parentElement.parentElement;
             let child = deleteButton.parentElement.parentElement;
             if (confirm(`Are you sure you want to delete this item?`)) {
-                //deleteCard(btnId[1]);
-                parent.removeChild(child);
+                deleteCard(btnId[1]);
+                //parent.removeChild(child);
             }
         });
     }
 
     function deleteCard(cardId) {
-        const url = "http://localhost:8080/fashionApp/webresources/entities.item";
-        let delUrl = url + "?id=" + cardId;
+        const url = "http://localhost:8080/fashionApp/web/productcard/";
+        let delUrl = url + cardId;
         return fetch(delUrl, {
             method: 'delete'
         })
