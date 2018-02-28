@@ -1,0 +1,33 @@
+#collection {
+    
+}
+
+
+.collection-grid-container {
+    background-color: burlywood;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+.collection-grid__column {
+    background-color: bisque;
+    width: 170px;
+    height: 300px;
+   
+}
+
+.collection-column__rows-container {
+    padding: 5px;
+    background-color: aquamarine;
+    display: block;
+}
+
+.collection-grid__row {
+    background-color: white;
+    display: block;
+    height: 50px;
+    width: 50px;
+   
+}
