@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function getCategories() {
         let testcategories = [];
         
-        fetch('http://localhost:8080/fashionApp/webresources/entities.category')
+        fetch('http://localhost:8080/fashionApp/web/category')
             .then(response => response.json())
             .then(data => {
                 let categories = [];
