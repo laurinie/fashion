@@ -74,9 +74,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             body: JSON.stringify(data),
             method: 'post'
         })
-                .then(getCards())
-                .then(closeCard());
-
+                .then(function (result){ getCards();return true})
+                .then(newResult => closeCard());
     });
     function update() {
 
@@ -210,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return fetch(delUrl, {
             method: 'delete'
         })
-                .then(getCards());
+                .then(result => getCards());
     }
 
 
