@@ -65,9 +65,7 @@ public class Productcard implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne
     private Category category;
-    @JoinColumn(name = "item", referencedColumnName = "id")
-    @ManyToOne
-    private Item item;
+    
 
     public Productcard() {
     }
@@ -148,13 +146,7 @@ public class Productcard implements Serializable {
         this.category = category;
     }
 
-    public Item getItem() {
-        return item;
-    }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
 
     @Override
     public int hashCode() {

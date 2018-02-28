@@ -35,6 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Category.findByBudget", query = "SELECT c FROM Category c WHERE c.budget = :budget")})
 public class Category implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "budget")
+    private Float budget;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +48,6 @@ public class Category implements Serializable {
     //@Size(max = 255)
     @Column(name = "name")
     private String name;
-    @Column(name = "budget")
-    private Integer budget;
     @OneToMany(mappedBy = "category")
     private Collection<Productcard> productcardCollection;
 
@@ -72,13 +74,6 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Integer getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Integer budget) {
-        this.budget = budget;
-    }
 
     @XmlTransient
     public Collection<Productcard> getProductcardCollection() {
@@ -112,6 +107,14 @@ public class Category implements Serializable {
     @Override
     public String toString() {
         return "entities.Category[ id=" + id + " ]";
+    }
+
+    public Float getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Float budget) {
+        this.budget = budget;
     }
     
 }

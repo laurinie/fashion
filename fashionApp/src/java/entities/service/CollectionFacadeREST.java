@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Item;
+import entities.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("item")
-public class ItemFacadeREST extends AbstractFacade<Item> {
+@Path("entities.collection")
+public class CollectionFacadeREST extends AbstractFacade<Collection> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public ItemFacadeREST() {
-        super(Item.class);
+    public CollectionFacadeREST() {
+        super(Collection.class);
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Item entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void create(Collection entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Item entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Integer id, Collection entity) {
         super.edit(entity);
     }
 
@@ -57,22 +57,22 @@ public class ItemFacadeREST extends AbstractFacade<Item> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Item find(@PathParam("id") Integer id) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Collection find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Item> findAll() {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Collection> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Item> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Collection> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
