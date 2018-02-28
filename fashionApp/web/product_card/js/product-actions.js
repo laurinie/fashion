@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
+    getCards();
     let count = 0;
     const searchCardsBtn = document.querySelector("#search-button");
     const searchContainer = document.querySelector("#search-container");
@@ -17,6 +18,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
     function openCard() {
+        const parent = document.querySelector("#card-header").parentElement;
+        document.querySelector("#card-header").remove();
+        const header = document.createElement("h2");
+        header.id = "card-header";
+        parent.appendChild(header);
+
         if (productCard.classList.contains("display-none")) {
             productCard.classList.remove("display-none");
             scrollSmooth("#add-product");
@@ -42,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     /*-----Save productcard------*/
-    const addUrl = "http://localhost:8080/fashionApp/webresources/entities.item/";
+    const addUrl = "http://localhost:8080/fashionApp/web/productcard/";
     const saveBtn = document.querySelector("#save-card");
     const div = document.querySelector("#cards-container");
     //const p = document.querySelector("#p");
@@ -61,53 +68,81 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const retailPrice = document.querySelector("#retail-price").value;
         let data = {
             name: name,
-            type: type,
-            //description: description,
-            category: category,
-            item: null,
             color: color,
             totalQty: quantity,
             price: price,
             wholesalePrice: wholesalePrice,
             retailPrice: retailPrice
         };
-
-        return fetch(addUrl, {
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(data),
-            method: 'post'
-        })
-                .then(getCards())
-                .then(closeCard());
+        const idFromHeader = document.querySelector("#card-header").firstChild;
+        let dataID = "id";
+        if (idFromHeader!=null) {
+            let splited = idFromHeader.nodeValue.split(" ");
+            console.log("put");
+            data[dataID] = splited[1];
+            return fetch(addUrl + splited[1], {
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(data),
+                method: 'put'
+            })
+                .then(function (result) { getCards(); return true })
+                .then(newResult => closeCard());
+        } else {
+            console.log("post");
+            return fetch(addUrl, {
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(data),
+                method: 'post'
+            })
+                .then(function (result) { getCards(); return true })
+                .then(newResult => closeCard());
+        }
 
     });
+    function update() {
 
+        const cardsContainer = document.querySelector("#cards-container");
+        const cards = cardsContainer.parentNode;
+        cardsContainer.remove();
+        const newContainer = document.createElement("div");
+        newContainer.id = "cards-container";
+        newContainer.className = "card-column";
+        cards.appendChild(newContainer);
+        console.log("update");
+
+    }
     /*-----Get all cards from the database------*/
     function getCards() {
-        const getAll = "http://localhost:8080/fashionApp/webresources/entities.item/";
+        console.log("getcards");
+        update();
+        console.log("update");
+        const getAll = "http://localhost:8080/fashionApp/web/productcard/";
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item);
+                //console.log(item);
                 showCard(item);
             }
             ;
         });
         fetch(getAll)
-                .then(response => response.json())    //Returns a promise that resolves JSON object
-                .then(processJSON)
-                .catch(error => (console.log("Fetch crashed due to " + error)));
+            .then(response => response.json())    //Returns a promise that resolves JSON object
+            .then(processJSON)
+            .catch(error => (console.log("Fetch crashed due to " + error)));
     }
-
+    const advice = document.querySelector("#card-advice");
     /*-----Show card------*/
     function showCard(data) {
+        const div = document.querySelector("#cards-container");
 
-        const advice = document.querySelector("#card-advice");
-        advice.className = "hidden";
+        if (!advice.classList.contains("hidden")) {
+            advice.className = "hidden";
+        }
 
         const card = document.createElement("DIV");
         const buttonDiv = document.createElement("DIV");
         buttonDiv.className = "button-container";
         card.className = "small-card";
+        card.id = `small-card-${data.id}`;
 
         //------card list------//
         const contentList = document.createElement("dl");
@@ -119,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const itemType = document.createTextNode("Type:");
         const dtContentCategory = document.createTextNode(`${data.category}`);
         const dtContentType = document.createTextNode(`${data.type}`);
-        console.log(dtContentType + " " + dtContentCategory);
+        //console.log(dtContentType + " " + dtContentCategory);
         //----------Edit Button-----------//
         const itemEdit = document.createElement("BUTTON");
         const btnName = document.createTextNode("Edit");
@@ -162,60 +197,71 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         //---Append card------//
         div.appendChild(card);
-        addEditListeners();
+        addEditListeners(itemEdit);
         addDeleteListeners(itemDelete);
     }
 
     /*--Add listeners to small pc edit and delete buttons--*/
 
-    function addEditListeners() {
-        let editButtons = document.querySelectorAll(".edit-btn");
-
-        for (let btn of editButtons) {
-            btn.addEventListener('click', function (event) {
-                openCard();
-                editCard(data);
-                console.log(btn.id);
-            });
-        }
+    function addEditListeners(editButton) {
+        editButton.addEventListener('click', function (event) {
+            let btnId = editButton.id.toString().split("-");
+            openCard();
+            editCard(btnId[1]);
+        });
     }
+
     function addDeleteListeners(deleteButton) {
         deleteButton.addEventListener('click', function (event) {
-            let btnId =deleteButton.id.toString().split("-"); 
+            let btnId = deleteButton.id.toString().split("-");
             console.log(btnId[1]);
             let parent = deleteButton.parentElement.parentElement.parentElement;
             let child = deleteButton.parentElement.parentElement;
             if (confirm(`Are you sure you want to delete this item?`)) {
-                //deleteCard(btnId[1]);
-                parent.removeChild(child);
+                deleteCard(btnId[1]);
+                //parent.removeChild(child);
             }
         });
     }
 
     function deleteCard(cardId) {
-        const url = "http://localhost:8080/fashionApp/webresources/entities.item";
-        let delUrl = url + "?id=" + cardId;
+        const url = "http://localhost:8080/fashionApp/web/productcard/";
+        let delUrl = url + cardId;
         return fetch(delUrl, {
             method: 'delete'
         })
-                .then(getCards());
+            .then(result => getCards());
     }
 
 
     /*------Fill pc data to card for editting data-----*/
-    function editCard(data) {
+    function editCard(id) {
+        const getByIdurl = "http://localhost:8080/fashionApp/web/productcard/" + id;
+        const processJSON = (function (json) {
+            fillCard(json);
+        });
+        fetch(getByIdurl)
+            .then(response => response.json())    //Returns a promise that resolves JSON object
+            .then(processJSON)
+            .catch(error => (console.log("Fetch crashed due to " + error)));
+
+
+    }
+    function fillCard(data) {
+        let idHeader = document.createTextNode(`ID: ${data.id}`);
+        document.querySelector("#card-header").appendChild(idHeader);
+        console.log(data.id);
         document.querySelector("#name").value = data.name;
         document.querySelector("#type").value = data.type;
         document.querySelector("#description").value = data.description;
         //const priceRange = document.querySelector("#price-range").value;
         document.querySelector("#category").value = data.category;
         document.querySelector("#color").value = data.color;
-        document.querySelector("#quantity").value = data.quantity;
+        document.querySelector("#quantity").value = data.totalqty;
         document.querySelector("#price").value = data.price;
-        document.querySelector("#wholesale-price").value = data.wholesalePrice;
-        document.querySelector("#retail-price").value = data.retailPrice;
+        document.querySelector("#wholesale-price").value = data.wholesaleprice;
+        document.querySelector("#retail-price").value = data.retailprice;
     }
-
 
 
     /*-----Function for scrolling. Takes div id as parameter------*/

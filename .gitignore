@@ -14,8 +14,11 @@
 .mtj.tmp/
 
 # Netbeans project folders/files to ignore
-/Clothing/build/
-/Clothing/dist/
+/fashionApp/build/
+/fashionApp/dist/
+/fashionApp/nbproject/private/private.properties
+/fashionApp/nbproject/private/private.xml
+/fashionApp/nbproject/project.properties
 
 # Package Files #
 *.jar
@@ -27,7 +30,4 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/Clothing/nbproject/private/
-/Clothing/build/
-/fashionApp/nbproject/private/
-/fashionApp/build/
+
