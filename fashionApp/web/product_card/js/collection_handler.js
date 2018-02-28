@@ -6,11 +6,17 @@ let addRow = collectionPageElement.querySelector("#collection-add-row");
 let addColumn = collectionPageElement.querySelector("#collection-add-column");
 
 addRow.addEventListener('click', function(event) {
+    let columnsArray = collectionGridContainer.querySelectorAll(".collection-grid__column");  
+    rows++;
+    for (let column of columnsArray) {
+        newRow(column);
+    }
     
 });
 
 
 addColumn.addEventListener('click', function(event) {
+    columns++;
     createColumn();
 });
 
@@ -24,20 +30,35 @@ function createColumn() {
     newColumn.className = "collection-grid__column";
     newColumn.appendChild(createRows());
     collectionGridContainer.appendChild(newColumn);
-    columns++;
+    
 }
 
 function createRows() {
     let rowsContainer = document.createElement("div");
-    rowsContainer.className = "collection_column__rows-container"
+    rowsContainer.className = "collection_column__rows-container";
     for (i = 0; i < rows; i++) {
         let newRow = document.createElement("div");
         newRow.className = "collection-grid__row";
+        
+        //to be deleted
+        newRow.textContent = "card";
+        
         rowsContainer.appendChild(newRow);
     }
     return rowsContainer;
+   
 }
 
+
+function newRow(column) {
+    let newRow = document.createElement("div");
+    newRow.className = "collection-grid__row";
+    
+    // to be deleted later
+    newRow.textContent = "card " + rows;
+    
+    column.appendChild(newRow);
+}
 
     
 
