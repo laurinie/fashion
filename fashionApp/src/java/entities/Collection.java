@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,25 +14,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Joni
  */
 @Entity
-@Table(name = "item")
+@Table(name = "collection")
 //@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i")
-    , @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id")
-    , @NamedQuery(name = "Item.findByName", query = "SELECT i FROM Item i WHERE i.name = :name")
-    , @NamedQuery(name = "Item.findByBudget", query = "SELECT i FROM Item i WHERE i.budget = :budget")})
-public class Item implements Serializable {
+    @NamedQuery(name = "Collection.findAll", query = "SELECT c FROM Collection c")
+    , @NamedQuery(name = "Collection.findById", query = "SELECT c FROM Collection c WHERE c.id = :id")
+    , @NamedQuery(name = "Collection.findByName", query = "SELECT c FROM Collection c WHERE c.name = :name")})
+public class Collection implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,15 +40,11 @@ public class Item implements Serializable {
     //@Size(max = 255)
     @Column(name = "name")
     private String name;
-    @Column(name = "budget")
-    private Integer budget;
-    @OneToMany(mappedBy = "item")
-    private Collection<Productcard> productcardCollection;
 
-    public Item() {
+    public Collection() {
     }
 
-    public Item(Integer id) {
+    public Collection(Integer id) {
         this.id = id;
     }
 
@@ -72,23 +64,6 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public Integer getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Integer budget) {
-        this.budget = budget;
-    }
-
-    @XmlTransient
-    public Collection<Productcard> getProductcardCollection() {
-        return productcardCollection;
-    }
-
-    public void setProductcardCollection(Collection<Productcard> productcardCollection) {
-        this.productcardCollection = productcardCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -99,10 +74,10 @@ public class Item implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Item)) {
+        if (!(object instanceof Collection)) {
             return false;
         }
-        Item other = (Item) object;
+        Collection other = (Collection) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -111,7 +86,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Item[ id=" + id + " ]";
+        return "entities.Collection[ id=" + id + " ]";
     }
     
 }
