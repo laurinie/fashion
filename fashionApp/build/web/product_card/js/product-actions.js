@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
     function openCard() {
+        const parent = document.querySelector("#card-header").parentElement;
+        document.querySelector("#card-header").remove();
+        const header = document.createElement("h2");
+        header.id = "card-header";
+        parent.appendChild(header);
+
         if (productCard.classList.contains("display-none")) {
             productCard.classList.remove("display-none");
             scrollSmooth("#add-product");
@@ -68,14 +74,33 @@ document.addEventListener("DOMContentLoaded", function (event) {
             wholesalePrice: wholesalePrice,
             retailPrice: retailPrice
         };
+        const idFromHeader = document.querySelector("#card-header").firstChild;
+        let splited = idFromHeader.nodeValue.split(" ");
+        let dataID = "id";
 
-        return fetch(addUrl, {
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(data),
-            method: 'post'
-        })
-                .then(function (result){ getCards();return true})
+        console.log(splited[1]);
+        console.log(addUrl + splited[1]);
+        if (idFromHeader!=null) {
+            console.log("put");
+            data[dataID] = splited[1];
+            return fetch(addUrl + splited[1], {
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(data),
+                method: 'put'
+            })
+                .then(function (result) { getCards(); return true })
                 .then(newResult => closeCard());
+        } else {
+            console.log("post");
+            return fetch(addUrl, {
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(data),
+                method: 'post'
+            })
+                .then(function (result) { getCards(); return true })
+                .then(newResult => closeCard());
+        }
+
     });
     function update() {
 
@@ -91,7 +116,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     /*-----Get all cards from the database------*/
     function getCards() {
+        console.log("getcards");
         update();
+        console.log("update");
         const getAll = "http://localhost:8080/fashionApp/web/productcard/";
         const processJSON = (function (json) {
             for (let item of json) {
@@ -101,16 +128,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
             ;
         });
         fetch(getAll)
-                .then(response => response.json())    //Returns a promise that resolves JSON object
-                .then(processJSON)
-                .catch(error => (console.log("Fetch crashed due to " + error)));
+            .then(response => response.json())    //Returns a promise that resolves JSON object
+            .then(processJSON)
+            .catch(error => (console.log("Fetch crashed due to " + error)));
     }
     const advice = document.querySelector("#card-advice");
     /*-----Show card------*/
     function showCard(data) {
         const div = document.querySelector("#cards-container");
-        
-        if(!advice.classList.contains("hidden")){
+
+        if (!advice.classList.contains("hidden")) {
             advice.className = "hidden";
         }
 
@@ -173,23 +200,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         //---Append card------//
         div.appendChild(card);
-        addEditListeners();
+        addEditListeners(itemEdit);
         addDeleteListeners(itemDelete);
     }
 
     /*--Add listeners to small pc edit and delete buttons--*/
 
-    function addEditListeners() {
-        let editButtons = document.querySelectorAll(".edit-btn");
-
-        for (let btn of editButtons) {
-            btn.addEventListener('click', function (event) {
-                openCard();
-                editCard(data);
-                console.log(btn.id);
-            });
-        }
+    function addEditListeners(editButton) {
+        editButton.addEventListener('click', function (event) {
+            let btnId = editButton.id.toString().split("-");
+            openCard();
+            editCard(btnId[1]);
+        });
     }
+
     function addDeleteListeners(deleteButton) {
         deleteButton.addEventListener('click', function (event) {
             let btnId = deleteButton.id.toString().split("-");
@@ -209,24 +233,38 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return fetch(delUrl, {
             method: 'delete'
         })
-                .then(result => getCards());
+            .then(result => getCards());
     }
 
 
     /*------Fill pc data to card for editting data-----*/
-    function editCard(data) {
+    function editCard(id) {
+        const getByIdurl = "http://localhost:8080/fashionApp/web/productcard/" + id;
+        const processJSON = (function (json) {
+            fillCard(json);
+        });
+        fetch(getByIdurl)
+            .then(response => response.json())    //Returns a promise that resolves JSON object
+            .then(processJSON)
+            .catch(error => (console.log("Fetch crashed due to " + error)));
+
+
+    }
+    function fillCard(data) {
+        let idHeader = document.createTextNode(`ID: ${data.id}`);
+        document.querySelector("#card-header").appendChild(idHeader);
+        console.log(data.id);
         document.querySelector("#name").value = data.name;
         document.querySelector("#type").value = data.type;
         document.querySelector("#description").value = data.description;
         //const priceRange = document.querySelector("#price-range").value;
         document.querySelector("#category").value = data.category;
         document.querySelector("#color").value = data.color;
-        document.querySelector("#quantity").value = data.quantity;
+        document.querySelector("#quantity").value = data.totalqty;
         document.querySelector("#price").value = data.price;
-        document.querySelector("#wholesale-price").value = data.wholesalePrice;
-        document.querySelector("#retail-price").value = data.retailPrice;
+        document.querySelector("#wholesale-price").value = data.wholesaleprice;
+        document.querySelector("#retail-price").value = data.retailprice;
     }
-
 
 
     /*-----Function for scrolling. Takes div id as parameter------*/
