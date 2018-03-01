@@ -64,30 +64,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
         fetch('http://localhost:8080/fashionApp/web/productcard')
             .then(response => response.json())
             .then(productcards => {
+                console.log(productcards);
                 for (let product of productcards) {
-                    let category = document.querySelector(".category-"
-                       + product.category.toLowerCase());
-                 let itemsContainer = category.querySelector(".budget-items-container");
+                    if (product.category === null) {
+                        continue;
+                    } else {
+                        console.log(product.category.name);
+                        let category = document.querySelector(".category-" + product.category.name.toLowerCase());
+                        let itemsContainer = category.querySelector(".budget-items-container");
+                        let newProduct = createBudgetItemRow();
 
-                 let newProduct = createBudgetItemRow();
+                        let productName = newProduct.querySelector("[name='name']");
+                        productName.value = product.name;
+                        let productBudget = newProduct.querySelector("[name='budget']");
+                        productBudget.value = "0"; // later changed
+                        let productType = newProduct.querySelector("[name='type']");
+                        productType.value = product.type.name;
 
-                  let productName = newProduct.querySelector("[name='name']");
-                  productName.value = product.name;
-                  let productBudget = newProduct.querySelector("[name='budget']");
-                  productBudget.value = parseFloat(product.budget);
-                  let productType = newProduct.querySelector("[name='type']");
-                  productType.value = product.type;
-
-                  itemsContainer.appendChild(newProduct);
-
+                        itemsContainer.appendChild(newProduct);
+                    }
         }
-                return categories;
-            }).then(categories => {
-                for (let category of categories) {
-                    let newBudgetGroup = createBudgetGroup(category);
-                    newBudgetGroup.classList.add("category-" + category.toLowerCase());
-                    budgetContainer.appendChild(newBudgetGroup);
-                }
+ 
+    
         });
         
         
