@@ -8,40 +8,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let budgetPageElement = document.querySelector("#budget");
     let budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";
-
-    let array = [{
-        name : 'Summer is here',
-        type : 'shorts',
-        budget: '15,00',
-        category : 'Pants'
-    }, {
-        name : 'Crop tops ugh',
-        type : 'top',
-        budget: '10,00',
-        category : 'Shirts'
-    }, {
-        name : 'Mr. back pockets',
-        type : 'jeans',
-        budget: '7,00',
-        category : 'Pants'
-    },
-        {
-            name : 'Miss wet t-shirt',
-            type : 't-shirt',
-            budget: '5,00',
-            category : 'Shirts'
-        }, {
-            name : 'Fashionable fluffy jacket',
-            type : 'winter',
-            budget: '20,00',
-            category : 'Jackets'
-        },{
-            name : 'Cool suit jacket',
-            type : 'suit',
-            budget: '56,00',
-            category : 'Jackets'
-        }];
-
     budgetPageElement.appendChild(budgetContainer);
 
     let selectBudgetElem = document.querySelector(".select-budget__select");
@@ -72,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function getCategories() {
         let testcategories = [];
         
-        fetch('http://localhost:8080/fashionApp/webresources/entities.category')
+        fetch('http://localhost:8080/fashionApp/web/category')
             .then(response => response.json())
             .then(data => {
                 let categories = [];

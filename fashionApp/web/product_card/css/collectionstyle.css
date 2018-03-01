@@ -22,7 +22,7 @@
 }
 
 
-.collection-grid__row {
+.collection-grid__item {
     background-color: white;
     border: 2px dashed #d6d6d6;
     border-radius: 5px;
@@ -41,4 +41,20 @@
 .collection-grid__row:last-child {
     margin: 0;
     margin-top: 5px;
+}
+
+#mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    text-align: center;
+    border: 1px solid #d3d3d3;
+}
+
+#mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
 }

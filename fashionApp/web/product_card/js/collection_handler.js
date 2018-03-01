@@ -9,7 +9,7 @@ addRow.addEventListener('click', function(event) {
     let columnsArray = collectionGridContainer.querySelectorAll(".collection-grid__column");  
     rows++;
     for (let column of columnsArray) {
-        newRow(column);
+        newItem(column);
     }
     
 });
@@ -22,6 +22,8 @@ addColumn.addEventListener('click', function(event) {
 
 let columns = 0;
 let rows = 1; 
+//let x = document.querySelector("collection-grid-container").childNodes.length;
+//let y = document.querySelector("collection-grid__column").childNodes.length;
 
 createColumn();
 
@@ -35,29 +37,24 @@ function createColumn() {
 
 function createRows(column) {
     for (i = 0; i < rows; i++) {
-        let newRow = document.createElement("div");
-        newRow.className = "collection-grid__row";
-        
-        //to be deleted
-        newRow.textContent = "card";
-        
-        column.appendChild(newRow);
+        newItem(column);
     }
  
    
 }
 
 
-function newRow(column) {
+function newItem(column) {
     let newRow = document.createElement("div");
-    newRow.className = "collection-grid__row";
+    let newDrag = document.createElement("div");
+    newDrag.id="mydivheader";
+    newRow.className = "collection-grid__item";
     
     // to be deleted later
-    newRow.textContent = "card " + rows;
-    
+    newDrag.textContent = columns +" Drag " + rows;
+    newRow.appendChild(newDrag);
     column.appendChild(newRow);
-}
-
     
+}
 
 });

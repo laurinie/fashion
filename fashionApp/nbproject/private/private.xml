@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/fashion/fashionApp/src/java/entities/service/CategoryFacadeREST.java</file>
             <file>file:/C:/fashion/fashionApp/src/java/entities/service/ApplicationConfig.java</file>
-            <file>file:/C:/fashion/fashionApp/src/java/entities/service/ItemFacadeREST.java</file>
-            <file>file:/C:/fashion/fashionApp/src/java/entities/service/TypeFacadeREST.java</file>
+            <file>file:/C:/fashion/fashionApp/src/java/entities/service/AbstractFacade.java</file>
             <file>file:/C:/fashion/fashionApp/src/java/entities/service/ProductcardFacadeREST.java</file>
+            <file>file:/C:/fashion/fashionApp/web/index.html</file>
+            <file>file:/C:/fashion/fashionApp/web/product_card/js/product-actions.js</file>
         </group>
     </open-files>
 </project-private>
