@@ -2,49 +2,45 @@ drop database if exists fashion2;
 create database fashion2;
 use fashion2;
 
+create table collection(
+    id int auto_increment primary key,
+    name varchar(255)
+    
+);
 create table category(
-    id int auto_increment,
+    id int auto_increment primary key,
     name varchar(255),
-    budget int,
-    primary key (id)
+    budget float
 );
-
-create table item(
-    id int auto_increment,
-    name varchar(255),
-    budget int,
-    primary key (id)
-);
-
 
 create table type(
-    id int auto_increment,
+    id int auto_increment primary key,
     name varchar(255),
-    budget int,
-    primary key (id)
+    budget float
 );
 
-
-
-
 create table productcard(
-    id int auto_increment,
+    id int auto_increment primary key,
     name varchar(255),
     type int,
     category int,
-    item int,
     foreign key (type) references type(id),
     foreign key (category) references category(id),
-    foreign key (item) references item(id),
     color varchar(255),
     totalqty int,
     price float,
     wholesaleprice float,
-    retailprice float,
-    primary key (id)
-
+    retailprice float
 
 );
+
+
+
+
+
+
+
+
 
 --insert into category values(default,"housut",null),(default,"paidat",null);
 --insert into type values(default,"shortsit",null),(default,"tpaita",null);
