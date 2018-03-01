@@ -1,0 +1,109 @@
+.select-budget {
+    display: flex;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.budget-group {
+    margin-bottom: 2.5rem;
+}
+
+.budget-group-header {
+    display: grid;
+    text-transform: uppercase;
+    font-weight: bold;
+    grid-template-columns: auto 100px 100px;
+    border-bottom: 3px solid var(--tabcolor);
+    padding-bottom: 5px;
+}
+
+.budget-item-row {
+    display: grid;
+    grid-template-columns: auto 100px 100px;
+}
+
+#budget input[type=text], input[type=number], textarea {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: inherit;
+    margin: 0;
+    border-bottom: 1px solid var(--backgroundcolor);
+    background-color: #FFFFFF;
+    outline: none;
+}
+
+
+
+#budget input[type=number] {
+    -moz-appearance:textfield;
+}
+
+#budget input::-webkit-outer-spin-button,
+#budget input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+#budget input:hover{
+    background-color: rgba(139, 253, 215, 0.274);
+}
+
+#budget form :focus {
+    box-shadow: 3px 3px var(--navhover);
+    background-color: rgba(139, 253, 215, 0.274);
+}
+
+.budget-group-header__tab {
+    display: inline;
+    background-color: var(--tabcolor);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0.3em 1.5em;
+}
+
+.budget-group__footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 1px solid var(--tabcolor);
+    padding: 12px 20px;
+    margin: 0;
+    background-color: white;
+}
+
+.budget-group__add-button{
+    border-bottom-left-radius: inherit;
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    height: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    outline: none;
+
+}
+
+.budget-group img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.budget-group__footer > div {
+    font-size: small;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.budget-group__total-text {
+    text-align: center;
+}
+
+#budget input[type=number], .budget-group__total-budget {
+    text-align: right;
+}
