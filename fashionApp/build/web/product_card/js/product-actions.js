@@ -69,10 +69,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let data = {
             name: name,
             color: color,
-            totalQty: quantity,
+            totalqty: quantity,
             price: price,
-            wholesalePrice: wholesalePrice,
-            retailPrice: retailPrice
+            wholesaleprice: wholesalePrice,
+            retailprice: retailPrice
         };
         const idFromHeader = document.querySelector("#card-header").firstChild;
         let dataID = "id";
