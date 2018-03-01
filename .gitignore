@@ -16,9 +16,9 @@
 # Netbeans project folders/files to ignore
 fashionApp/build/
 fashionApp/dist/
-fashionApp/nbproject/private/private.properties
-fashionApp/nbproject/private/private.xml
-fashionApp/nbproject/project.properties
+#fashionApp/nbproject/private/private.properties
+#fashionApp/nbproject/private/private.xml
+#fashionApp/nbproject/project.properties
 
 # Package Files #
 
@@ -36,12 +36,9 @@ hs_err_pid*
 
 
 #netbeans
-fashionApp/
-nbproject/
-*
+fashionApp/nbproject/
 !nbproject/project.properties
-
-*!nbproject/project.xml
+!nbproject/project.xml
 
 
 

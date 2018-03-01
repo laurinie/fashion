@@ -1,23 +1,30 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
     // just to test, later will be removed when JSON connection is working
-    let season1 = ["Shirts", "Pants", "Jackets", "Dresses"];
-    let season2 = [];
-    let season3 = [];
-    let budgets = [["season 1", season1], ["season 2", season2], ["season 3", season3]];
     let budgetPageElement = document.querySelector("#budget");
     let budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";
     budgetPageElement.appendChild(budgetContainer);
 
     let selectBudgetElem = document.querySelector(".select-budget__select");
+    
+    fetch('http://localhost:8080/fashionApp/web/collection')
+            .then(response => response.json())
+            .then(collections => {
+
+                for (let collection of collections) {
+                    let option = document.createElement("option");
+                    option.text = collection.name;
+                    selectBudgetElem.appendChild(option);
+                }
+        });
+    
+    
     for (let budget of budgets) {
 
         let option = document.createElement("option");
-        option.text = budget[0];
+        option.text = collection.name;
         selectBudgetElem.appendChild(option);
-
-        //option.text =
     }
 
     getData(); // temporary function, until JSON connection works.
