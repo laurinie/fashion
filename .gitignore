@@ -21,7 +21,7 @@ fashionApp/nbproject/private/private.xml
 fashionApp/nbproject/project.properties
 
 # Package Files #
-*.jar
+
 *.war
 *.ear
 *.zip
