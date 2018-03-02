@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* Temporary function to fill in some information, just to check things work fine. */
     function getData() {
         getCategories();
-        getItems();
+        // getItems();
 
 
         let budgetGroups = document.querySelectorAll(".budget-group");
@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function getCategories() {
+        let testcategories = [];
         
         fetch('http://localhost:8080/fashionApp/web/category')
             .then(response => response.json())
@@ -59,37 +60,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function getItems () {
-        
-        
-        fetch('http://localhost:8080/fashionApp/web/productcard')
-            .then(response => response.json())
-            .then(productcards => {
-                console.log(productcards);
-                for (let product of productcards) {
-                    if (product.category === null) {
-                        continue;
-                    } else {
-                        console.log(product.category.name);
-                        let category = document.querySelector(".category-" + product.category.name.toLowerCase());
-                        let itemsContainer = category.querySelector(".budget-items-container");
-                        let newProduct = createBudgetItemRow();
+        for (let product of array) {
+            let category = document.querySelector(".category-"
+                + product.category.toLowerCase());
+            let itemsContainer = category.querySelector(".budget-items-container");
 
-                        let productName = newProduct.querySelector("[name='name']");
-                        productName.value = product.name;
-                        let productBudget = newProduct.querySelector("[name='budget']");
-                        productBudget.value = "0"; // later changed
-                        let productType = newProduct.querySelector("[name='type']");
-                        productType.value = product.type.name;
+            let newProduct = createBudgetItemRow();
 
-                        itemsContainer.appendChild(newProduct);
-                    }
+            let productName = newProduct.querySelector("[name='name']");
+            productName.value = product.name;
+            let productBudget = newProduct.querySelector("[name='budget']");
+            productBudget.value = parseFloat(product.budget);
+            let productType = newProduct.querySelector("[name='type']");
+            productType.value = product.type;
+
+            itemsContainer.appendChild(newProduct);
+
         }
- 
-    
-        });
-        
-        
-        
     }
 
 
