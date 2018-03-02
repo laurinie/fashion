@@ -19,13 +19,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
         });
     
-    
-    for (let budget of budgets) {
-
-        let option = document.createElement("option");
-        option.text = collection.name;
-        selectBudgetElem.appendChild(option);
-    }
 
     getData(); // temporary function, until JSON connection works.
 
