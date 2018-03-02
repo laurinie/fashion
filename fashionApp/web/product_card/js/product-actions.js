@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             color: color,
             totalqty: quantity,
             price: price,
-            wholesaleprice: wholesalePrice,
-            retailprice: retailPrice
+            wholesaleprice: wholesaleprice,
+            retailprice: retailprice
         };
         const idFromHeader = document.querySelector("#card-header").firstChild;
         let dataID = "id";
