@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-
-    // just to test, later will be removed when JSON connection is working
     let budgetPageElement = document.querySelector("#budget");
     let budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";

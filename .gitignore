@@ -34,8 +34,8 @@ hs_err_pid*
 
 #netbeans
 fashionApp/nbproject/
-!nbproject/project.properties
-!nbproject/project.xml
+!fashionApp/nbproject/project.properties
+!fashionApp/nbproject/project.xml
 
 
 
