@@ -6,9 +6,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     budgetContainer.className = "budget-container";
     budgetPageElement.appendChild(budgetContainer);
 
-    let selectBudgetElem = document.querySelector(".select-budget__select");
-    
-    fetch('http://localhost:8080/fashionApp/web/collection')
+    fetchCollections();
+    getCollectionData(); // temporary function, until JSON connection works.
+
+    function fetchCollections() {
+        let selectBudgetElem = document.querySelector(".select-budget__select");
+        // put this fetch inside a function!
+        fetch('http://localhost:8080/fashionApp/web/collection')
             .then(response => response.json())
             .then(collections => {
 
@@ -17,12 +21,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     option.text = collection.name;
                     selectBudgetElem.appendChild(option);
                 }
-        });
-
-    getData(); // temporary function, until JSON connection works.
+            });    
+    }
 
     /* Temporary function to fill in some information, just to check things work fine. */
-    function getData() {
+    function getCollectionData() {
         getCategories();
         getItems();
 
@@ -33,7 +36,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     }
-
+    
+   
+    
     function getCategories() {
         
         fetch('http://localhost:8080/fashionApp/web/category')
@@ -51,27 +56,34 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     budgetContainer.appendChild(newBudgetGroup);
                 }
         });
+        // catch errors    
+    }
+    
 
-        // catch errors
+    function getTypes() {
+        let typesArray = [];
+        fetch('http://localhost:8080/fashionApp/web/type')
+            .then(response => response.json())
+            .then(types => {
+                for (let type of types) {
+                    typesArray.push(type.name);
+                }
+            });
+        return typesArray;
         
-        
-        
+       
     }
 
     function getItems () {
-        
-        
         fetch('http://localhost:8080/fashionApp/web/productcard')
             .then(response => response.json())
             .then(productcards => {
-                console.log(productcards);
+                console.log("getItems() : Product cards: " + productcards);
                 for (let product of productcards) {
-                    if (product.category === null) {
-                        continue;
-                    } else {
-                        console.log(product.category.name);
                         let category = document.querySelector(".category-" + product.category.name.toLowerCase());
+                        console.log(category);
                         let itemsContainer = category.querySelector(".budget-items-container");
+                        
                         let newProduct = createBudgetItemRow();
 
                         let productName = newProduct.querySelector("[name='name']");
@@ -82,14 +94,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         productType.value = product.type.name;
 
                         itemsContainer.appendChild(newProduct);
-                    }
-        }
- 
-    
-        });
-        
-        
-        
+                    
+                }
+        }); 
     }
 
 
@@ -190,7 +197,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
         budgetDiv.appendChild(budget);
 
 
-        let type = document.createElement("input");
+        let type = document.createElement("select");
+        let typesArray = getTypes();
+        console.log(typesArray);
+        for (let t of typesArray) {
+            console.log("netbeans sucks");
+            let option = document.createElement("option");
+            option.text = t;
+            type.appendChild(t);
+        }
+        
         type.name = "type";
         type.setAttribute("type", "text");
         type.className = "budget-item__type";
