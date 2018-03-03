@@ -71,8 +71,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
             color: color,
             totalqty: quantity,
             price: price,
-            wholesaleprice: wholesaleprice,
-            retailprice: retailprice
+            wholesaleprice: wholesalePrice,
+            retailprice: retailPrice,
+            category:{name:category}
         };
         const idFromHeader = document.querySelector("#card-header").firstChild;
         let dataID = "id";
@@ -152,8 +153,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const dtType = document.createElement("dd");
         const itemCategory = document.createTextNode("Category:");
         const itemType = document.createTextNode("Type:");
-        const dtContentCategory = document.createTextNode(`${data.category}`);
-        const dtContentType = document.createTextNode(`${data.type}`);
+        const dtContentCategory = document.createTextNode(`${data.category.name}`);
+        const dtContentType = document.createTextNode(`${data.type.name}`);
         //console.log(dtContentType + " " + dtContentCategory);
         //----------Edit Button-----------//
         const itemEdit = document.createElement("BUTTON");
@@ -252,10 +253,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         document.querySelector("#card-header").appendChild(idHeader);
         console.log(data.id);
         document.querySelector("#name").value = data.name;
-        document.querySelector("#type").value = data.type;
+        document.querySelector("#type").value = data.type.name;
         document.querySelector("#description").value = data.description;
         //const priceRange = document.querySelector("#price-range").value;
-        document.querySelector("#category").value = data.category;
+        document.querySelector("#category").value = data.category.name;
         document.querySelector("#color").value = data.color;
         document.querySelector("#quantity").value = data.totalqty;
         document.querySelector("#price").value = data.price;
