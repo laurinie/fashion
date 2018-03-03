@@ -3,7 +3,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";
     budgetPageElement.appendChild(budgetContainer);
+    
+    // workaround code for the typeInput. I know, it's ugly.
+    let lastActiveElement = null;
+    document.addEventListener("click", function() {
+        lastActiveElement = document.activeElement;
+    });
 
+    
     fetchCollections();
     getCollectionData(); // temporary function, until JSON connection works.
 
@@ -74,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         productName.value = product.name;
                         let productBudget = newProduct.querySelector("[name='budget']");
                         productBudget.value = "0"; // later changed
-                        let productType = newProduct.querySelector("[id='typeDatalist']");
+                        let productType = newProduct.querySelector("[name='type']");
                         productType.value = product.type.name;
 
                         itemsContainer.appendChild(newProduct);
@@ -182,9 +189,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
         let typeInput = document.createElement("input");
+        typeInput.className = "type-input";
+        typeInput.setAttribute("type", "text");
+        typeInput.setAttribute("name", "type");
+        typeInput.setAttribute("list", "type-datalist");
+           
+        typeInput.addEventListener("click", function(event) {
+            if(lastActiveElement !== event.target) {
+                event.target.value = "";
+            }
+         });
+        
+        
+        
+        
+        
         let typeDatalist = document.createElement("datalist");
         
-        typeDatalist.id = "typeDatalist";
+        typeDatalist.id = "type-datalist";
         typeDatalist.setAttribute("type", "text");
         typeDatalist.className = "budget-item__type";
         
