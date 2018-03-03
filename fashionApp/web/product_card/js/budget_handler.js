@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function fetchCollections() {
         let selectBudgetElem = document.querySelector(".select-budget__select");
-        // put this fetch inside a function!
         fetch('http://localhost:8080/fashionApp/web/collection')
             .then(response => response.json())
             .then(collections => {
@@ -50,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }).then(categories => {
                 for (let category of categories) {
                     let newBudgetGroup = createBudgetGroup(category);
-                    newBudgetGroup.classList.add("category-" + category.toLowerCase());
+                    newBudgetGroup.id = category.toLowerCase();
                     budgetContainer.appendChild(newBudgetGroup);
                 }
         });
@@ -58,37 +57,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     
 
-    function getTypes() {
-        let typesArray = [];
-        fetch('http://localhost:8080/fashionApp/web/type')
-            .then(response => response.json())
-            .then(types => {
-                for (let type of types) {
-                    typesArray.push(type.name);
-                }
-            });
-        return typesArray;
-        
-       
-    }
+
 
     function getItems () {
         fetch('http://localhost:8080/fashionApp/web/productcard')
             .then(response => response.json())
             .then(productcards => {
-                console.log("getItems() : Product cards: " + productcards);
+               
                 for (let product of productcards) {
-                        let category = document.querySelector(".category-" + product.category.name.toLowerCase());
-                        console.log(category);
+                        let category = budgetContainer.querySelector("#" + product.category.name.toLowerCase());
                         let itemsContainer = category.querySelector(".budget-items-container");
                         
-                        let newProduct = createBudgetItemRow();
+                        let newProduct = createBudgetItemRow(product.type.name);
 
                         let productName = newProduct.querySelector("[name='name']");
                         productName.value = product.name;
                         let productBudget = newProduct.querySelector("[name='budget']");
                         productBudget.value = "0"; // later changed
-                        let productType = newProduct.querySelector("[name='type']");
+                        let productType = newProduct.querySelector("[id='typeDatalist']");
                         productType.value = product.type.name;
 
                         itemsContainer.appendChild(newProduct);
@@ -123,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
             let itemsContainer = budgetGroup.querySelector(".budget-items-container");
-            let newItem = createBudgetItemRow();
+            let newItem = createBudgetItemRow("");
             itemsContainer.appendChild(newItem);
         });
 
@@ -170,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return budgetGroupHeader;
     }
 
-    function createBudgetItemRow() {
+    function createBudgetItemRow(type) {
         let budgetItemRow = document.createElement("div");
         budgetItemRow.className ="budget-item-row";
 
@@ -195,23 +181,37 @@ document.addEventListener("DOMContentLoaded", function (event) {
         budgetDiv.appendChild(budget);
 
 
-        let type = document.createElement("select");
-        let typesArray = getTypes();
-        console.log(typesArray);
-        for (let t of typesArray) {
-            console.log("netbeans sucks");
-            let option = document.createElement("option");
-            option.text = t;
-            type.appendChild(t);
-        }
+        let typeInput = document.createElement("input");
+        let typeDatalist = document.createElement("datalist");
         
-        type.name = "type";
-        type.setAttribute("type", "text");
-        type.className = "budget-item__type";
+        typeDatalist.id = "typeDatalist";
+        typeDatalist.setAttribute("type", "text");
+        typeDatalist.className = "budget-item__type";
+        
+        fetch('http://localhost:8080/fashionApp/web/type')
+            .then(response => response.json())
+            .then(types => {
+                let typesArray = [];
+                for (let type of types) {
+                    typesArray.push(type.name);
+                }
+                return typesArray;
+            }).then (types => {
+                typeInput.setAttribute("value", type);
+                for (let t of types) {
+                    let option = document.createElement("option");
+                    option.text = t;
+                    typeDatalist.appendChild(option);
+                }
+            });
 
         let typeDiv = document.createElement("div");
         typeDiv.className = "budget-item-row__column";
-        typeDiv.appendChild(type);
+        
+        // typeDiv.appendChild(typeDatalist);
+        typeInput.appendChild(typeDatalist);
+        typeDiv.appendChild(typeInput);
+        
 
         budgetItemRow.appendChild(nameDiv);
         budgetItemRow.appendChild(typeDiv);
