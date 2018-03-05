@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         };
         const idFromHeader = document.querySelector("#card-header").firstChild;
         let dataID = "id";
-        if (idFromHeader!=null) {
+        if (idFromHeader!==null) {
             let splited = idFromHeader.nodeValue.split(" ");
             console.log("put");
             data[dataID] = splited[1];
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 body: JSON.stringify(data),
                 method: 'put'
             })
-                .then(function (result) { getCards(); return true })
+                .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         } else {
             console.log("post");
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 body: JSON.stringify(data),
                 method: 'post'
             })
-                .then(function (result) { getCards(); return true })
+                .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         }
 
