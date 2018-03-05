@@ -107,7 +107,7 @@ nav ul li>a:hover {
 
 main {
     grid-area: main;
-    padding: 0.75rem;
+    padding: 2rem;
     background-color: var(--backgroundcolor);
 }
 

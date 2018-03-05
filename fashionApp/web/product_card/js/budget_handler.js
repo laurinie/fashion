@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    productsURL = "http://localhost:8080/fashionApp/web/productcard";
-    categoriesURL = "http://localhost:8080/fashionApp/web/category";
-    collectionsURL = "http://localhost:8080/fashionApp/web/collection";
-    typesURL = "http://localhost:8080/fashionApp/web/type";
+    const productsURL = "http://localhost:8080/fashionApp/web/productcard/";
+    const categoriesURL = "http://localhost:8080/fashionApp/web/category/";
+    const collectionsURL = "http://localhost:8080/fashionApp/web/collection/";
+    const typesURL = "http://localhost:8080/fashionApp/web/type/";
     
-    let budgetPageElement = document.querySelector("#budget");
-    let budgetContainer = document.createElement("div");
+    const budgetPageElement = document.querySelector("#budget");
+    const budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";
     budgetPageElement.appendChild(budgetContainer);
     
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     getCollectionData(); // temporary function, until JSON connection works.
 
     function fetchCollections() {
-        let selectBudgetElem = document.querySelector(".select-budget__select");
+        const selectBudgetElem = document.querySelector(".select-budget__select");
         fetch(collectionsURL)
             .then(response => response.json())
             .then(collections => {
@@ -249,10 +249,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
         typeInput.appendChild(typeDatalist);
         typeDiv.appendChild(typeInput);
         
+        
+        
+        
+        let deleteImg = document.createElement("img");
+        deleteImg.className = "img-delete";
+        deleteImg.src = "./product_card/img/icons8-delete-32.png";
+        deleteImg.addEventListener("click", function(event) {
+            let row = event.target.parentNode;
+            let container = row.parentNode;
+            let confirmed = confirm("Are you sure you want to remove this item from the budget?");
+            if(confirmed) {
+                container.removeChild(row);
+            }
+        });
 
         budgetItemRow.appendChild(nameDiv);
         budgetItemRow.appendChild(typeDiv);
         budgetItemRow.appendChild(budgetDiv);
+        
+        budgetItemRow.appendChild(deleteImg);
 
 
         return budgetItemRow;
@@ -280,18 +296,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     function changeEventListener(event) {
         let cell = event.target.parentNode;
+        
         let itemID = cell.parentNode.id;
-        let changedValueName = event.target.name;
-        console.log("ID: " + itemID + ", new value of " + changedValueName +  ": " + event.target.value);
-       
-        /*
-        fetch(productsURL, {
+        let changedProperty = event.target.name;
+        let newValue  = event.target.value;
+        console.log("ID: " + itemID + ", new value of " + changedProperty +  ": " + newValue);
+
+        let update;
+        switch (changedProperty) {
+            case "name":
+                update = {
+                    id: itemID,
+                    name: newValue
+                };
+                break;
+            case "type":
+                update = {
+                    id: itemID,
+                    type: {name: newValue}
+                };
+                break;
+            case "budget":
+                update = {
+                    id: itemID,
+                    budget: newValue
+                };
+                break;
+        }
+        
+        fetch(productsURL + itemID, {
                 headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(data),
-                method: 'post'
-            }); */
-        // get event changed
-        //fetch PUT
+                body: JSON.stringify(update),
+                method: 'put'
+            }); 
     }
     
 
