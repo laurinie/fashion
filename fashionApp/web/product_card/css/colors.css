@@ -1,0 +1,12 @@
+#colorpicker input {
+    width: 100%;
+    padding: 0px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--headercolor);
+    background-color: var(--backgroundcolor);
+    outline: none;
+}
+
