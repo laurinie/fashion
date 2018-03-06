@@ -9,7 +9,7 @@
 
 
 .input {
-    width: 100%;
+    width: 75%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -23,10 +23,10 @@
     width: 200px;
 }
 .color-card{
-    height: 75px;
+    height: auto;
     width: 75px;
+    padding: 3px;
     text-align: center;
-    padding: 10px;
     border-radius: 37.5px;
     margin:2px;
 }
