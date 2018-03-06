@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,10 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Type.findByBudget", query = "SELECT t FROM Type t WHERE t.budget = :budget")})
 public class Type implements Serializable {
 
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "budget")
-    private Float budget;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +46,14 @@ public class Type implements Serializable {
     //@Size(max = 255)
     @Column(name = "name")
     private String name;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "budget")
+    private Float budget;
     @OneToMany(mappedBy = "type")
     private Collection<Productcard> productcardCollection;
+    @JoinColumn(name = "categoryID", referencedColumnName = "id")
+    @ManyToOne
+    private Category categoryID;
 
     public Type() {
     }
@@ -74,6 +78,13 @@ public class Type implements Serializable {
         this.name = name;
     }
 
+    public Float getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Float budget) {
+        this.budget = budget;
+    }
 
     @XmlTransient
     public Collection<Productcard> getProductcardCollection() {
@@ -82,6 +93,14 @@ public class Type implements Serializable {
 
     public void setProductcardCollection(Collection<Productcard> productcardCollection) {
         this.productcardCollection = productcardCollection;
+    }
+
+    public Category getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(Category categoryID) {
+        this.categoryID = categoryID;
     }
 
     @Override
@@ -107,14 +126,6 @@ public class Type implements Serializable {
     @Override
     public String toString() {
         return "entities.Type[ id=" + id + " ]";
-    }
-
-    public Float getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Float budget) {
-        this.budget = budget;
     }
     
 }

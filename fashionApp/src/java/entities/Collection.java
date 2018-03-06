@@ -14,9 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Collection.findAll", query = "SELECT c FROM Collection c")
     , @NamedQuery(name = "Collection.findById", query = "SELECT c FROM Collection c WHERE c.id = :id")
-    , @NamedQuery(name = "Collection.findByName", query = "SELECT c FROM Collection c WHERE c.name = :name")})
+    , @NamedQuery(name = "Collection.findByName", query = "SELECT c FROM Collection c WHERE c.name = :name")
+    , @NamedQuery(name = "Collection.findByBudget", query = "SELECT c FROM Collection c WHERE c.budget = :budget")})
 public class Collection implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +43,11 @@ public class Collection implements Serializable {
     //@Size(max = 255)
     @Column(name = "name")
     private String name;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "budget")
+    private Float budget;
+    @OneToMany(mappedBy = "collectionID")
+    private java.util.Collection<Category> categoryCollection;
 
     public Collection() {
     }
@@ -62,6 +70,23 @@ public class Collection implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Float getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Float budget) {
+        this.budget = budget;
+    }
+
+    @XmlTransient
+    public java.util.Collection<Category> getCategoryCollection() {
+        return categoryCollection;
+    }
+
+    public void setCategoryCollection(java.util.Collection<Category> categoryCollection) {
+        this.categoryCollection = categoryCollection;
     }
 
     @Override

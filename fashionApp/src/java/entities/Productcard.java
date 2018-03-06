@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "productcard")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productcard.findAll", query = "SELECT p FROM Productcard p")
     , @NamedQuery(name = "Productcard.findById", query = "SELECT p FROM Productcard p WHERE p.id = :id")
@@ -65,7 +68,8 @@ public class Productcard implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne
     private Category category;
-    
+    @OneToMany(mappedBy = "productcardID")
+    private Collection<Item> itemCollection;
 
     public Productcard() {
     }
@@ -146,7 +150,14 @@ public class Productcard implements Serializable {
         this.category = category;
     }
 
+    @XmlTransient
+    public Collection<Item> getItemCollection() {
+        return itemCollection;
+    }
 
+    public void setItemCollection(Collection<Item> itemCollection) {
+        this.itemCollection = itemCollection;
+    }
 
     @Override
     public int hashCode() {

@@ -2,21 +2,30 @@ drop database if exists fashion2;
 create database fashion2;
 use fashion2;
 
+
+
+
+
 create table collection(
     id int auto_increment primary key,
-    name varchar(255)
-    
+    name varchar(255),
+    budget float    
 );
+
 create table category(
     id int auto_increment primary key,
     name varchar(255),
-    budget float
+    budget float,
+    collectionID int,
+    foreign key (collectionID) references collection(id)
 );
 
 create table type(
     id int auto_increment primary key,
     name varchar(255),
-    budget float
+    budget float,
+    categoryID int,
+    foreign key (categoryID) references category(id)
 );
 
 create table productcard(
@@ -33,6 +42,18 @@ create table productcard(
     retailprice float
 
 );
+
+create table item(
+    id int auto_increment primary key,
+    name varchar(255),
+    budget float,
+    productcardID int,
+    foreign key (productcardID) references productcard(id)
+);
+
+
+
+
 
 
 

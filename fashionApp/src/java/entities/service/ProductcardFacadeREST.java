@@ -57,7 +57,7 @@ public class ProductcardFacadeREST extends AbstractFacade<Productcard> {
 
     @GET
     @Path("{id}")
-    @Produces({ MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public Productcard find(@PathParam("id") Integer id) {
         return super.find(id);
     }
