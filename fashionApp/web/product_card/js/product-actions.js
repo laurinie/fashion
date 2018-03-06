@@ -32,8 +32,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     }
+    /*-----get categories from database to dropdown------*/
     function getCategories() {
         const dlistCategories = document.querySelector("#categories");
+        let childs = dlistCategories.childNodes;
+        while(dlistCategories.firstChild){
+            dlistCategories.removeChild(dlistCategories.firstChild);
+        }
         const getAllCategories = "http://localhost:8080/fashionApp/web/category/";
         const processJSON = (function (json) {
             for (let item of json) {
@@ -50,8 +55,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             .catch(error => (console.log("Fetch crashed due to " + error)));
 
     }
+    /*-----get types from database to dropdown------*/
     function getTypes() {
         const dlistTypes = document.querySelector("#types");
+        let childs = dlistTypes.childNodes;
+        while(dlistTypes.firstChild){
+            dlistTypes.removeChild(dlistTypes.firstChild);
+        }
         const getAllTypes = "http://localhost:8080/fashionApp/web/type/";
         const processJSON = (function (json) {
             for (let item of json) {
@@ -139,8 +149,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     });
+    /*-----Clears all cards from page------*/
     function update() {
-
         const cardsContainer = document.querySelector("#cards-container");
         const cards = cardsContainer.parentNode;
         cardsContainer.remove();
