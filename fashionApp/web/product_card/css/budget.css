@@ -11,17 +11,26 @@
 }
 
 .budget-group-header {
+    background-color: var(--tabcolor);
     display: grid;
     text-transform: uppercase;
     font-weight: bold;
     grid-template-columns: auto 100px 100px;
     border-bottom: 3px solid var(--tabcolor);
-    padding-bottom: 5px;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
 }
 
 .budget-item-row {
     display: grid;
+    background-color: #FFFFFF;
     grid-template-columns: auto 100px 100px;
+}
+
+.budget-item-row:hover{
+    background-color: rgba(139, 253, 215, 0.274) !important;
 }
 
 #budget input[type=text], input[type=number], textarea {
@@ -32,23 +41,17 @@
     border-radius: inherit;
     margin: 0;
     border-bottom: 1px solid var(--backgroundcolor);
-    background-color: #FFFFFF;
+    background-color: transparent;
     outline: none;
 }
 
-
-
 #budget input[type=number] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
 
 #budget input::-webkit-outer-spin-button,
 #budget input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-}
-
-#budget input:hover{
-    background-color: rgba(139, 253, 215, 0.274);
 }
 
 #budget form :focus {
@@ -58,15 +61,12 @@
 
 .budget-group-header__tab {
     display: inline;
-    background-color: var(--tabcolor);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     padding: 0.3em 1.5em;
 }
 
 .budget-group__footer {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
     border-bottom: 1px solid var(--tabcolor);
     padding: 12px 20px;
     margin: 0;
@@ -107,3 +107,34 @@
 #budget input[type=number], .budget-group__total-budget {
     text-align: right;
 }
+
+.budget-item-row__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.delete-div {
+    width: 0px;
+    height: 41px;
+    position: absolute;
+    right: 8px;
+    transition: 0.15s;
+}
+
+
+
+.img-delete {
+    opacity: 0.2;
+    width: 100%;
+}
+
+.img-delete__show {
+    height: ;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

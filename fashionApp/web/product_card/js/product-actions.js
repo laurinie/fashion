@@ -27,7 +27,55 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (productCard.classList.contains("display-none")) {
             productCard.classList.remove("display-none");
             scrollSmooth("#add-product");
+            getTypes()
+            getCategories();
         }
+
+    }
+    /*-----get categories from database to dropdown------*/
+    function getCategories() {
+        const dlistCategories = document.querySelector("#categories");
+        let childs = dlistCategories.childNodes;
+        while(dlistCategories.firstChild){
+            dlistCategories.removeChild(dlistCategories.firstChild);
+        }
+        const getAllCategories = "http://localhost:8080/fashionApp/web/category/";
+        const processJSON = (function (json) {
+            for (let item of json) {
+                console.log(item.name);
+                const option = document.createElement("option");
+                option.value = item.name;
+                dlistCategories.appendChild(option);
+            }
+            ;
+        });
+        fetch(getAllCategories)
+            .then(response => response.json())    //Returns a promise that resolves JSON object
+            .then(processJSON)
+            .catch(error => (console.log("Fetch crashed due to " + error)));
+
+    }
+    /*-----get types from database to dropdown------*/
+    function getTypes() {
+        const dlistTypes = document.querySelector("#types");
+        let childs = dlistTypes.childNodes;
+        while(dlistTypes.firstChild){
+            dlistTypes.removeChild(dlistTypes.firstChild);
+        }
+        const getAllTypes = "http://localhost:8080/fashionApp/web/type/";
+        const processJSON = (function (json) {
+            for (let item of json) {
+                console.log(item.name);
+                const option = document.createElement("option");
+                option.value = item.name;
+                dlistTypes.appendChild(option);
+            }
+            ;
+        });
+        fetch(getAllTypes)
+            .then(response => response.json())    //Returns a promise that resolves JSON object
+            .then(processJSON)
+            .catch(error => (console.log("Fetch crashed due to " + error)));
 
     }
 
@@ -57,15 +105,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     saveBtn.addEventListener('click', function () {
         count++;
         const name = document.querySelector("#name").value;
-        const type = document.querySelector("#type").value;
+        const type = document.querySelector("#types").value;
         const description = document.querySelector("#description").value;
         //const priceRange = document.querySelector("#price-range").value;
-        const category = document.querySelector("#category").value;
+        const category = document.querySelector("#categories").value;
         const color = document.querySelector("#color").value;
         const quantity = document.querySelector("#quantity").value;
         const price = document.querySelector("#price").value;
         const wholesalePrice = document.querySelector("#wholesale-price").value;
         const retailPrice = document.querySelector("#retail-price").value;
+
+
         let data = {
             name: name,
             color: color,
@@ -76,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         };
         const idFromHeader = document.querySelector("#card-header").firstChild;
         let dataID = "id";
-        if (idFromHeader!=null) {
+        if (idFromHeader!==null) {
             let splited = idFromHeader.nodeValue.split(" ");
             console.log("put");
             data[dataID] = splited[1];
@@ -85,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 body: JSON.stringify(data),
                 method: 'put'
             })
-                .then(function (result) { getCards(); return true })
+                .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         } else {
             console.log("post");
@@ -94,13 +144,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 body: JSON.stringify(data),
                 method: 'post'
             })
-                .then(function (result) { getCards(); return true })
+                .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         }
 
     });
+    /*-----Clears all cards from page------*/
     function update() {
-
         const cardsContainer = document.querySelector("#cards-container");
         const cards = cardsContainer.parentNode;
         cardsContainer.remove();
@@ -152,8 +202,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const dtType = document.createElement("dd");
         const itemCategory = document.createTextNode("Category:");
         const itemType = document.createTextNode("Type:");
-        const dtContentCategory = document.createTextNode(`${data.category}`);
-        const dtContentType = document.createTextNode(`${data.type}`);
+        const dtContentCategory = document.createTextNode(`${data.category.name}`);
+        const dtContentType = document.createTextNode(`${data.type.name}`);
         //console.log(dtContentType + " " + dtContentCategory);
         //----------Edit Button-----------//
         const itemEdit = document.createElement("BUTTON");
@@ -252,15 +302,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
         document.querySelector("#card-header").appendChild(idHeader);
         console.log(data.id);
         document.querySelector("#name").value = data.name;
-        document.querySelector("#type").value = data.type;
+        document.querySelector("#types").value = data.type.name;
         document.querySelector("#description").value = data.description;
         //const priceRange = document.querySelector("#price-range").value;
-        document.querySelector("#category").value = data.category;
+        document.querySelector("#categories").value = data.category.name;
         document.querySelector("#color").value = data.color;
         document.querySelector("#quantity").value = data.totalqty;
         document.querySelector("#price").value = data.price;
         document.querySelector("#wholesale-price").value = data.wholesaleprice;
         document.querySelector("#retail-price").value = data.retailprice;
+
     }
 
 
