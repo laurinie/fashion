@@ -1,9 +1,4 @@
-function findAncestor (el, cls) {
-        while ((el = el.parentElement) && !el.classList.contains(cls));
-        return el;
-    }
-    
-export { findAncestor }; 
+
 
 document.addEventListener("DOMContentLoaded", function (event) {
     
@@ -368,6 +363,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         
         
+    }
+    
+    function findAncestor (el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls));
+        return el;
     }
 
 });
