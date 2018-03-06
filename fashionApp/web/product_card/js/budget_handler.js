@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 let budgetGroups = budgetContainer.querySelectorAll(".budget-group");
                 for (let budgetGroup of budgetGroups) {
-                    updateTotalBudget(budgetGroup);
+                    updateBudget(budgetGroup);
                 }
                              
         }); 
@@ -123,7 +123,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
             let itemsContainer = budgetGroup.querySelector(".budget-items-container");
-            let newItem = createBudgetItemRow("");
+            let newItem = createBudgetItemRow("", null);
+            
+            /*fetch(addUrl, {
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(), // add variable name here!!
+                method: 'post'
+            });*/
+            
             itemsContainer.appendChild(newItem);
         });
 
@@ -176,6 +183,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let budgetItemRow = document.createElement("div");
         budgetItemRow.setAttribute("id", id);
         budgetItemRow.className ="budget-item-row";
+        budgetItemRow.addEventListener("mouseover", function(event) {
+            let row = findAncestor(event.target, "budget-item-row");
+            let deleteDiv = row.querySelector(".delete-div");
+            deleteDiv.classList.toggle("img-delete__show");
+        });
+        budgetItemRow.addEventListener("mouseout", function(event) {
+            let row = findAncestor(event.target, "budget-item-row");
+            let deleteDiv = row.querySelector(".delete-div");
+            deleteDiv.classList.toggle("img-delete__show");
+        });
+        
+        
 
 
         let name = document.createElement("input");
@@ -249,40 +268,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
         typeInput.appendChild(typeDatalist);
         typeDiv.appendChild(typeInput);
         
-        
-        
+        let imgDiv = document.createElement("div");
+        imgDiv.className = "delete-div";
         
         let deleteImg = document.createElement("img");
         deleteImg.className = "img-delete";
         deleteImg.src = "./product_card/img/icons8-delete-32.png";
-        deleteImg.addEventListener("click", function(event) {
-            let row = event.target.parentNode;
+        imgDiv.addEventListener("click", function(event) {
+            console.log(event.target);
+            let row = findAncestor(event.target, "budget-item-row");
             let container = row.parentNode;
             let confirmed = confirm("Are you sure you want to remove this item from the budget?");
             if(confirmed) {
+                row.querySelector(".budget-item__budget").value = 0;
+                updateBudget(findAncestor(row, "budget-group"));
                 container.removeChild(row);
             }
         });
+        
+        imgDiv.appendChild(deleteImg);
 
         budgetItemRow.appendChild(nameDiv);
         budgetItemRow.appendChild(typeDiv);
         budgetItemRow.appendChild(budgetDiv);
-        
-        budgetItemRow.appendChild(deleteImg);
-
+        budgetItemRow.appendChild(imgDiv);
 
         return budgetItemRow;
 
     }
 
-    //add EventListener to all budget cells
-    //take into account that the budget group needs to update the budget also when a row is deleted!
-    function updateTotalBudget(budgetGroup) {
+
+    function updateBudget(budgetGroup) {
         let totalBudget = 0;
         let itemBudgets = budgetGroup.querySelectorAll(".budget-item__budget");
-
-        // console.log("updating category budget");
-
+        
         // loop that goes through all the items in the item group
         // and adds the amounts to totalBudget
         for (let itemBudget of itemBudgets) {
@@ -296,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     function changeEventListener(event) {
         let cell = event.target.parentNode;
-        
+        let budgetGroup = findAncestor(cell, "budget-group");
         let itemID = cell.parentNode.id;
         let changedProperty = event.target.name;
         let newValue  = event.target.value;
@@ -309,27 +328,42 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     id: itemID,
                     name: newValue
                 };
+                
+                fetch(productsURL + itemID, {
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(update),
+                    method: 'put'
+                }); 
                 break;
             case "type":
                 update = {
                     id: itemID,
                     type: {name: newValue}
                 };
+                fetch(productsURL + itemID, {
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(update),
+                    method: 'put'
+                }); 
                 break;
             case "budget":
+                updateBudget(budgetGroup);
                 update = {
                     id: itemID,
                     budget: newValue
                 };
+                
+                // ADD FETCH METHOD HERE ONCE ITEM TABLE IS CREATED
+                
                 break;
         }
         
-        fetch(productsURL + itemID, {
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(update),
-                method: 'put'
-            }); 
+        
     }
     
+    function findAncestor (el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls));
+        return el;
+    }
 
 });

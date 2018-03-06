@@ -45,8 +45,6 @@
     outline: none;
 }
 
-
-
 #budget input[type=number] {
     -moz-appearance: textfield;
 }
@@ -55,8 +53,6 @@
 #budget input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
-
-
 
 #budget form :focus {
     box-shadow: 3px 3px var(--navhover);
@@ -118,15 +114,27 @@
     justify-content: center;
 }
 
-.delete-row {
+.delete-div {
+    width: 0px;
+    height: 41px;
     position: absolute;
-    right: 0;
+    right: 8px;
+    transition: 0.15s;
 }
+
+
 
 .img-delete {
     opacity: 0.2;
-    width:22px;
-    height:22px;
-    position: absolute;
-    right: 6px;
+    width: 100%;
 }
+
+.img-delete__show {
+    height: ;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
