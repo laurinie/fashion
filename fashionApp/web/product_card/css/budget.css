@@ -6,6 +6,8 @@
     align-content: center;
 }
 
+
+
 .budget-group {
     margin-bottom: 2.5rem;
 }
@@ -21,6 +23,7 @@
 
 .budget-item-row {
     display: grid;
+    background-color: #FFFFFF;
     grid-template-columns: auto 100px 100px;
 }
 
@@ -106,4 +109,11 @@
 
 #budget input[type=number], .budget-group__total-budget {
     text-align: right;
+}
+}
+
+.budget-item-row__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
