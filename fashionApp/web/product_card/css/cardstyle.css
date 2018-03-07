@@ -6,6 +6,11 @@
     margin: 0;
     background-color: var(--tabcolor);
     overflow: hidden;
+    text-overflow: ellipsis;
+    width: inherit;
+    height: 2em;
+    white-space: nowrap;
+
 }
 label{
     font-family: 'Raleway', sans-serif;
