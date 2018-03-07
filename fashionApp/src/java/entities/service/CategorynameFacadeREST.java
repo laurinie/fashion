@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("entities.categoryname")
+@Path("categoryname")
 public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
 
     @PersistenceContext(unitName = "fashionAppPU")
@@ -37,14 +37,14 @@ public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public void create(Categoryname entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Categoryname entity) {
         super.edit(entity);
     }
@@ -57,21 +57,21 @@ public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public Categoryname find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Categoryname> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Categoryname> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }

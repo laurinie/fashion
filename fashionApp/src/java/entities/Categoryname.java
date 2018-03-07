@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "categoryname")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Categoryname.findAll", query = "SELECT c FROM Categoryname c")
     , @NamedQuery(name = "Categoryname.findById", query = "SELECT c FROM Categoryname c WHERE c.id = :id")
@@ -40,7 +40,7 @@ public class Categoryname implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "category")

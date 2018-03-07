@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "collections")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Collections.findAll", query = "SELECT c FROM Collections c")
     , @NamedQuery(name = "Collections.findById", query = "SELECT c FROM Collections c WHERE c.id = :id")
@@ -41,7 +41,7 @@ public class Collections implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "name")
     private String name;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation

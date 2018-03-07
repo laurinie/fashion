@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "typename")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Typename.findAll", query = "SELECT t FROM Typename t")
     , @NamedQuery(name = "Typename.findById", query = "SELECT t FROM Typename t WHERE t.id = :id")
@@ -40,7 +40,7 @@ public class Typename implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "type")

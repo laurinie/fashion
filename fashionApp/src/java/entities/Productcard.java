@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "productcard")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productcard.findAll", query = "SELECT p FROM Productcard p")
     , @NamedQuery(name = "Productcard.findById", query = "SELECT p FROM Productcard p WHERE p.id = :id")
@@ -47,10 +47,10 @@ public class Productcard implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "name")
     private String name;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "color")
     private String color;
     @Column(name = "totalqty")

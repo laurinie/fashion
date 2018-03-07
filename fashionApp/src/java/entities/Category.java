@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "category")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
     , @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id")

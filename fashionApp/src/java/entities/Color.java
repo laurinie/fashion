@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "color")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Color.findAll", query = "SELECT c FROM Color c")
     , @NamedQuery(name = "Color.findById", query = "SELECT c FROM Color c WHERE c.id = :id")
@@ -40,10 +40,10 @@ public class Color implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "name")
     private String name;
-    @Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "hexa")
     private String hexa;
     @JoinColumn(name = "collectionID", referencedColumnName = "id")
