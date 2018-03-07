@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("type")
+@Path("entities.type")
 public class TypeFacadeREST extends AbstractFacade<Type> {
 
     @PersistenceContext(unitName = "fashionAppPU")
@@ -37,41 +37,41 @@ public class TypeFacadeREST extends AbstractFacade<Type> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Type entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Type entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") String id, Type entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    public void remove(@PathParam("id") String id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Type find(@PathParam("id") Integer id) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Type find(@PathParam("id") String id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Type> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Type> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }

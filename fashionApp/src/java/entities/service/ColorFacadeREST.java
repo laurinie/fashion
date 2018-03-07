@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Collection;
+import entities.Color;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("collection")
-public class CollectionFacadeREST extends AbstractFacade<Collection> {
+@Path("entities.color")
+public class ColorFacadeREST extends AbstractFacade<Color> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public CollectionFacadeREST() {
-        super(Collection.class);
+    public ColorFacadeREST() {
+        super(Color.class);
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Collection entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void create(Color entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Collection entity) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Integer id, Color entity) {
         super.edit(entity);
     }
 
@@ -57,22 +57,22 @@ public class CollectionFacadeREST extends AbstractFacade<Collection> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Collection find(@PathParam("id") Integer id) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Color find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Collection> findAll() {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Color> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Collection> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Color> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

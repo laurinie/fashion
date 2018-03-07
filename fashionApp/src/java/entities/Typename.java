@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,14 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Joni
  */
 @Entity
-@Table(name = "collection")
-//@XmlRootElement
+@Table(name = "typename")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Collection.findAll", query = "SELECT c FROM Collection c")
-    , @NamedQuery(name = "Collection.findById", query = "SELECT c FROM Collection c WHERE c.id = :id")
-    , @NamedQuery(name = "Collection.findByName", query = "SELECT c FROM Collection c WHERE c.name = :name")
-    , @NamedQuery(name = "Collection.findByBudget", query = "SELECT c FROM Collection c WHERE c.budget = :budget")})
-public class Collection implements Serializable {
+    @NamedQuery(name = "Typename.findAll", query = "SELECT t FROM Typename t")
+    , @NamedQuery(name = "Typename.findById", query = "SELECT t FROM Typename t WHERE t.id = :id")
+    , @NamedQuery(name = "Typename.findByName", query = "SELECT t FROM Typename t WHERE t.name = :name")})
+public class Typename implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,19 +40,18 @@ public class Collection implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    //@Size(max = 255)
+    @Size(max = 255)
     @Column(name = "name")
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "budget")
-    private Float budget;
-    @OneToMany(mappedBy = "collectionID")
-    private java.util.Collection<Category> categoryCollection;
+    @OneToMany(mappedBy = "type")
+    private Collection<Productcard> productcardCollection;
+    @OneToMany(mappedBy = "name")
+    private Collection<Type> typeCollection;
 
-    public Collection() {
+    public Typename() {
     }
 
-    public Collection(Integer id) {
+    public Typename(Integer id) {
         this.id = id;
     }
 
@@ -72,21 +71,22 @@ public class Collection implements Serializable {
         this.name = name;
     }
 
-    public Float getBudget() {
-        return budget;
+    @XmlTransient
+    public Collection<Productcard> getProductcardCollection() {
+        return productcardCollection;
     }
 
-    public void setBudget(Float budget) {
-        this.budget = budget;
+    public void setProductcardCollection(Collection<Productcard> productcardCollection) {
+        this.productcardCollection = productcardCollection;
     }
 
     @XmlTransient
-    public java.util.Collection<Category> getCategoryCollection() {
-        return categoryCollection;
+    public Collection<Type> getTypeCollection() {
+        return typeCollection;
     }
 
-    public void setCategoryCollection(java.util.Collection<Category> categoryCollection) {
-        this.categoryCollection = categoryCollection;
+    public void setTypeCollection(Collection<Type> typeCollection) {
+        this.typeCollection = typeCollection;
     }
 
     @Override
@@ -99,10 +99,10 @@ public class Collection implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Collection)) {
+        if (!(object instanceof Typename)) {
             return false;
         }
-        Collection other = (Collection) object;
+        Typename other = (Typename) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -111,7 +111,7 @@ public class Collection implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Collection[ id=" + id + " ]";
+        return "entities.Typename[ id=" + id + " ]";
     }
     
 }

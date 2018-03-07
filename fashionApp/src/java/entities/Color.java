@@ -25,14 +25,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Joni
  */
 @Entity
-@Table(name = "item")
+@Table(name = "color")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i")
-    , @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id")
-    , @NamedQuery(name = "Item.findByName", query = "SELECT i FROM Item i WHERE i.name = :name")
-    , @NamedQuery(name = "Item.findByBudget", query = "SELECT i FROM Item i WHERE i.budget = :budget")})
-public class Item implements Serializable {
+    @NamedQuery(name = "Color.findAll", query = "SELECT c FROM Color c")
+    , @NamedQuery(name = "Color.findById", query = "SELECT c FROM Color c WHERE c.id = :id")
+    , @NamedQuery(name = "Color.findByName", query = "SELECT c FROM Color c WHERE c.name = :name")
+    , @NamedQuery(name = "Color.findByHexa", query = "SELECT c FROM Color c WHERE c.hexa = :hexa")})
+public class Color implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,20 +43,17 @@ public class Item implements Serializable {
     @Size(max = 255)
     @Column(name = "name")
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "budget")
-    private Float budget;
-    @JoinColumn(name = "productcardID", referencedColumnName = "id")
+    @Size(max = 255)
+    @Column(name = "hexa")
+    private String hexa;
+    @JoinColumn(name = "collectionID", referencedColumnName = "id")
     @ManyToOne
-    private Productcard productcardID;
-    @JoinColumn(name = "typeID", referencedColumnName = "id")
-    @ManyToOne
-    private Type typeID;
+    private Collections collectionID;
 
-    public Item() {
+    public Color() {
     }
 
-    public Item(Integer id) {
+    public Color(Integer id) {
         this.id = id;
     }
 
@@ -76,28 +73,20 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public Float getBudget() {
-        return budget;
+    public String getHexa() {
+        return hexa;
     }
 
-    public void setBudget(Float budget) {
-        this.budget = budget;
+    public void setHexa(String hexa) {
+        this.hexa = hexa;
     }
 
-    public Productcard getProductcardID() {
-        return productcardID;
+    public Collections getCollectionID() {
+        return collectionID;
     }
 
-    public void setProductcardID(Productcard productcardID) {
-        this.productcardID = productcardID;
-    }
-
-    public Type getTypeID() {
-        return typeID;
-    }
-
-    public void setTypeID(Type typeID) {
-        this.typeID = typeID;
+    public void setCollectionID(Collections collectionID) {
+        this.collectionID = collectionID;
     }
 
     @Override
@@ -110,10 +99,10 @@ public class Item implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Item)) {
+        if (!(object instanceof Color)) {
             return false;
         }
-        Item other = (Item) object;
+        Color other = (Color) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -122,7 +111,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Item[ id=" + id + " ]";
+        return "entities.Color[ id=" + id + " ]";
     }
     
 }

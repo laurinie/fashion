@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Category;
+import entities.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,54 +25,54 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("entities.category")
-public class CategoryFacadeREST extends AbstractFacade<Category> {
+@Path("entities.collections")
+public class CollectionsFacadeREST extends AbstractFacade<Collections> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public CategoryFacadeREST() {
-        super(Category.class);
+    public CollectionsFacadeREST() {
+        super(Collections.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Category entity) {
+    public void create(Collections entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Category entity) {
+    public void edit(@PathParam("id") Integer id, Collections entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Category find(@PathParam("id") String id) {
+    public Collections find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Category> findAll() {
+    public List<Collections> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Category> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Collections> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

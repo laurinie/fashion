@@ -19,7 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,11 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "category")
-//@XmlRootElement
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
     , @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id")
-    , @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
     , @NamedQuery(name = "Category.findByBudget", query = "SELECT c FROM Category c WHERE c.budget = :budget")})
 public class Category implements Serializable {
 
@@ -43,17 +41,15 @@ public class Category implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    //@Size(max = 255)
-    @Column(name = "name")
-    private String name;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "budget")
     private Float budget;
-    @OneToMany(mappedBy = "category")
-    private Collection<Productcard> productcardCollection;
     @JoinColumn(name = "collectionID", referencedColumnName = "id")
     @ManyToOne
-    private entities.Collection collectionID;
+    private Collections collectionID;
+    @JoinColumn(name = "name", referencedColumnName = "id")
+    @ManyToOne
+    private Categoryname name;
     @OneToMany(mappedBy = "categoryID")
     private Collection<Type> typeCollection;
 
@@ -72,14 +68,6 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Float getBudget() {
         return budget;
     }
@@ -88,21 +76,20 @@ public class Category implements Serializable {
         this.budget = budget;
     }
 
-    @XmlTransient
-    public Collection<Productcard> getProductcardCollection() {
-        return productcardCollection;
-    }
-
-    public void setProductcardCollection(Collection<Productcard> productcardCollection) {
-        this.productcardCollection = productcardCollection;
-    }
-
-    public entities.Collection getCollectionID() {
+    public Collections getCollectionID() {
         return collectionID;
     }
 
-    public void setCollectionID(entities.Collection collectionID) {
+    public void setCollectionID(Collections collectionID) {
         this.collectionID = collectionID;
+    }
+
+    public Categoryname getName() {
+        return name;
+    }
+
+    public void setName(Categoryname name) {
+        this.name = name;
     }
 
     @XmlTransient

@@ -6,33 +6,34 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Joni
  */
 @Entity
-@Table(name = "item")
+@Table(name = "collections")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i")
-    , @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id")
-    , @NamedQuery(name = "Item.findByName", query = "SELECT i FROM Item i WHERE i.name = :name")
-    , @NamedQuery(name = "Item.findByBudget", query = "SELECT i FROM Item i WHERE i.budget = :budget")})
-public class Item implements Serializable {
+    @NamedQuery(name = "Collections.findAll", query = "SELECT c FROM Collections c")
+    , @NamedQuery(name = "Collections.findById", query = "SELECT c FROM Collections c WHERE c.id = :id")
+    , @NamedQuery(name = "Collections.findByName", query = "SELECT c FROM Collections c WHERE c.name = :name")
+    , @NamedQuery(name = "Collections.findByBudget", query = "SELECT c FROM Collections c WHERE c.budget = :budget")})
+public class Collections implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,17 +47,15 @@ public class Item implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "budget")
     private Float budget;
-    @JoinColumn(name = "productcardID", referencedColumnName = "id")
-    @ManyToOne
-    private Productcard productcardID;
-    @JoinColumn(name = "typeID", referencedColumnName = "id")
-    @ManyToOne
-    private Type typeID;
+    @OneToMany(mappedBy = "collectionID")
+    private Collection<Color> colorCollection;
+    @OneToMany(mappedBy = "collectionID")
+    private Collection<Category> categoryCollection;
 
-    public Item() {
+    public Collections() {
     }
 
-    public Item(Integer id) {
+    public Collections(Integer id) {
         this.id = id;
     }
 
@@ -84,20 +83,22 @@ public class Item implements Serializable {
         this.budget = budget;
     }
 
-    public Productcard getProductcardID() {
-        return productcardID;
+    @XmlTransient
+    public Collection<Color> getColorCollection() {
+        return colorCollection;
     }
 
-    public void setProductcardID(Productcard productcardID) {
-        this.productcardID = productcardID;
+    public void setColorCollection(Collection<Color> colorCollection) {
+        this.colorCollection = colorCollection;
     }
 
-    public Type getTypeID() {
-        return typeID;
+    @XmlTransient
+    public Collection<Category> getCategoryCollection() {
+        return categoryCollection;
     }
 
-    public void setTypeID(Type typeID) {
-        this.typeID = typeID;
+    public void setCategoryCollection(Collection<Category> categoryCollection) {
+        this.categoryCollection = categoryCollection;
     }
 
     @Override
@@ -110,10 +111,10 @@ public class Item implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Item)) {
+        if (!(object instanceof Collections)) {
             return false;
         }
-        Item other = (Item) object;
+        Collections other = (Collections) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -122,7 +123,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Item[ id=" + id + " ]";
+        return "entities.Collections[ id=" + id + " ]";
     }
     
 }
