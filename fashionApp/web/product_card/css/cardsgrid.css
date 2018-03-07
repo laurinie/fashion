@@ -1,4 +1,4 @@
-#cards-container {
+#cards-container, #colorgrid {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
