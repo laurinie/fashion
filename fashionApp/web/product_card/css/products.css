@@ -2,30 +2,24 @@
 Lauri css file
 */
 
-.main-grid-container {
-    display: grid;
-    height: auto;
-    width: 100%;
-    grid-gap: 6px;
-    grid-template-areas: "t" "p" "e";
-    /*align-content: space-between; */
-    /*justify-content: space-around; */
-}
-#search-container{
-    padding: 10px;
-}
-#card-search{
-    display: grid;
-    grid-template-columns: 50px 1fr 1fr 1fr 1fr;
-    grid-gap: 5px;
+#search-products-container{
+    display: block;
+    height: 1.5rem;
+    padding: 0;
 }
 
-#main-product {
-    grid-area: t;
+#search-products {
+    display: flex;
+    flex-direction: row;
+    height: 1rem;
 }
 
-#add-product {
-    grid-area: p;
+#search-products select {
+    height: 50px;
+}
+
+#search-products input {
+    width: 5rem;
 }
 
 .display-none {
@@ -40,49 +34,17 @@ Lauri css file
     height: 40px;
 }
 .search-btn{
-    background-color: var(--info)!important;
+    background-color: var(--info);
+    width: 30px;
+    height: 30px;
 }
-.src-img{
+
+button .search-img {
+    display: inline;
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+button .search-img img {
     width: 100%;
-    height: auto;
-    border-radius: 3px;
-}
-.src-img:hover{
-    /* border: solid 2px var(--info); */
-    padding: 3px;
-    background-color:var(--backgroundcolor); 
-}
-
-@media (min-width:100px) and (max-width:659px) {
-    #card-search{
-        display: grid;
-        width: 100%;
-        height: auto;
-        grid-template-columns: none;
-        grid-template-areas: 
-        "btn a b"
-        "c c d";
-        grid-gap: 5px;
-    }
-    #search{
-        grid-area: btn;
-    }
-    #src-name{
-        grid-area:a;
-    }
-    #src-type{
-        grid-area:b;
-    }
-    #src-category{
-        grid-area:c;
-    }
-    #src-tag{
-        grid-area:d;
-    }
-    .src-img{
-        width: 50px;
-        height: 50px;
-        border-radius: 3px;
-    }
-
 }

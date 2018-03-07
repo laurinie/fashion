@@ -2,11 +2,11 @@
 
 document.addEventListener("DOMContentLoaded", function (event) {
     
-     
-    const productsURL = "http://localhost:8080/fashionApp/web/productcard/";
-    const categoriesURL = "http://localhost:8080/fashionApp/web/category/";
-    const collectionsURL = "http://localhost:8080/fashionApp/web/collection/";
-    const typesURL = "http://localhost:8080/fashionApp/web/type/";
+    const URLbase = "http://localhost:8080/fashionApp/";
+    const productsURL = URLbase + "web/productcard/";
+    const categoriesURL = URLbase + "web/category/";
+    const collectionsURL = URLbase + "web/collection/";
+    const typesURL = URLbase + "web/type/";
     
     const budgetPageElement = document.querySelector("#budget");
     const budgetContainer = document.createElement("div");
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     option.text = collection.name;
                     selectBudgetElem.appendChild(option);
                 }
-            });    
+            }).catch(error => (console.log("Fetch crashed due to " + error)));    
     }
 
     /* Temporary function to fill in some information, just to check things work fine. */
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     budgetContainer.appendChild(newBudgetGroup);
                 }
                 getItems();
-        });
+        }).catch(error => (console.log("Fetch crashed due to " + error)));
         // catch errors    
     }
     
@@ -94,9 +94,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 let budgetGroups = budgetContainer.querySelectorAll(".budget-group");
                 for (let budgetGroup of budgetGroups) {
                     updateBudget(budgetGroup);
-                }
-                             
-        }); 
+                }                   
+        }).catch(error => (console.log("Fetch crashed due to " + error))); 
     }
 
 
@@ -122,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let addButton = document.createElement("button");
         addButton.className = "budget-group__add-button";
-        addButton.innerHTML = "<img src='./product_card/img/add.png' alt='Application logo'> Add new item";
+        addButton.innerHTML = "<img src='./product_card/img/icon_add.png' alt='Application logo'> Add new item";
         addButton.addEventListener('click', function(event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
@@ -263,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     option.text = t;
                     typeDatalist.appendChild(option);
                 }
-            });
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
 
         let typeDiv = document.createElement("div");
         typeDiv.className = "budget-item-row__column";
@@ -277,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         
         let deleteImg = document.createElement("img");
         deleteImg.className = "img-delete";
-        deleteImg.src = "./product_card/img/icons8-delete-32.png";
+        deleteImg.src = "./product_card/img/icon_delete.png";
         imgDiv.addEventListener("click", function(event) {
             console.log(event.target);
             let row = findAncestor(event.target, "budget-item-row");
@@ -337,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(update),
                     method: 'put'
-                }); 
+                }).catch(error => (console.log("Fetch crashed due to " + error))); 
                 break;
             case "type":
                 update = {
@@ -348,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(update),
                     method: 'put'
-                }); 
+                }).catch(error => (console.log("Fetch crashed due to " + error))); 
                 break;
             case "budget":
                 updateBudget(budgetGroup);
