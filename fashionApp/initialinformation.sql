@@ -8,15 +8,15 @@ INSERT INTO fashion2.collections (name, budget)
 	VALUES ("Junction", 70000.0);
 
 
-INSERT INTO fashion2.categoryname ("name") 
+INSERT INTO fashion2.categoryname (name) 
 	VALUES ("Jackets");
-INSERT INTO fashion2.categoryname ("name") 
+INSERT INTO fashion2.categoryname (name) 
 	VALUES ("Pants");
-INSERT INTO fashion2.categoryname ("name") 
+INSERT INTO fashion2.categoryname (name) 
 	VALUES ("Dresses");
-INSERT INTO fashion2.categoryname ("name") 
+INSERT INTO fashion2.categoryname (name) 
 	VALUES ("Headwear");
-INSERT INTO fashion2.categoryname ("name") 
+INSERT INTO fashion2.categoryname (name) 
 	VALUES ("Bags");
 
 
@@ -44,25 +44,25 @@ INSERT INTO fashion2.category (name, budget, collectionID)
 	VALUES (6, NULL, 4);
 
 
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("T-Shirts");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Tops");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Longsleeved");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Jeans");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Shorts");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Leggings");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Leather jacket");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Rain jacket");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Beanie");
-INSERT INTO fashion2.typename ("name") 
+INSERT INTO fashion2.typename (name) 
 	VALUES ("Clutch");
 
 INSERT INTO fashion2.type (name, budget, categoryID) 
