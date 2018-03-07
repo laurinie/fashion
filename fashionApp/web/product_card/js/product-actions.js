@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (productCard.classList.contains("display-none")) {
             productCard.classList.remove("display-none");
             scrollSmooth("#add-product");
-            getTypes()
+            getTypes();
             getCategories();
         }
 

@@ -14,11 +14,13 @@
     <link rel="stylesheet" href="./product_card/css/cardsgrid.css">
     <link rel="stylesheet" href="./product_card/css/budget.css">
     <link rel="stylesheet" href="./product_card/css/collectionstyle.css">
+    <link rel="stylesheet" href="./product_card/css/colors.css">
 
     <script src="./product_card/js/navigation-handler.js"></script>
     <script src="./product_card/js/product-actions.js"></script>
     <script src="./product_card/js/budget_handler.js"></script>
     <script src="./product_card/js/collection_handler.js"></script>
+    <script src="./product_card/js/colors-handler.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
@@ -29,8 +31,11 @@
         <img src="./product_card/img/logo_inverted.png" alt="Application logo" id="project-logo">
     </header>
 
-    <nav>
-        <ul>
+    <nav id="nav">
+
+        <button id="menu-button" class="dropbtn"><img class="brgmenu" src="./product_card/img/brgmenu.png" alt="Menu"></button>
+        <ul id="menu" class="dropdown-content">
+
             <li data-target-section="#main">
                 <a href="">Main</a>
             </li>
@@ -111,7 +116,8 @@
                                     <div class="col">
                                         <form class="card-form">
                                             <label for="type">Item type
-                                            <input list="types" name="types"/></label>
+                                                <input list="types" name="types" />
+                                            </label>
                                             <datalist id="types">
                                             </datalist>
                                         </form>
@@ -127,7 +133,8 @@
                                     <div class="col">
                                         <form class="card-form">
                                             <label for="category">Category
-                                            <input list="categories" name="category"/></label>
+                                                <input list="categories" name="category" />
+                                            </label>
                                             <datalist id="categories">
                                             </datalist>
                                         </form>
@@ -138,6 +145,7 @@
                                     <form class="card-form">
                                         <label for="description">Product description</label>
                                         <textarea id="description" class="inpdesc"></textarea>
+                                        <input type="file" id="myFile" name="img" multiple="false">
                                     </form>
 
                                 </div>
@@ -179,7 +187,16 @@
 
         <!-- User can create, edit and delete color cards here. -->
         <div class="content" id="color-cards">
-            This is the color cards view.
+            <h2>Pick color</h2>
+            <div id="add-color-div">
+                <label id="label-color" for="colorpicker">Color</label>
+                <input id="colorpicker" name="colorpicker" type="color" value="#0000ff" />
+                <input type="text" id="color-name" class="input" placeholder="name">
+                <button id="add-color" class="btn">Add</button>
+            </div>
+            <div id="colorgrid">
+
+            </div>
         </div>
 
         <!-- User can edit their profile here. -->

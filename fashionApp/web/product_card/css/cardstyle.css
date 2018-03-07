@@ -1,6 +1,16 @@
 
-h2 ,h3{
-    font-family: 'Bitter', serif;
+.small-card h2 ,h3{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    padding: 0.7rem;
+    margin: 0;
+    background-color: var(--tabcolor);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: inherit;
+    height: 2em;
+    white-space: nowrap;
+
 }
 label{
     font-family: 'Raleway', sans-serif;
@@ -47,7 +57,7 @@ label{
     display: grid;
     grid-gap: 6px;
 }
-input[type=text], input[type=number], .inpdesc, input {
+#products input[type=text],#products input[type=number],#products .inpdesc,#products input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -59,10 +69,10 @@ input[type=text], input[type=number], .inpdesc, input {
     outline: none;
 }
 
-input:hover{
+#products input:hover{
     background-color: rgba(139, 253, 215, 0.274);
 }
-form :focus {
+#products form :focus {
     box-shadow: 3px 3px var(--navhover);
     background-color: rgba(139, 253, 215, 0.274);
 }

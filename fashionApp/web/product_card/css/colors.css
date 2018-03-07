@@ -1,0 +1,41 @@
+#colorpicker {
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--backgroundcolor);
+    outline: none;
+    height: 30px;
+}
+
+.input {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--headercolor);
+    background-color: rgba(224, 224, 224, 0.432);
+    outline: none;
+}
+
+#add-color-div {
+    width: 200px;
+}
+
+.color-card {
+    height: auto;
+    width: 75px;
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.delete-img {
+    float: right;
+    height: 15px;
+}
+
+.del-div {
+}
