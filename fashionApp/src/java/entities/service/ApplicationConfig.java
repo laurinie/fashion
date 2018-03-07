@@ -32,10 +32,13 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(entities.service.CategoryFacadeREST.class);
-        resources.add(entities.service.CollectionFacadeREST.class);
+        resources.add(entities.service.CategorynameFacadeREST.class);
+        resources.add(entities.service.CollectionsFacadeREST.class);
+        resources.add(entities.service.ColorFacadeREST.class);
         resources.add(entities.service.ItemFacadeREST.class);
         resources.add(entities.service.ProductcardFacadeREST.class);
         resources.add(entities.service.TypeFacadeREST.class);
+        resources.add(entities.service.TypenameFacadeREST.class);
     }
     
 }

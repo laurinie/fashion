@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Type;
+import entities.Categoryname;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,54 +25,54 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("type")
-public class TypeFacadeREST extends AbstractFacade<Type> {
+@Path("categoryname")
+public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public TypeFacadeREST() {
-        super(Type.class);
+    public CategorynameFacadeREST() {
+        super(Categoryname.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Type entity) {
+    public void create(Categoryname entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Type entity) {
+    public void edit(@PathParam("id") Integer id, Categoryname entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Type find(@PathParam("id") String id) {
+    public Categoryname find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Type> findAll() {
+    public List<Categoryname> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Type> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Categoryname> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

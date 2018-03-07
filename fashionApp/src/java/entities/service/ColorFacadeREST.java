@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Type;
+import entities.Color;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,54 +25,54 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("type")
-public class TypeFacadeREST extends AbstractFacade<Type> {
+@Path("color")
+public class ColorFacadeREST extends AbstractFacade<Color> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public TypeFacadeREST() {
-        super(Type.class);
+    public ColorFacadeREST() {
+        super(Color.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Type entity) {
+    public void create(Color entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Type entity) {
+    public void edit(@PathParam("id") Integer id, Color entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Type find(@PathParam("id") String id) {
+    public Color find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Type> findAll() {
+    public List<Color> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Type> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Color> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

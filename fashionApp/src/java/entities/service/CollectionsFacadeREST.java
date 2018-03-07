@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Collection;
+import entities.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("collection")
-public class CollectionFacadeREST extends AbstractFacade<Collection> {
+@Path("collections")
+public class CollectionsFacadeREST extends AbstractFacade<Collections> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public CollectionFacadeREST() {
-        super(Collection.class);
+    public CollectionsFacadeREST() {
+        super(Collections.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Collection entity) {
+    public void create(Collections entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Collection entity) {
+    public void edit(@PathParam("id") Integer id, Collections entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class CollectionFacadeREST extends AbstractFacade<Collection> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Collection find(@PathParam("id") Integer id) {
+    public Collections find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Collection> findAll() {
+    public List<Collections> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Collection> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Collections> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

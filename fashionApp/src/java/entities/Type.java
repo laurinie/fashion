@@ -19,7 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -33,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Type.findAll", query = "SELECT t FROM Type t")
     , @NamedQuery(name = "Type.findById", query = "SELECT t FROM Type t WHERE t.id = :id")
-    , @NamedQuery(name = "Type.findByName", query = "SELECT t FROM Type t WHERE t.name = :name")
     , @NamedQuery(name = "Type.findByBudget", query = "SELECT t FROM Type t WHERE t.budget = :budget")})
 public class Type implements Serializable {
 
@@ -43,17 +41,17 @@ public class Type implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    //@Size(max = 255)
-    @Column(name = "name")
-    private String name;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "budget")
     private Float budget;
-    @OneToMany(mappedBy = "type")
-    private Collection<Productcard> productcardCollection;
+    @OneToMany(mappedBy = "typeID")
+    private Collection<Item> itemCollection;
     @JoinColumn(name = "categoryID", referencedColumnName = "id")
     @ManyToOne
     private Category categoryID;
+    @JoinColumn(name = "name", referencedColumnName = "id")
+    @ManyToOne
+    private Typename name;
 
     public Type() {
     }
@@ -70,14 +68,6 @@ public class Type implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Float getBudget() {
         return budget;
     }
@@ -87,12 +77,12 @@ public class Type implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Productcard> getProductcardCollection() {
-        return productcardCollection;
+    public Collection<Item> getItemCollection() {
+        return itemCollection;
     }
 
-    public void setProductcardCollection(Collection<Productcard> productcardCollection) {
-        this.productcardCollection = productcardCollection;
+    public void setItemCollection(Collection<Item> itemCollection) {
+        this.itemCollection = itemCollection;
     }
 
     public Category getCategoryID() {
@@ -101,6 +91,14 @@ public class Type implements Serializable {
 
     public void setCategoryID(Category categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public Typename getName() {
+        return name;
+    }
+
+    public void setName(Typename name) {
+        this.name = name;
     }
 
     @Override

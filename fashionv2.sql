@@ -6,26 +6,46 @@ use fashion2;
 
 
 
-create table collection(
+create table collections(
     id int auto_increment primary key,
     name varchar(255),
     budget float    
 );
 
+create table categoryname(
+    id int auto_increment primary key,
+    name varchar(255)
+);
+
+create table typename(
+    id int auto_increment primary key,
+    name varchar(255)
+);
+
 create table category(
     id int auto_increment primary key,
-    name varchar(255),
+    name int,
     budget float,
     collectionID int,
-    foreign key (collectionID) references collection(id)
+    foreign key (collectionID) references collections(id),
+    foreign key (name) references categoryname(id)
 );
 
 create table type(
     id int auto_increment primary key,
-    name varchar(255),
+    name int,
     budget float,
     categoryID int,
-    foreign key (categoryID) references category(id)
+    foreign key (categoryID) references category(id),
+    foreign key (name) references typename(id)
+);
+
+create table color(
+    id int auto_increment primary key,
+    name varchar(255),
+    hexa varchar(255),
+    collectionID int,
+    foreign key (collectionID) references collections(id)
 );
 
 create table productcard(
@@ -33,8 +53,8 @@ create table productcard(
     name varchar(255),
     type int,
     category int,
-    foreign key (type) references type(id),
-    foreign key (category) references category(id),
+    foreign key (type) references typename(id),
+    foreign key (category) references categoryname(id),
     color varchar(255),
     totalqty int,
     price float,
@@ -48,7 +68,9 @@ create table item(
     name varchar(255),
     budget float,
     productcardID int,
-    foreign key (productcardID) references productcard(id)
+    foreign key (productcardID) references productcard(id),
+    typeID int,
+    foreign key (typeID) references type(id)
 );
 
 
