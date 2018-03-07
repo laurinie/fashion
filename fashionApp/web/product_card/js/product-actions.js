@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
-                option.value = item.name;
+                option.value = item.name.name;
                 dlistCategories.appendChild(option);
             }
             ;
@@ -57,9 +57,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const getAllTypes = "http://localhost:8080/fashionApp/web/type/";
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item.name);
                 const option = document.createElement("option");
-                option.value = item.name;
+                option.value = item.name.name;
                 dlistTypes.appendChild(option);
             }
             ;

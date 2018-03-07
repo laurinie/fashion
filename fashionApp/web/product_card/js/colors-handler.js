@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let colorName = document.createElement("p");
         let colorHex = document.createElement("p");
         colorName.textContent = name;
-        deletecard.innerHTML = `<img id="delete-img-${count}" class="delete-img" src="./product_card/img/icons8-delete-32.png">`;
+        deletecard.innerHTML = `<img id="delete-img-${count}" class="delete-img" src="./product_card/img/icon_delete.png">`;
 
         colorcard.classList.add("color-card");
         let selectedColor = color.value;

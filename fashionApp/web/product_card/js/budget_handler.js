@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const URLbase = "http://localhost:8080/fashionApp/";
     const productsURL = URLbase + "web/productcard/";
     const categoriesURL = URLbase + "web/category/";
-    const collectionsURL = URLbase + "web/collection/";
+    const collectionsURL = URLbase + "web/collections/";
     const typesURL = URLbase + "web/type/";
     
     const budgetPageElement = document.querySelector("#budget");
