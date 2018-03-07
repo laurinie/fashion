@@ -47,10 +47,10 @@ public class Productcard implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    //@Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "name")
     private String name;
-    //@Size(max = 255)
+//    @Size(max = 255)
     @Column(name = "color")
     private String color;
     @Column(name = "totalqty")
@@ -64,10 +64,10 @@ public class Productcard implements Serializable {
     private Float retailprice;
     @JoinColumn(name = "type", referencedColumnName = "id")
     @ManyToOne
-    private Type type;
+    private Typename type;
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne
-    private Category category;
+    private Categoryname category;
     @OneToMany(mappedBy = "productcardID")
     private Collection<Item> itemCollection;
 
@@ -134,19 +134,19 @@ public class Productcard implements Serializable {
         this.retailprice = retailprice;
     }
 
-    public Type getType() {
+    public Typename getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(Typename type) {
         this.type = type;
     }
 
-    public Category getCategory() {
+    public Categoryname getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Categoryname category) {
         this.category = category;
     }
 

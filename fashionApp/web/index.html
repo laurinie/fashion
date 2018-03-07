@@ -31,8 +31,11 @@
         <img src="./product_card/img/logo.png" alt="Application logo" id="project-logo">
     </header>
 
-    <nav>
-        <ul>
+    <nav id="nav">
+
+        <button id="menu-button" class="dropbtn"><img class="brgmenu" src="./product_card/img/brgmenu.png" alt="Menu"></button>
+        <ul id="menu" class="dropdown-content">
+
             <li data-target-section="#main">
                 <a href="">Main</a>
             </li>
@@ -144,6 +147,7 @@
                                     <form class="card-form">
                                         <label for="description">Product description</label>
                                         <textarea id="description" class="inpdesc"></textarea>
+                                        <input type="file" id="myFile" name="img" multiple="false">
                                     </form>
 
                                 </div>
@@ -188,7 +192,7 @@
             <h2>Pick color</h2>
             <div id="add-color-div">
                 <label id="label-color" for="colorpicker">Color</label>
-                <input id="colorpicker" name="colorpicker" type="color" value="#0000ff"/>
+                <input id="colorpicker" name="colorpicker" type="color" value="#0000ff" />
                 <input type="text" id="color-name" class="input" placeholder="name">
                 <button id="add-color" class="btn">Add</button>
             </div>

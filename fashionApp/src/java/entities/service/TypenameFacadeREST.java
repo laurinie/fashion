@@ -5,7 +5,7 @@
  */
 package entities.service;
 
-import entities.Type;
+import entities.Typename;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Joni
  */
 @Stateless
-@Path("type")
-public class TypeFacadeREST extends AbstractFacade<Type> {
+@Path("typename")
+public class TypenameFacadeREST extends AbstractFacade<Typename> {
 
     @PersistenceContext(unitName = "fashionAppPU")
     private EntityManager em;
 
-    public TypeFacadeREST() {
-        super(Type.class);
+    public TypenameFacadeREST() {
+        super(Typename.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Type entity) {
+    public void create(Typename entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Type entity) {
+    public void edit(@PathParam("id") String id, Typename entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class TypeFacadeREST extends AbstractFacade<Type> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Type find(@PathParam("id") String id) {
+    public Typename find(@PathParam("id") String id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Type> findAll() {
+    public List<Typename> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Type> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Typename> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
