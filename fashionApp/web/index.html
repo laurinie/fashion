@@ -28,7 +28,7 @@
 <body>
 
     <header>
-        <img src="./product_card/img/logo_inverted.png" alt="Application logo" id="project-logo">
+        <img src="./product_card/img/logo.png" alt="Application logo" id="project-logo">
     </header>
 
     <nav>
@@ -79,21 +79,23 @@
         <!-- LAURI -->
         <!-- User can search, create, edit and delete products here. -->
         <div class="content" id="products">
-            <div class="main-grid-container">
-                <div id="main-product">
-                    <button class="btn" id="add-button">Add card</button>
-                    <button class="btn search-btn" id="search-button">Search cards</button>
-
-                    <div id="search-container" class="hidden">
-                        <form id="card-search">
-                            <input id="serch" type="image" class="src-img" src="./product_card/img/search.png" alt="Search">
-                            <input id="src-name" type="text" placeholder="Name">
-                            <input id="src-type" type="text" placeholder="Type">
-                            <input id="src-category" type="text" placeholder="Category">
-                            <input id="src-tag" type="text" placeholder="Tag">
+            <div class="products-page-container">
+                <div id="products-actions">
+                    <div id="search-products-container">
+                        <form id="search-products">
+                            <select id="search-filter">
+                                <option>collection</option>
+                                <option>category</option>
+                                <option>type</option>
+                                <option>name</option>
+                            </select>
+                            <input id="search-value" type="text" >
+                            <button class="search-img"><img src="./product_card/img/icon_search.png" alt="Search"/></button>
                         </form>
                     </div>
+                    <button class="btn" id="add-button">New product</button>                
                 </div>
+                
                 <div id="add-product" class="display-none">
                     <div class="grid-container">
                         <div class="section">
