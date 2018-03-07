@@ -21,6 +21,28 @@ document.addEventListener('DOMContentLoaded', function(event) {
             element.classList.add("hidden");
         }
     }
+    function dropMenu(x) {
+        const menu = document.querySelector("#menu");
+        const menuBtn = document.querySelector("#menu-button");
+        const nav = document.querySelector("#nav");
+        
+
+        if (x.matches) { // If media query matches
+            menuBtn.classList.remove("hidden");
+            menu.classList.add("dropdown");
+            nav.classList.add("dropdown");
+            menu.classList.add("dropdown-content")
+        } else {
+            menuBtn.classList.add("hidden");
+            menu.classList.remove("dropdown");
+            menu.classList.remove("dropdown-content");
+            nav.classList.remove("dropdown");
+        }
+    }
+    
+    var x = window.matchMedia("(max-width: 500px)")
+    dropMenu(x) // Call listener function at run time
+    x.addListener(dropMenu) // Attach listener function on state changes
 
 
 });

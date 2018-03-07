@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function addDeleteListeners(deleteButton) {
         deleteButton.addEventListener('click', function (event) {
             let btnId = deleteButton.id.toString().split("-");
-            console.log(btnId[2]);
             let parent = deleteButton.parentElement.parentElement.parentElement;
             let child = deleteButton.parentElement.parentElement;
             if (confirm(`Are you sure you want to delete this item?`)) {
