@@ -39,7 +39,7 @@ public class CategoryFacadeREST extends AbstractFacade<Category> {
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
     public void create(Category entity) {
-        super.create(entity);
+       super.create(entity);
     }
 
     @PUT
@@ -82,7 +82,15 @@ public class CategoryFacadeREST extends AbstractFacade<Category> {
     public String countREST() {
         return String.valueOf(super.count());
     }
-
+    
+    @GET
+    @Path("collectionid/{command}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Category> findByNativeQuery(@PathParam("command") String command) {
+        String syote = "select * from category where collectionid="+command;
+        return super.findByNativeQuery(syote);
+    }
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
