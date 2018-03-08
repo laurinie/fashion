@@ -346,47 +346,54 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function changeEventListener(event) {
         let cell = event.target.parentNode;
         let budgetGroup = findAncestor(cell, "budget-group");
+        
         let itemID = cell.parentNode.id;
         let changedProperty = event.target.name;
         let newValue  = event.target.value;
         console.log("ID: " + itemID + ", new value of " + changedProperty +  ": " + newValue);
 
+        // quick and dirty code to get around the current database problem
+        let row = findAncestor(cell, "budget-item-row");
+        let data = {
+            id: itemID,
+            name: row.querySelector(".budget-item__name").value,
+            type: 1,
+            budget: row.querySelector(".budget-item__budget").value
+        };
+        
+
         let update;
-        switch (changedProperty) {
-            case "name":
-                update = {
-                    id: itemID,
-                    name: newValue
-                };
-                
-                fetch(itemsURL + itemID, {
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify(update),
-                    method: 'put'
-                }).catch(error => (console.log("Fetch crashed due to " + error))); 
-                break;
-            case "type":
-                update = {
-                    id: itemID,
-                    type: {name: newValue}
-                };
-                fetch(itemURL + itemID, {
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify(update),
-                    method: 'put'
-                }).catch(error => (console.log("Fetch crashed due to " + error))); 
-                break;
-            case "budget":
-                updateBudget(budgetGroup);
-                update = {
-                    id: itemID,
-                    budget: newValue
-                };
-                
-                // ADD FETCH METHOD HERE ONCE ITEM TABLE IS CREATED
-                
-                break;
+        fetch(itemsURL + itemID)
+                .then(response => response.json())
+                .then(item => {  
+                    update = item;
+                    switch (changedProperty) {
+                        case "name":
+                            update.name = newValue;
+                            console.log(update);
+                            fetch(itemsURL + itemID, {
+                                headers: { 'content-type': 'application/json' },
+                                body: JSON.stringify(update),
+                                method: 'put'
+                            }).catch(error => (console.log("Fetch crashed due to " + error))); 
+                            break;
+                        case "type":
+                            // figure out a way to change the type?
+                            
+                            fetch(itemURL + itemID, {
+                                headers: { 'content-type': 'application/json' },
+                                body: JSON.stringify(update),
+                                method: 'put'
+                            }).catch(error => (console.log("Fetch crashed due to " + error))); 
+                            break;
+                        case "budget":
+                            updateBudget(budgetGroup);
+                            console.log(update);
+                            update.budget = parseFloat(newValue);
+                            break;
         }
+        }).catch(error => (console.log("Fetch crashed due to " + error))); 
+        
         
         
     }
