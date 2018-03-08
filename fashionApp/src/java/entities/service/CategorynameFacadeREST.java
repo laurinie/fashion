@@ -38,9 +38,10 @@ public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Categoryname entity) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Categoryname create(Categoryname entity) {
        super.create(entity);
-       
+       return entity;
     }
 
     @PUT

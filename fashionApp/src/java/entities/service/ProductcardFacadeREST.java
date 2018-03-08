@@ -38,8 +38,10 @@ public class ProductcardFacadeREST extends AbstractFacade<Productcard> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Productcard entity) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Productcard create(Productcard entity) {
         super.create(entity);
+        return entity;
     }
 
     @PUT
