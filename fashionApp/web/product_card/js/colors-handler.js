@@ -1,11 +1,19 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    getColorCards();
-    let collectionID;
+    getColorCards(1);
+    let collectionID = 1;
     let count = 0;
     
     const addColorButton = document.querySelector("#add-color");
-
+    const advice = document.querySelector("#color-advice");
     function showColorCard(data) {
+        // if(data==null){
+        //     if (!advice.classList.contains("hidden")) {
+        //         advice.className = "hidden";
+        //     }
+        // }else{
+        //     advice.classList.remove("hidden");
+        // }
+        
         let colorGrid = document.querySelector("#colorgrid");
         count++;
         let color = document.querySelector("#colorpicker");
@@ -67,13 +75,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             body: JSON.stringify(data),
             method: 'post'
         })
-             .then(function (result) { getColorCards(); return true; })
+             .then(function (result) { getColorCards(data.collectionID); return true; })
             // .then(newResult => closeCard());
     });
-    function getColorCards(){
+    function getColorCards(id){
         update();
 
-        const getAll = "http://localhost:8080/fashionApp/web/color/";
+        const getAll = "http://localhost:8080/fashionApp/web/color/collectionid/"+id;
         const processJSON = (function (json) {
             for (let item of json) {
                 console.log(item);
@@ -131,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             // while (myNode.firstChild) {
             //     myNode.removeChild(myNode.firstChild);
             // }
+            getColorCards(collectionID);
             console.log(collectionID);
             //sgetCategories(collectionID);
         });
