@@ -1,15 +1,8 @@
 document.addEventListener("DOMContentLoaded", function (event) {
     getCards();
     let count = 0;
-    const searchCardsBtn = document.querySelector("#search-button");
+    
     const searchContainer = document.querySelector("#search-container");
-    searchCardsBtn.addEventListener('click', function () {
-        if (searchContainer.classList.contains("hidden")) {
-            searchContainer.classList.remove("hidden");
-        } else {
-            searchContainer.classList.add("hidden");
-        }
-    });
 
     /*-----This opens and scrolls to productcard------*/
     let addProductBtn = document.querySelector("#add-button");
@@ -39,10 +32,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         while(dlistCategories.firstChild){
             dlistCategories.removeChild(dlistCategories.firstChild);
         }
-        const getAllCategories = "http://localhost:8080/fashionApp/web/category/";
+        const getAllCategories = "http://localhost:8080/fashionApp/web/categoryname/";
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item.name);
                 const option = document.createElement("option");
                 option.value = item.name;
                 dlistCategories.appendChild(option);
@@ -62,10 +54,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         while(dlistTypes.firstChild){
             dlistTypes.removeChild(dlistTypes.firstChild);
         }
-        const getAllTypes = "http://localhost:8080/fashionApp/web/type/";
+        const getAllTypes = "http://localhost:8080/fashionApp/web/typename/";
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item.name);
                 const option = document.createElement("option");
                 option.value = item.name;
                 dlistTypes.appendChild(option);
@@ -128,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let dataID = "id";
         if (idFromHeader!==null) {
             let splited = idFromHeader.nodeValue.split(" ");
-            console.log("put");
             data[dataID] = splited[1];
             return fetch(addUrl + splited[1], {
                 headers: { 'content-type': 'application/json' },
@@ -138,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         } else {
-            console.log("post");
             return fetch(addUrl, {
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(data),
@@ -158,14 +147,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         newContainer.id = "cards-container";
         newContainer.className = "card-column";
         cards.appendChild(newContainer);
-        console.log("update");
+
 
     }
     /*-----Get all cards from the database------*/
     function getCards() {
-        console.log("getcards");
+
         update();
-        console.log("update");
+
         const getAll = "http://localhost:8080/fashionApp/web/productcard/";
         const processJSON = (function (json) {
             for (let item of json) {
