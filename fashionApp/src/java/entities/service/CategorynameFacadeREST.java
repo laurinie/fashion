@@ -39,7 +39,8 @@ public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
     public void create(Categoryname entity) {
-        super.create(entity);
+       super.create(entity);
+       
     }
 
     @PUT
@@ -47,6 +48,7 @@ public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
     @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Categoryname entity) {
         super.edit(entity);
+     
     }
 
     @DELETE
@@ -81,6 +83,13 @@ public class CategorynameFacadeREST extends AbstractFacade<Categoryname> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
+    }
+    
+    @GET
+    @Path("sql/{command}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Categoryname> findByNativeQuery(@PathParam("command") String command) {
+        return super.findByNativeQuery(command);
     }
 
     @Override

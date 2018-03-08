@@ -39,7 +39,7 @@ public class ColorFacadeREST extends AbstractFacade<Color> {
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
     public void create(Color entity) {
-        super.create(entity);
+       super.create(entity);
     }
 
     @PUT
@@ -81,6 +81,14 @@ public class ColorFacadeREST extends AbstractFacade<Color> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
+    }
+    
+    @GET
+    @Path("collectionid/{command}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Color> findByNativeQuery(@PathParam("command") String command) {
+        String syote = "select * from color where collectionid="+command;
+        return super.findByNativeQuery(syote);
     }
 
     @Override

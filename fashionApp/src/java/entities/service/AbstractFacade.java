@@ -60,5 +60,8 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
+    public List<T> findByNativeQuery(String sql) {
+        return getEntityManager().createNativeQuery(sql, entityClass).getResultList();
+    }
 }

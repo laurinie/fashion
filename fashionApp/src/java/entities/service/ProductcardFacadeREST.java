@@ -82,6 +82,21 @@ public class ProductcardFacadeREST extends AbstractFacade<Productcard> {
     public String countREST() {
         return String.valueOf(super.count());
     }
+    @GET
+    @Path("type/{command}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Productcard> findByNativeQuery(@PathParam("command") String command) {
+        String syote = "select * from productcard where type="+command;
+        return super.findByNativeQuery(syote);
+    }
+    
+    @GET
+    @Path("category/{command}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Productcard> findByNativeQuery2(@PathParam("command") String command) {
+        String syote = "select * from productcard where category="+command;
+        return super.findByNativeQuery(syote);
+    }
 
     @Override
     protected EntityManager getEntityManager() {
