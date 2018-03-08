@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         while(dlistCategories.firstChild){
             dlistCategories.removeChild(dlistCategories.firstChild);
         }
-        const getAllCategories = "http://localhost:8080/fashionApp/web/category/";
+        const getAllCategories = "http://localhost:8080/fashionApp/web/categoryname/";
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
-                option.value = item.name.name;
+                option.value = item.name;
                 dlistCategories.appendChild(option);
             }
             ;
@@ -54,11 +54,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         while(dlistTypes.firstChild){
             dlistTypes.removeChild(dlistTypes.firstChild);
         }
-        const getAllTypes = "http://localhost:8080/fashionApp/web/type/";
+        const getAllTypes = "http://localhost:8080/fashionApp/web/typename/";
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
-                option.value = item.name.name;
+                option.value = item.name;
                 dlistTypes.appendChild(option);
             }
             ;

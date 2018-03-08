@@ -33,7 +33,9 @@
 
     <nav id="nav">
 
-        <button id="menu-button" class="dropbtn"><img class="brgmenu" src="./product_card/img/menu.png" alt="Menu"></button>
+        <button id="menu-button" class="dropbtn">
+            <img class="brgmenu" src="./product_card/img/menu.png" alt="Menu">
+        </button>
         <ul id="menu" class="dropdown-content">
 
             <li data-target-section="#main">
@@ -92,13 +94,15 @@
                                 <option>type</option>
                                 <option>name</option>
                             </select>
-                            <input id="search-value" type="text" >
-                            <button class="search-img"><img src="./product_card/img/icon_search.png" alt="Search"/></button>
+                            <input id="search-value" type="text">
+                            <button class="search-img">
+                                <img src="./product_card/img/icon_search.png" alt="Search" />
+                            </button>
                         </form>
                     </div>
-                    <button class="btn" id="add-button">New product</button>                
+                    <button class="btn" id="add-button">New product</button>
                 </div>
-                
+
                 <div id="add-product" class="display-none">
                     <div class="grid-container">
                         <div class="section">
@@ -191,6 +195,9 @@
         <div class="content" id="color-cards">
             <h2>Pick color</h2>
             <div id="add-color-div">
+                <div class="select-budget">
+                    <select id="select-color__select"></select>
+                </div>
                 <label id="label-color" for="colorpicker">Color</label>
                 <input id="colorpicker" name="colorpicker" type="color" value="#0000ff" />
                 <input type="text" id="color-name" class="input" placeholder="name">
