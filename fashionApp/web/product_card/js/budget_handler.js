@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const categoriesURL = URLbase + "web/category/";
     const collectionsURL = URLbase + "web/collections/";
     const typesURL = URLbase + "web/type/";
+    const typenameURL = URLbase + "web/typename/";
+    const itemsURL = URLbase + "web/item/";
     
     const budgetPageElement = document.querySelector("#budget");
     const budgetContainer = document.createElement("div");
@@ -19,9 +21,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         lastActiveElement = document.activeElement;
     });
 
-    
     fetchCollections();
-    getCollectionData(); // temporary function, until JSON connection works.
 
     function fetchCollections() {
         const selectBudgetElem = document.querySelector(".select-budget__select");
@@ -32,63 +32,91 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 for (let collection of collections) {
                     let option = document.createElement("option");
                     option.text = collection.name;
+                    option.setAttribute("id", "collectionid-" + collection.id);
                     selectBudgetElem.appendChild(option);
                 }
-            }).catch(error => (console.log("Fetch crashed due to " + error)));    
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
+            
+        selectBudgetElem.addEventListener("change", function(event) {
+            let select = event.target;
+            let selectedOption = select[select.selectedIndex];
+            let idString = selectedOption.id.split("-");
+            let collectionID = idString[1];
+            var myNode = budgetContainer;
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.firstChild);
+            }
+            console.log("Selected collection " + collectionID + ": " + selectedOption.value)
+            getCategories(collectionID);
+        });
     }
 
-    /* Temporary function to fill in some information, just to check things work fine. */
-    function getCollectionData() {
-        getCategories();
-    }
     
-   
-    
-    function getCategories() {
-        
+    function getCategories(selectedCollection) {
         fetch(categoriesURL)
             .then(response => response.json())
             .then(data => {
                 let categories = [];
                 for (let object of data) {
-                    categories.push(object.name);
+                    let collection = object.collectionID.id;   
+                    if(collection === parseInt(selectedCollection)) {
+                        categories.push(object);
+                    }
                 }
+                
+                console.log("Categories in the collection: " + categories);
                 return categories;
             }).then(categories => {
                 for (let category of categories) {
-                    // console.log("creating a new category");
-                    let newBudgetGroup = createBudgetGroup(category);
-                    newBudgetGroup.id = category.toLowerCase();
+                    let newBudgetGroup = createBudgetGroup(category.name.name);
+                    newBudgetGroup.setAttribute("id", "categoryid-" + category.id);
                     budgetContainer.appendChild(newBudgetGroup);
+                    getTypes(category.id);
                 }
-                getItems();
+                
         }).catch(error => (console.log("Fetch crashed due to " + error)));
         // catch errors    
     }
     
-
-
-
-    function getItems () {
-        fetch(productsURL)
+    function getTypes(categoryID) {
+        fetch(typesURL)
             .then(response => response.json())
-            .then(productcards => {
-               
-                for (let product of productcards) {
-                        // console.log("fetching an item");
-                        let category = budgetContainer.querySelector("#" + product.category.name.toLowerCase());
-                        let itemsContainer = category.querySelector(".budget-items-container");
+            .then(types => {
+                let typesArray = [];
+                for (let type of types) {
+                    let category = type.categoryID.id;
+                    if (category === categoryID) {
+                        typesArray.push(type);
+                    }
+                }
+                return typesArray;
+            }).then(typesArray => {
+                for (let type of typesArray) {
+                    getItems(categoryID, type.id);
+                }
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
+    }
+
+
+    function getItems (categoryID, typeID) {
+        fetch(itemsURL)
+            .then(response => response.json())
+            .then(items => {
+                let itemArray = [];
+                for (let item of items) {
+                    if (item.typeID.id === typeID) {
+                        itemArray.push(item);
+                    }
+                }
+                return itemArray;
+            }).then(items => {
+                for (let item of items) {
+                        let categoryElem = budgetContainer.querySelector("#categoryid-" + categoryID);
+                        let itemsContainer = categoryElem.querySelector(".budget-items-container");
                         
-                        let newProduct = createBudgetItemRow(product.type.name, product.id);
+                        let newItem = createBudgetItemRow(item.id, item.name, item.typeID.name.name, item.budget);
 
-                        let productName = newProduct.querySelector("[name='name']");
-                        productName.value = product.name;
-                        let productBudget = newProduct.querySelector("[name='budget']");
-                        productBudget.value = "0"; // later changed
-                        let productType = newProduct.querySelector("[name='type']");
-                        productType.value = product.type.name;
-
-                        itemsContainer.appendChild(newProduct);
+                        itemsContainer.appendChild(newItem);
                         
                 }
                 let budgetGroups = budgetContainer.querySelectorAll(".budget-group");
@@ -181,10 +209,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return budgetGroupHeader;
     }
 
-    function createBudgetItemRow(type, id) {
+    function createBudgetItemRow(itemID, itemName, itemType, itemBudget) {
         // console.log("creating a new budget item row");
         let budgetItemRow = document.createElement("div");
-        budgetItemRow.setAttribute("id", id);
+        budgetItemRow.setAttribute("id", itemID);
         budgetItemRow.className ="budget-item-row";
         budgetItemRow.addEventListener("mouseover", function(event) {
             let row = findAncestor(event.target, "budget-item-row");
@@ -196,14 +224,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let deleteDiv = row.querySelector(".delete-div");
             deleteDiv.classList.toggle("img-delete__show");
         });
-        
-        
-
 
         let name = document.createElement("input");
         name.name = "name";
         name.setAttribute("type", "text");
         name.className = "budget-item__name";
+        handleNull(name, itemName, "s");
         name.addEventListener("change", function(event) {
             changeEventListener(event);
         });
@@ -217,6 +243,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         budget.name = "budget";
         budget.setAttribute("type", "number");
         budget.className = "budget-item__budget";
+        handleNull(budget, itemBudget, "n");
         budget.addEventListener("change", function(event) {
             changeEventListener(event);
         });
@@ -247,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         typeDatalist.setAttribute("type", "text");
         typeDatalist.className = "budget-item__type";
         
-        fetch(typesURL)
+        fetch(typenameURL)
             .then(response => response.json())
             .then(types => {
                 let typesArray = [];
@@ -256,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 return typesArray;
             }).then (types => {
-                typeInput.setAttribute("value", type);
+                typeInput.setAttribute("value", itemType);
                 for (let t of types) {
                     let option = document.createElement("option");
                     option.text = t;
@@ -332,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     name: newValue
                 };
                 
-                fetch(productsURL + itemID, {
+                fetch(itemsURL + itemID, {
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(update),
                     method: 'put'
@@ -343,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     id: itemID,
                     type: {name: newValue}
                 };
-                fetch(productsURL + itemID, {
+                fetch(itemURL + itemID, {
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(update),
                     method: 'put'
@@ -362,6 +389,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         
         
+    }
+    
+    function handleNull(elem, value, type) {
+        console.log(value, type);
+        if (value === null && type === "s") {
+            elem.value = "";
+        } else if (value === null && type === "n") {
+            elem.value = 2;
+        } else if (value !== null) {
+            elem.value = value;
+        }
     }
     
     function findAncestor (el, cls) {
