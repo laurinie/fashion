@@ -20,12 +20,12 @@
 }
 
 #add-color-div {
-    width: 200px;
+    width: 300px;
 }
 
 .color-card {
     height: auto;
-    width: 75px;
+    width: 100px;
     padding: 3px;
     text-align: center;
     border-radius: 5px;

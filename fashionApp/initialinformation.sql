@@ -18,6 +18,8 @@ INSERT INTO fashion2.categoryname (name)
 	VALUES ("Headwear");
 INSERT INTO fashion2.categoryname (name) 
 	VALUES ("Bags");
+INSERT INTO fashion2.categoryname (name) 
+	VALUES ("Shoes");
 
 
 INSERT INTO fashion2.category (name, budget, collectionID) 
@@ -72,13 +74,13 @@ INSERT INTO fashion2.type (name, budget, categoryID)
 INSERT INTO fashion2.type (name, budget, categoryID) 
 	VALUES (2, NULL, 5);
 INSERT INTO fashion2.type (name, budget, categoryID) 
-	VALUES (3, NULL, 12);
+	VALUES (3, NULL, 11);
 INSERT INTO fashion2.type (name, budget, categoryID) 
 	VALUES (4, NULL, 2);
 INSERT INTO fashion2.type (name, budget, categoryID) 
-	VALUES (4, NULL, 13);
+	VALUES (4, NULL, 4);
 INSERT INTO fashion2.type (name, budget, categoryID) 
-	VALUES (5, NULL, 14);
+	VALUES (5, NULL, 6);
 INSERT INTO fashion2.type (name, budget, categoryID) 
 	VALUES (6, NULL, 3);
 INSERT INTO fashion2.type (name, budget, categoryID) 
@@ -90,7 +92,7 @@ INSERT INTO fashion2.type (name, budget, categoryID)
 INSERT INTO fashion2.type (name, budget, categoryID) 
 	VALUES (9, NULL, 10);
 INSERT INTO fashion2.type (name, budget, categoryID) 
-	VALUES (10, NULL, 15);
+	VALUES (10, NULL, 10);
 INSERT INTO fashion2.type (name, budget, categoryID) 
 	VALUES (1, NULL, 1);
 
