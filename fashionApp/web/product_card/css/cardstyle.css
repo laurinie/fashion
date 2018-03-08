@@ -57,7 +57,7 @@ label{
     display: grid;
     grid-gap: 6px;
 }
-#products input[type=text],#products input[type=number],#products .inpdesc,#products input {
+#add-product input[type=text],#add-product input[type=number],#add-product .inpdesc,#add-product input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -69,10 +69,10 @@ label{
     outline: none;
 }
 
-#products input:hover{
+#add-product input:hover{
     background-color: rgba(139, 253, 215, 0.274);
 }
-#products form :focus {
+#add-product form :focus {
     box-shadow: 3px 3px var(--navhover);
     background-color: rgba(139, 253, 215, 0.274);
 }

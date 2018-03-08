@@ -1,27 +1,19 @@
 /*
 Lauri css file
 */
-
-#search-products-container{
+#product-actions{
     display: block;
-    height: 1.5rem;
-    padding: 0;
 }
+
+ #search-products-container{
+     height: 50px;
+ }
 
 #search-products {
-    display: flex;
-    flex-direction: row;
-    height: 1rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns:  1fr 4fr 35px;
 }
-
-#search-products select {
-    height: 50px;
-}
-
-#search-products input {
-    width: 5rem;
-}
-
 .display-none {
     display: none;
 }
@@ -33,18 +25,8 @@ Lauri css file
     color: var(--lighttext);
     height: 40px;
 }
-.search-btn{
-    background-color: var(--info);
-    width: 30px;
-    height: 30px;
-}
-
-button .search-img {
-    display: inline;
-    width: 0.5rem;
-    height: 0.5rem;
-}
-
-button .search-img img {
-    width: 100%;
+.search-img{
+    width: auto;
+    border-radius: 10px;
+    outline: none;
 }
