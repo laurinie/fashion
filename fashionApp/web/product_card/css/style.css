@@ -97,6 +97,7 @@ nav ul li>a:hover {
 }
 #sub-menu{
     padding-left: 50px;
+    border-bottom: solid var(--btncolor);
 }
 
 #project-logo {
@@ -176,6 +177,11 @@ footer p {
 .brgmenu{
     width: 20px;
     height: auto;
+}
+#selected-collection{
+    color: var(--headercolor);
+    padding: 0em 1em;
+    border-top: solid var(--btncolor);
 }
 /* The Modal (background) */
 .modal {

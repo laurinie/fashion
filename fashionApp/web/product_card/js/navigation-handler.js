@@ -82,5 +82,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
                     selectBudgetElem.appendChild(option);
                 }
             }).catch(error => (console.log("Fetch crashed due to " + error)));
+
+        selectBudgetElem.addEventListener("change", function (event) {
+            let select = event.target;
+            let selectedOption = select[select.selectedIndex];
+            let idString = selectedOption.id.split("-");
+            collectionID = idString[1];
+            const selectedCollection = document.querySelector("#selected-collection");
+            selectedCollection.textContent = selectedOption.text;
+            console.log(selectedOption.text);
+        });
     }
 });
