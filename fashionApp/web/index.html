@@ -38,23 +38,26 @@
         </button>
         <ul id="menu" class="dropdown-content">
 
-            <li data-target-section="#main">
-                <a href="">Main</a>
-            </li>
-
-            <li data-target-section="#collection">
+            <li data-target-section="#popup">
                 <a href="">Collection</a>
             </li>
+            <div id="sub-menu">
+                <li data-target-section="#budget">
+                    <a href="">Budget</a>
+                </li>
 
-            <li data-target-section="#budget">
-                <a href="">Budget</a>
-            </li>
+                <li data-target-section="#color-cards">
+                    <a href="">Color cards</a>
+                </li>
+
+                <li data-target-section="#collection">
+                    <a href="">Outfits</a>
+                </li>
+            </div>
             <li data-target-section="#products">
                 <a href="">Products</a>
             </li>
-            <li data-target-section="#color-cards">
-                <a href="">Color cards</a>
-            </li>
+
             <li data-target-section="#profile">
                 <a href="">Profile</a>
             </li>
@@ -62,7 +65,9 @@
     </nav>
 
     <main>
+        <div id="shadow">
 
+        </div>
         <div class="content" id="collection">
 
             <button class="btn" id="collection-add-column">New Outfit</button>
@@ -135,8 +140,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <form class="card-form">
-                                            <label for="price-range">Price range</label>
-                                            <input id="price-range" type="text">
+                                            <label for="myFile">Price range</label>
+                                            <input type="file" id="myFile" name="img" multiple="false">
                                         </form>
                                     </div>
                                     <div class="col">
@@ -154,7 +159,7 @@
                                     <form class="card-form">
                                         <label for="description">Product description</label>
                                         <textarea id="description" class="inpdesc"></textarea>
-                                        <input type="file" id="myFile" name="img" multiple="false">
+
                                     </form>
 
                                 </div>
@@ -163,8 +168,11 @@
                                 <h3>Product specs</h3>
                                 <div class="col">
                                     <form class="card-form">
-                                        <label for="color">Color</label>
-                                        <input id="color" type="text">
+                                        <div>
+                                            <label for="color">Color</label>
+                                            <select id="color">
+                                            </select>
+                                        </div>
                                         <label for="quantity">Quantity</label>
                                         <input id="quantity" type="text">
                                         <label for="price">Price</label>
@@ -225,6 +233,21 @@
     <footer>
         <p>Fantastic Four © 2018.</p>
     </footer>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <img id="close-modal" class="delete-img" src="./product_card/img/icon_delete.png">
+            <h2>Select collection</h2>
+            <form id="collection-form">
+                <div class="select-budget">
+                    <label>Select </label>
+                    <select id="select-collection__select"></select>
+                </div>
+            </form>
+        </div>
+
+    </div>
 </body>
 
 </html>

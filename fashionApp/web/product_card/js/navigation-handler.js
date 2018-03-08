@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function(event) {
+const URLbase = "http://localhost:8080/fashionApp/";
+document.addEventListener('DOMContentLoaded', function (event) {
     let navElements = document.querySelectorAll("nav li");
 
     /* this loop adds listeners for clicks of the navigation elements to change the
@@ -6,13 +7,20 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     for (let navElement of navElements) {
         hideElements(".content");
-        navElement.addEventListener('click', function(event) {
-            hideElements(".content");
-            event.preventDefault();
+        navElement.addEventListener('click', function (event) {
             let e = event.target.parentNode;
             let target = e.getAttribute('data-target-section');
-            let targetElement = document.querySelector(target);
-            targetElement.classList.remove("hidden");
+            console.log(target);
+            if (target == "#popup") {
+                event.preventDefault();
+                modal.style.display = "block";
+                fetchCollections();
+            } else {
+                hideElements(".content");
+                event.preventDefault();
+                let targetElement = document.querySelector(target);
+                targetElement.classList.remove("hidden");
+            }
         });
     }
     function hideElements(selector) {
@@ -25,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         const menu = document.querySelector("#menu");
         const menuBtn = document.querySelector("#menu-button");
         const nav = document.querySelector("#nav");
-        
+
 
         if (x.matches) { // If media query matches
             menuBtn.classList.remove("hidden");
@@ -39,10 +47,40 @@ document.addEventListener('DOMContentLoaded', function(event) {
             nav.classList.remove("dropdown");
         }
     }
-    
+
     var x = window.matchMedia("(max-width: 500px)")
     dropMenu(x) // Call listener function at run time
     x.addListener(dropMenu) // Attach listener function on state changes
 
+    // Get the modal
+    var modal = document.querySelector('#myModal');
 
+    // Get the <span> element that closes the modal
+    var closeModal = document.querySelector("#close-modal");
+    closeModal.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    const collectionsURL = URLbase + "web/collections/";
+    function fetchCollections() {
+        const selectBudgetElem = document.querySelector("#select-collection__select");
+        fetch(collectionsURL)
+            .then(response => response.json())
+            .then(collections => {
+
+                for (let collection of collections) {
+                    let option = document.createElement("option");
+                    option.text = collection.name;
+                    option.setAttribute("id", "collectionid-" + collection.id);
+                    selectBudgetElem.appendChild(option);
+                }
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
+    }
 });
