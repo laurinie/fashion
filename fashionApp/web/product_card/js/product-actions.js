@@ -1,11 +1,12 @@
 
- const URLbase = "http://localhost:8080/fashionApp/";
+
 document.addEventListener("DOMContentLoaded", function (event) {
+    const URLbase = "http://localhost:8080/fashionApp/";
     getCards();
     let count = 0;
-    
+
     const searchContainer = document.querySelector("#search-container");
-    
+
     /*-----This opens and scrolls to productcard------*/
     let addProductBtn = document.querySelector("#add-button");
     let productCard = document.querySelector("#add-product");
@@ -31,13 +32,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function getCategories() {
         const dlistCategories = document.querySelector("#categories");
         let childs = dlistCategories.childNodes;
-        while(dlistCategories.firstChild){
+        while (dlistCategories.firstChild) {
             dlistCategories.removeChild(dlistCategories.firstChild);
         }
         const getAllCategories = URLbase + "web/categoryname/";
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
+                option.id = item.id;
                 option.value = item.name;
                 dlistCategories.appendChild(option);
             }
@@ -53,13 +55,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function getTypes() {
         const dlistTypes = document.querySelector("#types");
         let childs = dlistTypes.childNodes;
-        while(dlistTypes.firstChild){
+        while (dlistTypes.firstChild) {
             dlistTypes.removeChild(dlistTypes.firstChild);
         }
         const getAllTypes = URLbase + "web/typename/";
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
+                option.id = item.id;
                 option.value = item.name;
                 dlistTypes.appendChild(option);
             }
@@ -95,31 +98,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const div = document.querySelector("#cards-container");
     //const p = document.querySelector("#p");
 
-    saveBtn.addEventListener('click', function () {
+    saveBtn.addEventListener('click', function (event) {
         count++;
         const name = document.querySelector("#name").value;
-        const type = document.querySelector("#types").value;
+        const type = document.querySelector("#type-input").value;
         const description = document.querySelector("#description").value;
         //const priceRange = document.querySelector("#price-range").value;
-        const category = document.querySelector("#categories").value;
+        const category = document.querySelector("#category-input").value;
+        console.log(category);
+
         const color = document.querySelector("#color").value;
         const quantity = document.querySelector("#quantity").value;
         const price = document.querySelector("#price").value;
         const wholesalePrice = document.querySelector("#wholesale-price").value;
         const retailPrice = document.querySelector("#retail-price").value;
+        const categoryDataList = document.querySelector("#categories").options;
+        const typeDataList = document.querySelector("#types").options;
+        let idOfCategory = parseInt(findID(category,categoryDataList));
+        let idOfType = parseInt(findID(type,typeDataList));
 
 
         let data = {
             name: name,
             color: color,
             totalqty: quantity,
+            category:idOfCategory,
+            type:idOfType,
             price: price,
             wholesaleprice: wholesalePrice,
             retailprice: retailPrice
         };
+        console.log(data);
         const idFromHeader = document.querySelector("#card-header").firstChild;
         let dataID = "id";
-        if (idFromHeader!==null) {
+        if (idFromHeader !== null) {
             let splited = idFromHeader.nodeValue.split(" ");
             data[dataID] = splited[1];
             return fetch(addUrl + splited[1], {
@@ -140,6 +152,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     });
+    function findID(what, where) {
+        for (let i of where) {
+            console.log("i"+i.value);
+            if (i.value == what) {
+                return i.id;
+
+            }
+        }
+    }
     /*-----Clears all cards from page------*/
     function update() {
         const cardsContainer = document.querySelector("#cards-container");
@@ -160,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const getAll = URLbase + "web/productcard/";
         const processJSON = (function (json) {
             for (let item of json) {
-                //console.log(item);
+
                 showCard(item);
             }
             ;
@@ -291,12 +312,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function fillCard(data) {
         let idHeader = document.createTextNode(`ID: ${data.id}`);
         document.querySelector("#card-header").appendChild(idHeader);
-        console.log(data.id);
+        console.log(data.category.name);
         document.querySelector("#name").value = data.name;
-        document.querySelector("#types").value = data.type.name;
+        document.querySelector("#type-input").value = data.type.name;
         document.querySelector("#description").value = data.description;
         //const priceRange = document.querySelector("#price-range").value;
-        document.querySelector("#categories").value = data.category.name;
+        document.querySelector("#category-input").value = data.category.name;
         document.querySelector("#color").value = data.color;
         document.querySelector("#quantity").value = data.totalqty;
         document.querySelector("#price").value = data.price;

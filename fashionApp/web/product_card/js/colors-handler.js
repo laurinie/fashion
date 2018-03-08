@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return fetch(delUrl, {
             method: 'delete'
         })
-            .then(result => getColorCards());
+            .then(result => getColorCards(collectionID));
     }
     function update() {
         const cardsContainer = document.querySelector("#colorgrid");
