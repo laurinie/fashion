@@ -39,7 +39,7 @@ public class ItemFacadeREST extends AbstractFacade<Item> {
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
     public void create(Item entity) {
-        super.create(entity);
+      super.create(entity);
     }
 
     @PUT
