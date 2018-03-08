@@ -1,7 +1,8 @@
 const URLbase = "http://localhost:8080/fashionApp/";
 document.addEventListener('DOMContentLoaded', function (event) {
     let navElements = document.querySelectorAll("nav li");
-
+    let selectedCollection = document.querySelector(".selected-collection");
+    toggleSubMenu();
     /* this loop adds listeners for clicks of the navigation elements to change the
      * visibility of the sections of the main element. */
 
@@ -88,9 +89,23 @@ document.addEventListener('DOMContentLoaded', function (event) {
             let selectedOption = select[select.selectedIndex];
             let idString = selectedOption.id.split("-");
             collectionID = idString[1];
-            const selectedCollection = document.querySelector("#selected-collection");
+            selectedCollection = document.querySelector(".selected-collection");
+            selectedCollection.id = collectionID;
             selectedCollection.textContent = selectedOption.text;
             console.log(selectedOption.text);
+            if(selectedOption.id == "no-collection"){
+                selectedCollection.firstChild.remove();
+                selectedCollection.id="";
+            }
+            toggleSubMenu();
         });
+    }
+    function toggleSubMenu() {
+        const subMenu = document.querySelector("#sub-menu");
+        if (!selectedCollection.firstChild) {
+            subMenu.classList.add("hidden");
+        } else {
+            subMenu.classList.remove("hidden");
+        }
     }
 });

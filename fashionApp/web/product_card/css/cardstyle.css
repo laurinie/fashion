@@ -57,7 +57,7 @@ label{
     display: grid;
     grid-gap: 6px;
 }
-#add-product input[type=text],#add-product input[type=number],#add-product .inpdesc,#add-product input {
+#add-product input[type=text],#add-product input[type=number],#add-product .inpdesc,#add-product input{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

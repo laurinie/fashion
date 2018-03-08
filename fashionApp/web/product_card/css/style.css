@@ -178,10 +178,27 @@ footer p {
     width: 20px;
     height: auto;
 }
-#selected-collection{
+.selected-collection{
     color: var(--headercolor);
     padding: 0em 1em;
     border-top: solid var(--btncolor);
+}
+#collection-form{
+    display: flex;
+    flex-wrap: wrap;
+}
+.collection-form-content{
+    padding: 20px;
+}
+.card-style-input{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--headercolor);
+    background-color: rgba(224, 224, 224, 0.432);
+    outline: none;
 }
 /* The Modal (background) */
 .modal {
@@ -204,7 +221,7 @@ footer p {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 60%;
 }
 
 /* The Close Button */
