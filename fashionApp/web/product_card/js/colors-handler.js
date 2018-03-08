@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let color = document.querySelector("#colorpicker");
         //let name = document.querySelector("#color-name").value;
         let colorcard = document.createElement("div");
+        let colorDiv = document.createElement("div");
+        colorDiv.classList.add("color-div");
         colorcard.id = "color-card-" + count;
         let deletecard = document.createElement("div");
         deletecard.classList.add("hidden");
@@ -23,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         colorcard.classList.add("color-card");
         let selectedColor = color.value;
         colorHex.textContent = data.hexa;
-        colorcard.style.backgroundColor = data.hexa;
+        colorDiv.style.backgroundColor = data.hexa;
 
         colorcard.addEventListener("mouseover", function (event) {
             deletecard.classList.remove("hidden");
@@ -35,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         colorcard.appendChild(deletecard);
         colorcard.appendChild(colorName);
         colorcard.appendChild(colorHex);
+        colorcard.appendChild(colorDiv);
         colorGrid.appendChild(colorcard);
         addDeleteListeners(delImgBtn);
     };
