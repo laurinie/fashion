@@ -38,8 +38,10 @@ public class TypeFacadeREST extends AbstractFacade<Type> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Type entity) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Type create(Type entity) {
        super.create(entity);
+       return entity;
     }
 
     @PUT
