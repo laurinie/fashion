@@ -1,8 +1,17 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    getColorCards(1);
-    let collectionID = 1;
+
+    const collection = document.querySelector("#select-collection__select");
+    collection.addEventListener("change", function (event) {
+        let select = event.target;
+        let selectedOption = select[select.selectedIndex].id.split("-");
+        let selectedId = parseInt(selectedOption[1]);
+        if (selectedOption != "no-collection") {
+            getColorCards(selectedId);
+        }
+
+    });
     let count = 0;
-    
+
     const addColorButton = document.querySelector("#add-color");
     const advice = document.querySelector("#color-advice");
     function showColorCard(data) {
@@ -13,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         // }else{
         //     advice.classList.remove("hidden");
         // }
-        
+
         let colorGrid = document.querySelector("#colorgrid");
         count++;
         let color = document.querySelector("#colorpicker");
@@ -63,28 +72,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const addUrl = "http://localhost:8080/fashionApp/web/color/";
 
     addColorButton.addEventListener('click', function () {
+        let collectionID = getCollectionId();
         const name = document.querySelector("#color-name").value;
         const hexa = document.querySelector("#colorpicker").value;
         let data = {
             name: name,
             hexa: hexa,
-            collectionID:  parseInt(collectionID)
+            collectionID: collectionID
         };
         return fetch(addUrl, {
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(data),
             method: 'post'
         })
-             .then(function (result) { getColorCards(data.collectionID); return true; })
-            // .then(newResult => closeCard());
+            .then(function (result) { getColorCards(data.collectionID); return true; })
+        // .then(newResult => closeCard());
     });
-    function getColorCards(id){
+    function getColorCards(id) {
         update();
 
-        const getAll = "http://localhost:8080/fashionApp/web/color/collectionid/"+id;
+        const getAll = "http://localhost:8080/fashionApp/web/color/collectionid/" + id;
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item);
                 showColorCard(item);
             }
             ;
@@ -101,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return fetch(delUrl, {
             method: 'delete'
         })
-            .then(result => getColorCards(collectionID));
+            .then(result => getColorCards(getCollectionId()));
     }
     function update() {
         const cardsContainer = document.querySelector("#colorgrid");
@@ -114,35 +123,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     const URLbase = "http://localhost:8080/fashionApp/";
     const collectionsURL = URLbase + "web/collections/";
-    fetchCollections();
-
-    function fetchCollections() {
-        const selectBudgetElem = document.querySelector("#select-color__select");
-        fetch(collectionsURL)
-            .then(response => response.json())
-            .then(collections => {
-
-                for (let collection of collections) {
-                    let option = document.createElement("option");
-                    option.text = collection.name;
-                    option.setAttribute("id", "collectionid-" + collection.id);
-                    selectBudgetElem.appendChild(option);
-                }
-            }).catch(error => (console.log("Fetch crashed due to " + error)));
-            
-        selectBudgetElem.addEventListener("change", function(event) {
-            let select = event.target;
-            let selectedOption = select[select.selectedIndex];
-            let idString = selectedOption.id.split("-");
-            collectionID = idString[1];
-            //var myNode = budgetContainer;
-            // while (myNode.firstChild) {
-            //     myNode.removeChild(myNode.firstChild);
-            // }
-            getColorCards(collectionID);
-            console.log(collectionID);
-            //sgetCategories(collectionID);
-        });
-    }
 
 });

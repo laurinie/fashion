@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             console.log(selectedOption.text);
             if(selectedOption.id == "no-collection"){
                 selectedCollection.firstChild.remove();
-                selectedCollection.id="";
+                selectedCollection.id="no-collection";
             }
             toggleSubMenu();
         });
