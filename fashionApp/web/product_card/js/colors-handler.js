@@ -49,8 +49,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function deleteCard(id){
 
     }
-    function findAncestor(el, cls) {
-        while ((el = el.parentElement) && !el.classList.contains(cls));
-        return el;
-    }
+    
 });
