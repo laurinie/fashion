@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 startElement.classList.remove("hidden");
             }
             toggleSubMenu();
+            modal.style.display = "none";
         });
     }
     function toggleSubMenu() {
