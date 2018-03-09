@@ -48,6 +48,22 @@ document.addEventListener('DOMContentLoaded', function (event) {
             nav.classList.remove("dropdown");
         }
     }
+    const addNewCollection = document.querySelector("#add-new-collection");
+    addNewCollection.addEventListener('click', function (event) {
+        event.preventDefault();
+        const addUrl = URLbase+"web/collections/";
+        const name = document.querySelector("#new-collection").value;
+        let data = {
+            name: name
+        };
+        return fetch(addUrl, {
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data),
+            method: 'post'
+        })
+            .then(function (result) { fetchCollections(); return true; })
+        // .then(newResult => closeCard());
+    });
 
     var x = window.matchMedia("(max-width: 500px)")
     dropMenu(x) // Call listener function at run time
