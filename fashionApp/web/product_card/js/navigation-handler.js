@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
             element.classList.add("hidden");
         }
     }
+    //---------creates dropdown menu when on small screen --//
+
     function dropMenu(x) {
         const menu = document.querySelector("#menu");
         const menuBtn = document.querySelector("#menu-button");
@@ -82,13 +84,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
 
     var x = window.matchMedia("(max-width: 500px)")
-    dropMenu(x) // Call listener function at run time
-    x.addListener(dropMenu) // Attach listener function on state changes
+    dropMenu(x);
+    x.addListener(dropMenu);
 
     // Get the modal
     var modal = document.querySelector('#myModal');
-
-    // Get the <span> element that closes the modal
     var closeModal = document.querySelector("#close-modal");
     closeModal.addEventListener("click", function () {
         modal.style.display = "none";
@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
             modal.style.display = "none";
         }
     }
+
+    //----fech collections to modal-----//
 
     const collectionsURL = URLbase + "web/collections/";
     function fetchCollections() {

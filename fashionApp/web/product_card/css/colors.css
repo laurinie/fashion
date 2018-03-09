@@ -42,3 +42,12 @@
     height: 50px;
     padding: 2px;
 }
+@media(max-width:499px){
+    .del-div{
+        display: block;
+    }
+    .delete-img {
+        float: right;
+        height: 20px;
+    }
+}

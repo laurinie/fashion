@@ -14,27 +14,18 @@ let selectedId;
         }
 
     });
-    let count = 0;
+    
 
     const addColorButton = document.querySelector("#add-color");
     const advice = document.querySelector("#color-advice");
     function showColorCard(data) {
-        // if(data==null){
-        //     if (!advice.classList.contains("hidden")) {
-        //         advice.className = "hidden";
-        //     }
-        // }else{
-        //     advice.classList.remove("hidden");
-        // }
-
         let colorGrid = document.querySelector("#colorgrid");
-        count++;
+        
         let color = document.querySelector("#colorpicker");
-        //let name = document.querySelector("#color-name").value;
         let colorcard = document.createElement("div");
         let colorDiv = document.createElement("div");
         colorDiv.classList.add("color-div");
-        colorcard.id = "color-card-" + count;
+        colorcard.id = "color-card-" + data.id;
         let deletecard = document.createElement("div");
         deletecard.classList.add("hidden");
         deletecard.classList.add("del-div");
