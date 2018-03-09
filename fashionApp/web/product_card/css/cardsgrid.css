@@ -33,3 +33,11 @@
 .delete-btn {
     background-color: var(--delete);
 }
+@media(max-width:499px){
+    dl{
+        display: none;
+    }
+    .small-card :hover + dl{
+        display: block;
+    }
+}
