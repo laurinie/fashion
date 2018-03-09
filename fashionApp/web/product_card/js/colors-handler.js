@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function (event) {
+    //--------------------------------//
+    const URLbase = "http://localhost:8080/fashionApp/";
+    const colorUrl = "web/color/";
+    //-------------------------------//
 let selectedId;
     const collection = document.querySelector("#select-collection__select");
     collection.addEventListener("change", function (event) {
@@ -69,7 +73,7 @@ let selectedId;
             }
         });
     }
-    const addUrl = "http://localhost:8080/fashionApp/web/color/";
+    
 
     addColorButton.addEventListener('click', function () {
         
@@ -80,7 +84,7 @@ let selectedId;
             hexa: hexa,
             collectionID: selectedId
         };
-        return fetch(addUrl, {
+        return fetch(URLbase+colorUrl, {
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(data),
             method: 'post'
@@ -91,7 +95,7 @@ let selectedId;
     function getColorCards(id) {
         update();
 
-        const getAll = "http://localhost:8080/fashionApp/web/color/collectionid/" + id;
+        const getAll = URLbase+colorUrl+"collectionid/" + id;
         const processJSON = (function (json) {
             for (let item of json) {
                 showColorCard(item);
@@ -105,8 +109,8 @@ let selectedId;
 
     }
     function deleteColorCard(cardId) {
-        const url = "http://localhost:8080/fashionApp/web/color/";
-        let delUrl = url + cardId;
+        //const url = "http://localhost:8080/fashionApp/web/color/";
+        let delUrl = URLbase+colorUrl + cardId;
         return fetch(delUrl, {
             method: 'delete'
         })
@@ -121,7 +125,7 @@ let selectedId;
         //newContainer.className = "card-column";
         cards.appendChild(newContainer);
     }
-    const URLbase = "http://localhost:8080/fashionApp/";
+   // const URLbase = "http://localhost:8080/fashionApp/";
     const collectionsURL = URLbase + "web/collections/";
 
 });
