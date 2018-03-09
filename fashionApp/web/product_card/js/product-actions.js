@@ -114,16 +114,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const retailPrice = document.querySelector("#retail-price").value;
         const categoryDataList = document.querySelector("#categories").options;
         const typeDataList = document.querySelector("#types").options;
-        let idOfCategory = findID(category,categoryDataList);
-        let idOfType = findID(type,typeDataList);
+        let idOfCategory = findID(category,categoryDataList,"Category");
+        let idOfType = findID(type,typeDataList,"Type");
+
+        if(idOfCategory||idOfType){
+            
+        }else{
+            let toCategory = idOfCategory;
+            let toType = idOfType;
+        
+        
 
 
         let data = {
             name: name,
             color: color,
             totalqty: quantity,
-            category:idOfCategory,
-            type:idOfType,
+            category:toCategory,
+            type:toType,
             price: price,
             wholesaleprice: wholesalePrice,
             retailprice: retailPrice
@@ -150,9 +158,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         }
-
+    }
     });
-    function findID(what, where) {
+    function findID(what, where,input) {
         console.log("what "+what+ " where "+where);
         for (let i of where) {
             console.log("i"+i.value);
@@ -161,7 +169,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 return parseInt(i.id);
 
             }
+        }if(what == ""){
+            alert(input+ "can't be empty. Try creating new by typing or select existing");
+            return true;
         }
+        else if (confirm(`Do you want to create new ${input} named as ${what}`)) {
+            console.log("CREATED"+what);
+        }
+
     }
     /*-----Clears all cards from page------*/
     function update() {
