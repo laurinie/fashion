@@ -71,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     const collectionsURL = URLbase + "web/collections/";
     function fetchCollections() {
+        selectedCollection = document.querySelector(".selected-collection");
+        console.log("jee" + selectedCollection.textContent);
         // collections fech should be added feature to member last selection ---//
         const selectBudgetElem = document.querySelector("#select-collection__select");
         let childs = selectBudgetElem.childNodes;
@@ -90,6 +92,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
                     option.text = collection.name;
                     option.setAttribute("id", "collectionid-" + collection.id);
                     selectBudgetElem.appendChild(option);
+                    if (selectedCollection.textContent == collection.name) {
+                        option.selected = collection.name;
+                    }
+
                 }
             }).catch(error => (console.log("Fetch crashed due to " + error)));
 
@@ -102,9 +108,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
             selectedCollection.id = collectionID;
             selectedCollection.textContent = selectedOption.text;
             console.log(selectedOption.text);
-            if(selectedOption.id == "no-collection"){
+            if (selectedOption.id == "no-collection") {
                 selectedCollection.firstChild.remove();
-                selectedCollection.id="no-collection";
+                selectedCollection.id = "no-collection";
                 hideElements(".content");
             }
             toggleSubMenu();
