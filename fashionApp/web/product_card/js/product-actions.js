@@ -114,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const retailPrice = document.querySelector("#retail-price").value;
         const categoryDataList = document.querySelector("#categories").options;
         const typeDataList = document.querySelector("#types").options;
-        let idOfCategory = parseInt(findID(category,categoryDataList));
-        let idOfType = parseInt(findID(type,typeDataList));
+        let idOfCategory = findID(category,categoryDataList);
+        let idOfType = findID(type,typeDataList);
 
 
         let data = {
@@ -153,10 +153,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     });
     function findID(what, where) {
+        console.log("what "+what+ " where "+where);
         for (let i of where) {
             console.log("i"+i.value);
             if (i.value == what) {
-                return i.id;
+                console.log(parseInt(i.id));
+                return parseInt(i.id);
 
             }
         }
