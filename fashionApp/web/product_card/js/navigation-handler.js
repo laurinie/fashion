@@ -1,12 +1,19 @@
 const URLbase = "http://localhost:8080/fashionApp/";
 document.addEventListener('DOMContentLoaded', function (event) {
+    let smallScreen = false;
+
     const startElement = document.querySelector("#start");
     let navElements = document.querySelectorAll("nav li");
     let selectedCollection = document.querySelector(".selected-collection");
     toggleSubMenu();
     /* this loop adds listeners for clicks of the navigation elements to change the
      * visibility of the sections of the main element. */
-
+    const menuButton = document.querySelector("#menu-button");
+    const dropdown = document.querySelector(".dropdown-content");
+    menuButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        dropdown.classList.toggle("display");
+    });
     for (let navElement of navElements) {
         hideElements(".content");
         navElement.addEventListener('click', function (event) {
@@ -22,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 event.preventDefault();
                 let targetElement = document.querySelector(target);
                 targetElement.classList.remove("hidden");
+            }
+            if (smallScreen) {
+                console.log("smallScreen");
+                dropdown.classList.remove("display");
             }
         });
         startElement.classList.remove("hidden");
@@ -43,17 +54,20 @@ document.addEventListener('DOMContentLoaded', function (event) {
             menu.classList.add("dropdown");
             nav.classList.add("dropdown");
             menu.classList.add("dropdown-content")
+            smallScreen = true;
+
         } else {
             menuBtn.classList.add("hidden");
             menu.classList.remove("dropdown");
             menu.classList.remove("dropdown-content");
             nav.classList.remove("dropdown");
+            smallScreen = false;
         }
     }
     const addNewCollection = document.querySelector("#add-new-collection");
     addNewCollection.addEventListener('click', function (event) {
         event.preventDefault();
-        const addUrl = URLbase+"web/collections/";
+        const addUrl = URLbase + "web/collections/";
         const name = document.querySelector("#new-collection").value;
         let data = {
             name: name

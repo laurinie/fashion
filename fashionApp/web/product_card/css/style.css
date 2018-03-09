@@ -165,10 +165,12 @@ footer p {
 }
 
 .dropdown-content li:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
+.display{
     display: block;
 }
+/* .dropdown:hover .dropdown-content {
+    display: block;
+} */
 
 .dropdown:hover .dropbtn {
     background-color: var(--navhover);
