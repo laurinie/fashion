@@ -61,7 +61,7 @@ nav {
     padding-top: 1rem;
     background-color: var(--navcolor);
     text-transform: uppercase;
-    text-align: center;
+    text-align: left;
     font-weight: bold;
     letter-spacing: 0.15rem;
 }
@@ -94,6 +94,10 @@ nav ul li>a {
 
 nav ul li>a:hover {
     background-color: var(--navhover);
+}
+#sub-menu{
+    padding-left: 50px;
+    border-bottom: solid var(--btncolor);
 }
 
 #project-logo {
@@ -160,11 +164,13 @@ footer p {
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
+.dropdown-content li:hover {background-color: #f1f1f1}
+.display{
     display: block;
 }
+/* .dropdown:hover .dropdown-content {
+    display: block;
+} */
 
 .dropdown:hover .dropbtn {
     background-color: var(--navhover);
@@ -174,6 +180,67 @@ footer p {
     width: 20px;
     height: auto;
 }
+.selected-collection{
+    color: var(--headercolor);
+    padding: 0em 1em;
+    border-top: solid var(--btncolor);
+}
+#collection-form{
+    display: flex;
+    flex-wrap: wrap;
+}
+.collection-form-content{
+    padding: 20px;
+}
+.card-style-input{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--headercolor);
+    background-color: rgba(224, 224, 224, 0.432);
+    outline: none;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}   
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 @media(max-width:499px){
     body {
         margin: 0;
@@ -210,9 +277,9 @@ footer p {
     }
     nav {
         background-color: var(--navcolor);
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
         text-align: right;
-        font-weight: bold;
+        /* font-weight: bold; */
         /* letter-spacing: 0.15rem; */
     }
     
@@ -229,7 +296,7 @@ footer p {
     }
     
     nav ul li>a {
-        display: block;
+        /* display: block; */
         justify-content: left;
         width: inherit;
         padding: 1em;
@@ -245,6 +312,12 @@ footer p {
     nav ul li>a:hover {
         background-color: var(--footercolor);
         transition: 0.15s;
+    }
+    #sub-menu{
+        padding: 1px;
+        /* background-color: var(--footercolor); */
+        border-bottom: solid var(--btncolor);
+
     }
 }
 
@@ -282,5 +355,20 @@ footer p {
     }
     header{
         display: none;
+    }
+    .selected-collection{
+        color: var(--headercolor);
+        padding: 0em 1em;
+        border-top: solid var(--btncolor);
+        border-bottom: solid var(--btncolor);
+
+    }
+    #sub-menu{
+        padding: 1px;
+        float: none;
+        /* background-color: var(--footercolor); */
+        border-top: solid var(--btncolor);
+        border-bottom: solid var(--btncolor);
+
     }
 }

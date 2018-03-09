@@ -38,8 +38,10 @@ public class ColorFacadeREST extends AbstractFacade<Color> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Color entity) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Color create(Color entity) {
        super.create(entity);
+       return entity;
     }
 
     @PUT
