@@ -1,5 +1,6 @@
 const URLbase = "http://localhost:8080/fashionApp/";
 document.addEventListener('DOMContentLoaded', function (event) {
+    const startElement = document.querySelector("#start");
     let navElements = document.querySelectorAll("nav li");
     let selectedCollection = document.querySelector(".selected-collection");
     toggleSubMenu();
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 targetElement.classList.remove("hidden");
             }
         });
+        startElement.classList.remove("hidden");
     }
     function hideElements(selector) {
         let elements = document.querySelectorAll(selector);
@@ -128,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 selectedCollection.firstChild.remove();
                 selectedCollection.id = "no-collection";
                 hideElements(".content");
+                startElement.classList.remove("hidden");
             }
             toggleSubMenu();
         });
