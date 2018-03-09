@@ -1,27 +1,31 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    getColorCards(1);
-    let collectionID = 1;
-    let count = 0;
+    //--------------------------------//
+    const URLbase = "http://localhost:8080/fashionApp/";
+    const colorUrl = "web/color/";
+    //-------------------------------//
+let selectedId;
+    const collection = document.querySelector("#select-collection__select");
+    collection.addEventListener("change", function (event) {
+        let select = event.target;
+        let selectedOption = select[select.selectedIndex].id.split("-");
+        selectedId = parseInt(selectedOption[1]);
+        if (selectedOption != "no-collection") {
+            getColorCards(selectedId);
+        }
+
+    });
     
+
     const addColorButton = document.querySelector("#add-color");
     const advice = document.querySelector("#color-advice");
     function showColorCard(data) {
-        // if(data==null){
-        //     if (!advice.classList.contains("hidden")) {
-        //         advice.className = "hidden";
-        //     }
-        // }else{
-        //     advice.classList.remove("hidden");
-        // }
-        
         let colorGrid = document.querySelector("#colorgrid");
-        count++;
+        
         let color = document.querySelector("#colorpicker");
-        //let name = document.querySelector("#color-name").value;
         let colorcard = document.createElement("div");
         let colorDiv = document.createElement("div");
         colorDiv.classList.add("color-div");
-        colorcard.id = "color-card-" + count;
+        colorcard.id = "color-card-" + data.id;
         let deletecard = document.createElement("div");
         deletecard.classList.add("hidden");
         deletecard.classList.add("del-div");
@@ -60,31 +64,31 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
-    const addUrl = "http://localhost:8080/fashionApp/web/color/";
+    
 
     addColorButton.addEventListener('click', function () {
+        
         const name = document.querySelector("#color-name").value;
         const hexa = document.querySelector("#colorpicker").value;
         let data = {
             name: name,
             hexa: hexa,
-            collectionID:  parseInt(collectionID)
+            collectionID: selectedId
         };
-        return fetch(addUrl, {
+        return fetch(URLbase+colorUrl, {
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(data),
             method: 'post'
         })
-             .then(function (result) { getColorCards(data.collectionID); return true; })
-            // .then(newResult => closeCard());
+            .then(function (result) { getColorCards(data.collectionID); return true; })
+        // .then(newResult => closeCard());
     });
-    function getColorCards(id){
+    function getColorCards(id) {
         update();
 
-        const getAll = "http://localhost:8080/fashionApp/web/color/collectionid/"+id;
+        const getAll = URLbase+colorUrl+"collectionid/" + id;
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item);
                 showColorCard(item);
             }
             ;
@@ -96,12 +100,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     }
     function deleteColorCard(cardId) {
-        const url = "http://localhost:8080/fashionApp/web/color/";
-        let delUrl = url + cardId;
+        //const url = "http://localhost:8080/fashionApp/web/color/";
+        let delUrl = URLbase+colorUrl + cardId;
         return fetch(delUrl, {
             method: 'delete'
         })
-            .then(result => getColorCards());
+            .then(result => getColorCards(selectedId));
     }
     function update() {
         const cardsContainer = document.querySelector("#colorgrid");
@@ -112,37 +116,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //newContainer.className = "card-column";
         cards.appendChild(newContainer);
     }
-    const URLbase = "http://localhost:8080/fashionApp/";
+   // const URLbase = "http://localhost:8080/fashionApp/";
     const collectionsURL = URLbase + "web/collections/";
-    fetchCollections();
-
-    function fetchCollections() {
-        const selectBudgetElem = document.querySelector("#select-color__select");
-        fetch(collectionsURL)
-            .then(response => response.json())
-            .then(collections => {
-
-                for (let collection of collections) {
-                    let option = document.createElement("option");
-                    option.text = collection.name;
-                    option.setAttribute("id", "collectionid-" + collection.id);
-                    selectBudgetElem.appendChild(option);
-                }
-            }).catch(error => (console.log("Fetch crashed due to " + error)));
-            
-        selectBudgetElem.addEventListener("change", function(event) {
-            let select = event.target;
-            let selectedOption = select[select.selectedIndex];
-            let idString = selectedOption.id.split("-");
-            collectionID = idString[1];
-            //var myNode = budgetContainer;
-            // while (myNode.firstChild) {
-            //     myNode.removeChild(myNode.firstChild);
-            // }
-            getColorCards(collectionID);
-            console.log(collectionID);
-            //sgetCategories(collectionID);
-        });
-    }
 
 });

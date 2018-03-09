@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    
+
     const URLbase = "http://localhost:8080/fashionApp/";
     const productsURL = URLbase + "web/productcard/";
     const categoriesURL = URLbase + "web/category/";
@@ -9,61 +9,76 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const typesURL = URLbase + "web/type/";
     const typenameURL = URLbase + "web/typename/";
     const itemsURL = URLbase + "web/item/";
-    
+
     const budgetPageElement = document.querySelector("#budget");
     const budgetContainer = document.createElement("div");
     budgetContainer.className = "budget-container";
     budgetPageElement.appendChild(budgetContainer);
-    
+
     // workaround code for the typeInput. I know, it's ugly.
     let lastActiveElement = null;
-    document.addEventListener("click", function() {
+    document.addEventListener("click", function () {
         lastActiveElement = document.activeElement;
     });
 
-    fetchCollections();
-
-    function fetchCollections() {
-        const selectBudgetElem = document.querySelector(".select-budget__select");
-        fetch(collectionsURL)
-            .then(response => response.json())
-            .then(collections => {
-
-                for (let collection of collections) {
-                    let option = document.createElement("option");
-                    option.text = collection.name;
-                    option.setAttribute("id", "collectionid-" + collection.id);
-                    selectBudgetElem.appendChild(option);
-                }
-            }).catch(error => (console.log("Fetch crashed due to " + error)));
-            
-        selectBudgetElem.addEventListener("change", function(event) {
-            let select = event.target;
-            let selectedOption = select[select.selectedIndex];
-            let idString = selectedOption.id.split("-");
-            let collectionID = idString[1];
+    //----keeps track of collection change and ---//
+    const collection = document.querySelector("#select-collection__select");
+    collection.addEventListener("change", function (event) {
+        let select = event.target;
+        let selectedOption = select[select.selectedIndex].id.split("-");
+        let selectedId = parseInt(selectedOption[1]);
+        if (selectedOption != "no-collection") {
+            getCategories(selectedId);
             var myNode = budgetContainer;
             while (myNode.firstChild) {
                 myNode.removeChild(myNode.firstChild);
             }
-            console.log("Selected collection " + collectionID + ": " + selectedOption.value)
-            getCategories(collectionID);
-        });
-    }
+        }
 
-    
+    });
+    // fetchCollections();
+
+    // function fetchCollections() {
+    //     const selectBudgetElem = document.querySelector(".select-budget__select");
+    //     fetch(collectionsURL)
+    //         .then(response => response.json())
+    //         .then(collections => {
+
+    //             for (let collection of collections) {
+    //                 let option = document.createElement("option");
+    //                 option.text = collection.name;
+    //                 option.setAttribute("id", "collectionid-" + collection.id);
+    //                 selectBudgetElem.appendChild(option);
+    //             }
+    //         }).catch(error => (console.log("Fetch crashed due to " + error)));
+
+    //     selectBudgetElem.addEventListener("change", function(event) {
+    //         let select = event.target;
+    //         let selectedOption = select[select.selectedIndex];
+    //         let idString = selectedOption.id.split("-");
+    //         let collectionID = idString[1];
+    //         var myNode = budgetContainer;
+    //         while (myNode.firstChild) {
+    //             myNode.removeChild(myNode.firstChild);
+    //         }
+    //         console.log("Selected collection " + collectionID + ": " + selectedOption.value)
+    //         getCategories(collectionID);
+    //     });
+    // }
+
+
     function getCategories(selectedCollection) {
         fetch(categoriesURL)
             .then(response => response.json())
             .then(data => {
                 let categories = [];
                 for (let object of data) {
-                    let collection = object.collectionID.id;   
-                    if(collection === parseInt(selectedCollection)) {
+                    let collection = object.collectionID.id;
+                    if (collection === parseInt(selectedCollection)) {
                         categories.push(object);
                     }
                 }
-                
+
                 console.log("Categories in the collection: " + categories);
                 return categories;
             }).then(categories => {
@@ -73,11 +88,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     budgetContainer.appendChild(newBudgetGroup);
                     getTypes(category.id);
                 }
-                
-        }).catch(error => (console.log("Fetch crashed due to " + error)));
+
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
         // catch errors    
     }
-    
+
     function getTypes(categoryID) {
         fetch(typesURL)
             .then(response => response.json())
@@ -98,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
 
-    function getItems (categoryID, typeID) {
+    function getItems(categoryID, typeID) {
         fetch(itemsURL)
             .then(response => response.json())
             .then(items => {
@@ -111,19 +126,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 return itemArray;
             }).then(items => {
                 for (let item of items) {
-                        let categoryElem = budgetContainer.querySelector("#categoryid-" + categoryID);
-                        let itemsContainer = categoryElem.querySelector(".budget-items-container");
-                        
-                        let newItem = createBudgetItemRow(item.id, item.name, item.typeID.name.name, item.budget);
+                    let categoryElem = budgetContainer.querySelector("#categoryid-" + categoryID);
+                    let itemsContainer = categoryElem.querySelector(".budget-items-container");
 
-                        itemsContainer.appendChild(newItem);
-                        
+                    let newItem = createBudgetItemRow(item.id, item.name, item.typeID.name.name, item.budget);
+
+                    itemsContainer.appendChild(newItem);
+
                 }
                 let budgetGroups = budgetContainer.querySelectorAll(".budget-group");
                 for (let budgetGroup of budgetGroups) {
                     updateBudget(budgetGroup);
-                }                   
-        }).catch(error => (console.log("Fetch crashed due to " + error))); 
+                }
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
     }
 
 
@@ -150,18 +165,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let addButton = document.createElement("button");
         addButton.className = "budget-group__add-button";
         addButton.innerHTML = "<img src='./product_card/img/icon_add.png' alt='Application logo'> Add new item";
-        addButton.addEventListener('click', function(event) {
+        addButton.addEventListener('click', function (event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
             let itemsContainer = budgetGroup.querySelector(".budget-items-container");
             let newItem = createBudgetItemRow("", null);
-            
+
             /*fetch(addUrl, {
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(), // add variable name here!!
                 method: 'post'
             });*/
-            
+
             itemsContainer.appendChild(newItem);
         });
 
@@ -213,13 +228,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         // console.log("creating a new budget item row");
         let budgetItemRow = document.createElement("div");
         budgetItemRow.setAttribute("id", itemID);
-        budgetItemRow.className ="budget-item-row";
-        budgetItemRow.addEventListener("mouseover", function(event) {
+        budgetItemRow.className = "budget-item-row";
+        budgetItemRow.addEventListener("mouseover", function (event) {
             let row = findAncestor(event.target, "budget-item-row");
             let deleteDiv = row.querySelector(".delete-div");
             deleteDiv.classList.toggle("img-delete__show");
         });
-        budgetItemRow.addEventListener("mouseout", function(event) {
+        budgetItemRow.addEventListener("mouseout", function (event) {
             let row = findAncestor(event.target, "budget-item-row");
             let deleteDiv = row.querySelector(".delete-div");
             deleteDiv.classList.toggle("img-delete__show");
@@ -230,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         name.setAttribute("type", "text");
         name.className = "budget-item__name";
         handleNull(name, itemName, "s");
-        name.addEventListener("change", function(event) {
+        name.addEventListener("change", function (event) {
             changeEventListener(event);
         });
 
@@ -244,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         budget.setAttribute("type", "number");
         budget.className = "budget-item__budget";
         handleNull(budget, itemBudget, "n");
-        budget.addEventListener("change", function(event) {
+        budget.addEventListener("change", function (event) {
             changeEventListener(event);
         });
 
@@ -258,22 +273,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
         typeInput.setAttribute("type", "text");
         typeInput.setAttribute("name", "type");
         typeInput.setAttribute("list", "type-datalist");
-        typeInput.addEventListener("change", function(event) {
+        typeInput.addEventListener("change", function (event) {
             changeEventListener(event);
         });
-           
-        typeInput.addEventListener("click", function(event) {
-            if(lastActiveElement !== event.target) {
+
+        typeInput.addEventListener("click", function (event) {
+            if (lastActiveElement !== event.target) {
                 event.target.value = "";
             }
-         });
-        
+        });
+
         let typeDatalist = document.createElement("datalist");
-        
+
         typeDatalist.id = "type-datalist";
         typeDatalist.setAttribute("type", "text");
         typeDatalist.className = "budget-item__type";
-        
+
         fetch(typenameURL)
             .then(response => response.json())
             .then(types => {
@@ -282,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     typesArray.push(type.name);
                 }
                 return typesArray;
-            }).then (types => {
+            }).then(types => {
                 typeInput.setAttribute("value", itemType);
                 for (let t of types) {
                     let option = document.createElement("option");
@@ -293,29 +308,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let typeDiv = document.createElement("div");
         typeDiv.className = "budget-item-row__column";
-        
+
         // typeDiv.appendChild(typeDatalist);
         typeInput.appendChild(typeDatalist);
         typeDiv.appendChild(typeInput);
-        
+
         let imgDiv = document.createElement("div");
         imgDiv.className = "delete-div";
-        
+
         let deleteImg = document.createElement("img");
         deleteImg.className = "img-delete";
         deleteImg.src = "./product_card/img/icon_delete.png";
-        imgDiv.addEventListener("click", function(event) {
+        imgDiv.addEventListener("click", function (event) {
             console.log(event.target);
             let row = findAncestor(event.target, "budget-item-row");
             let container = row.parentNode;
             let confirmed = confirm("Are you sure you want to remove this item from the budget?");
-            if(confirmed) {
+            if (confirmed) {
                 row.querySelector(".budget-item__budget").value = 0;
                 updateBudget(findAncestor(row, "budget-group"));
                 container.removeChild(row);
             }
         });
-        
+
         imgDiv.appendChild(deleteImg);
 
         budgetItemRow.appendChild(nameDiv);
@@ -331,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function updateBudget(budgetGroup) {
         let totalBudget = 0;
         let itemBudgets = budgetGroup.querySelectorAll(".budget-item__budget");
-        
+
         // loop that goes through all the items in the item group
         // and adds the amounts to totalBudget
         for (let itemBudget of itemBudgets) {
@@ -342,15 +357,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         totalBudgetCell.textContent = totalBudget.toString();
 
     }
-    
+
     function changeEventListener(event) {
         let cell = event.target.parentNode;
         let budgetGroup = findAncestor(cell, "budget-group");
-        
+
         let itemID = cell.parentNode.id;
         let changedProperty = event.target.name;
-        let newValue  = event.target.value;
-        console.log("ID: " + itemID + ", new value of " + changedProperty +  ": " + newValue);
+        let newValue = event.target.value;
+        console.log("ID: " + itemID + ", new value of " + changedProperty + ": " + newValue);
 
         // quick and dirty code to get around the current database problem
         let row = findAncestor(cell, "budget-item-row");
@@ -360,44 +375,44 @@ document.addEventListener("DOMContentLoaded", function (event) {
             type: 1,
             budget: row.querySelector(".budget-item__budget").value
         };
-        
+
 
         let update;
         fetch(itemsURL + itemID)
-                .then(response => response.json())
-                .then(item => {  
-                    update = item;
-                    switch (changedProperty) {
-                        case "name":
-                            update.name = newValue;
-                            console.log(update);
-                            fetch(itemsURL + itemID, {
-                                headers: { 'content-type': 'application/json' },
-                                body: JSON.stringify(update),
-                                method: 'put'
-                            }).catch(error => (console.log("Fetch crashed due to " + error))); 
-                            break;
-                        case "type":
-                            // figure out a way to change the type?
-                            
-                            fetch(itemURL + itemID, {
-                                headers: { 'content-type': 'application/json' },
-                                body: JSON.stringify(update),
-                                method: 'put'
-                            }).catch(error => (console.log("Fetch crashed due to " + error))); 
-                            break;
-                        case "budget":
-                            updateBudget(budgetGroup);
-                            console.log(update);
-                            update.budget = parseFloat(newValue);
-                            break;
-        }
-        }).catch(error => (console.log("Fetch crashed due to " + error))); 
-        
-        
-        
+            .then(response => response.json())
+            .then(item => {
+                update = item;
+                switch (changedProperty) {
+                    case "name":
+                        update.name = newValue;
+                        console.log(update);
+                        fetch(itemsURL + itemID, {
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify(update),
+                            method: 'put'
+                        }).catch(error => (console.log("Fetch crashed due to " + error)));
+                        break;
+                    case "type":
+                        // figure out a way to change the type?
+
+                        fetch(itemURL + itemID, {
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify(update),
+                            method: 'put'
+                        }).catch(error => (console.log("Fetch crashed due to " + error)));
+                        break;
+                    case "budget":
+                        updateBudget(budgetGroup);
+                        console.log(update);
+                        update.budget = parseFloat(newValue);
+                        break;
+                }
+            }).catch(error => (console.log("Fetch crashed due to " + error)));
+
+
+
     }
-    
+
     function handleNull(elem, value, type) {
         console.log(value, type);
         if (value === null && type === "s") {
@@ -408,8 +423,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             elem.value = value;
         }
     }
-    
-    function findAncestor (el, cls) {
+
+    function findAncestor(el, cls) {
         while ((el = el.parentElement) && !el.classList.contains(cls));
         return el;
     }
