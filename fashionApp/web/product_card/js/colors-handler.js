@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-
+let selectedId;
     const collection = document.querySelector("#select-collection__select");
     collection.addEventListener("change", function (event) {
         let select = event.target;
         let selectedOption = select[select.selectedIndex].id.split("-");
-        let selectedId = parseInt(selectedOption[1]);
+        selectedId = parseInt(selectedOption[1]);
         if (selectedOption != "no-collection") {
             getColorCards(selectedId);
         }
@@ -72,13 +72,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const addUrl = "http://localhost:8080/fashionApp/web/color/";
 
     addColorButton.addEventListener('click', function () {
-        let collectionID = getCollectionId();
+        
         const name = document.querySelector("#color-name").value;
         const hexa = document.querySelector("#colorpicker").value;
         let data = {
             name: name,
             hexa: hexa,
-            collectionID: collectionID
+            collectionID: selectedId
         };
         return fetch(addUrl, {
             headers: { 'content-type': 'application/json' },
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return fetch(delUrl, {
             method: 'delete'
         })
-            .then(result => getColorCards(getCollectionId()));
+            .then(result => getColorCards(selectedId));
     }
     function update() {
         const cardsContainer = document.querySelector("#colorgrid");

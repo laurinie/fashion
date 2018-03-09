@@ -71,7 +71,16 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     const collectionsURL = URLbase + "web/collections/";
     function fetchCollections() {
+        // collections fech should be added feature to member last selection ---//
         const selectBudgetElem = document.querySelector("#select-collection__select");
+        let childs = selectBudgetElem.childNodes;
+        while (selectBudgetElem.firstChild) {
+            selectBudgetElem.removeChild(selectBudgetElem.firstChild);
+        }
+        noCollection = document.createElement("option");
+        noCollection.text = "No collection";
+        noCollection.id = "no-collection";
+        selectBudgetElem.appendChild(noCollection);
         fetch(collectionsURL)
             .then(response => response.json())
             .then(collections => {
@@ -96,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             if(selectedOption.id == "no-collection"){
                 selectedCollection.firstChild.remove();
                 selectedCollection.id="no-collection";
+                hideElements(".content");
             }
             toggleSubMenu();
         });
