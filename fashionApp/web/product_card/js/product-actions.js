@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 option.value = item.name;
                 dlistTypes.appendChild(option);
             }
-            ;
         });
         fetch(getAllTypes)
             .then(response => response.json())    //Returns a promise that resolves JSON object
@@ -158,12 +157,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         update();
 
         const getAll = URLbase + "web/productcard/";
+        console.log(getAll);
         const processJSON = (function (json) {
             for (let item of json) {
-                //console.log(item);
+                console.log(item);
                 showCard(item);
             }
-            ;
         });
         fetch(getAll)
             .then(response => response.json())    //Returns a promise that resolves JSON object

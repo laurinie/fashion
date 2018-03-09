@@ -76,10 +76,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const getAll = "http://localhost:8080/fashionApp/web/color/";
         const processJSON = (function (json) {
             for (let item of json) {
-                console.log(item);
+ 
                 showColorCard(item);
             }
-            ;
+            
         });
         fetch(getAll)
             .then(response => response.json())    //Returns a promise that resolves JSON object
@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             // while (myNode.firstChild) {
             //     myNode.removeChild(myNode.firstChild);
             // }
-            console.log(collectionID);
             //sgetCategories(collectionID);
         });
     }

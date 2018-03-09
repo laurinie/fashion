@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     
     function getCategories(selectedCollection) {
-        fetch(categoriesURL)
+        fetch(categoriesURL + "collectionid/" + selectedCollection)
             .then(response => response.json())
-            .then(data => {
+            /*.then(data => {
                 let categories = [];
                 for (let object of data) {
                     let collection = object.collectionID.id;   
@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
                 }
                 
-                console.log("Categories in the collection: " + categories);
+
                 return categories;
-            }).then(categories => {
+            })*/.then(categories => {
                 for (let category of categories) {
                     let newBudgetGroup = createBudgetGroup(category.name.name);
                     newBudgetGroup.setAttribute("id", "categoryid-" + category.id);
