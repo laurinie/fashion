@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         while (dlistCategories.firstChild) {
             dlistCategories.removeChild(dlistCategories.firstChild);
         }
-        const getAllCategories = URLbase + "web/categoryname/";
+        const getAllCategories = "http://localhost:8080/fashionApp/web/categoryname/";
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         while (dlistTypes.firstChild) {
             dlistTypes.removeChild(dlistTypes.firstChild);
         }
-        const getAllTypes = URLbase + "web/typename/";
+        const getAllTypes = "http://localhost:8080/fashionApp/web/typename/";
         const processJSON = (function (json) {
             for (let item of json) {
                 const option = document.createElement("option");
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     /*-----Save productcard------*/
-    const addUrl = URLbase + "web/productcard/";
+    const addUrl = "http://localhost:8080/fashionApp/web/productcard/";
     const saveBtn = document.querySelector("#save-card");
     const div = document.querySelector("#cards-container");
     //const p = document.querySelector("#p");
@@ -113,16 +113,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const retailPrice = document.querySelector("#retail-price").value;
         const categoryDataList = document.querySelector("#categories").options;
         const typeDataList = document.querySelector("#types").options;
-        let idOfCategory = parseInt(findID(category,categoryDataList));
-        let idOfType = parseInt(findID(type,typeDataList));
+        let idOfCategory = findID(category,categoryDataList,"Category");
+        let idOfType = findID(type,typeDataList,"Type");
+
+        if(idOfCategory||idOfType){
+            
+        }else{
+            let toCategory = idOfCategory;
+            let toType = idOfType;
+        
+        
 
 
         let data = {
             name: name,
             color: color,
             totalqty: quantity,
-            category:idOfCategory,
-            type:idOfType,
+            category:toCategory,
+            type:toType,
             price: price,
             wholesaleprice: wholesalePrice,
             retailprice: retailPrice
@@ -149,16 +157,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 .then(function (result) { getCards(); return true; })
                 .then(newResult => closeCard());
         }
-
+    }
     });
-    function findID(what, where) {
+    function findID(what, where,input) {
+        console.log("what "+what+ " where "+where);
         for (let i of where) {
             console.log("i"+i.value);
             if (i.value == what) {
-                return i.id;
+                console.log(parseInt(i.id));
+                return parseInt(i.id);
 
             }
+        }if(what == ""){
+            alert(input+ "can't be empty. Try creating new by typing or select existing");
+            return true;
         }
+        else if (confirm(`Do you want to create new ${input} named as ${what}`)) {
+            console.log("CREATED"+what);
+        }
+
     }
     /*-----Clears all cards from page------*/
     function update() {
@@ -178,7 +195,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         update();
 
         const getAll = URLbase + "web/productcard/";
-        console.log(getAll);
         const processJSON = (function (json) {
             for (let item of json) {
                 showCard(item);
@@ -285,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function deleteCard(cardId) {
-        const url = URLbase + "web/productcard/";
+        const url =  "http://localhost:8080/fashionApp/web/productcard/";
         let delUrl = url + cardId;
         return fetch(delUrl, {
             method: 'delete'
@@ -296,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /*------Fill pc data to card for editting data-----*/
     function editCard(id) {
-        const getByIdurl = URLbase + "web/productcard/" + id;
+        const getByIdurl = "http://localhost:8080/fashionApp/web/productcard/" + id;
         const processJSON = (function (json) {
             fillCard(json);
         });

@@ -8,7 +8,7 @@ use fashion2;
 
 create table collections(
     id int auto_increment primary key,
-    name varchar(255),
+    name varchar(255) NOT NULL,
     budget float    
 );
 
@@ -42,17 +42,17 @@ create table type(
 
 create table color(
     id int auto_increment primary key,
-    name varchar(255),
-    hexa varchar(255),
+    name varchar(255) NOT NULL,
+    hexa varchar(255) NOT NULL,
     collectionID int,
     foreign key (collectionID) references collections(id)
 );
 
 create table productcard(
     id int auto_increment primary key,
-    name varchar(255),
-    type int,
-    category int,
+    name varchar(255) NOT NULL,
+    type int NOT NULL,
+    category int NOT NULL,
     foreign key (type) references typename(id),
     foreign key (category) references categoryname(id),
     color varchar(255),
