@@ -47,20 +47,20 @@ public class CategoryFacadeREST extends AbstractFacade<Category> {
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Category entity) {
+    public void edit(@PathParam("id") Integer id, Category entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Category find(@PathParam("id") String id) {
+    public Category find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
