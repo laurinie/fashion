@@ -9,7 +9,7 @@ let selectedId;
         let select = event.target;
         let selectedOption = select[select.selectedIndex].id.split("-");
         selectedId = parseInt(selectedOption[1]);
-        if (selectedOption != "no-collection") {
+        if (selectedOption !== "no-collection") {
             getColorCards(selectedId);
         }
 

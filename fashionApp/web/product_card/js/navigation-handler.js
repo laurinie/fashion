@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             let e = event.target.parentNode;
             let target = e.getAttribute('data-target-section');
             console.log(target);
-            if (target == "#popup") {
+            if (target === "#popup") {
                 event.preventDefault();
                 modal.style.display = "block";
                 fetchCollections();
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             menuBtn.classList.remove("hidden");
             menu.classList.add("dropdown");
             nav.classList.add("dropdown");
-            menu.classList.add("dropdown-content")
+            menu.classList.add("dropdown-content");
             smallScreen = true;
 
         } else {
