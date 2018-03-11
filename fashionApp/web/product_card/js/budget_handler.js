@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     addCategory.addEventListener("click", function(event) {
         let form = event.target.parentNode; 
         let value = form.querySelector("input").value;
+        if(value !== "") {
         fetch(categorynamesURL)
             .then(results => results.json())
             .then(categories => {
@@ -115,7 +116,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             newBudgetGroup.setAttribute("id", "categoryid-" + newCategory.id);
                             budgetContainer.appendChild(newBudgetGroup);
 
-                }).catch(error => (console.log("Fetch crashed due to " + error)));        
+                }).catch(error => (console.log("Fetch crashed due to " + error)));     
+            } else {
+                alert("Give a name for the category");
+            }
     });
 
     //--- Fetches all categories from database and creates the budget groups in HTML by calling createBudgetGroup. ---//
@@ -201,6 +205,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         return budgetGroup;
     }
+    
+    function deleteCategoryById(i) {
+            budgetContainer.removeChild(budgetContainer.querySelector("#categoryid-" + i));
+        }
 
     function createBudgetGroupFooter(categoryID) {
         let footerRow = document.createElement("div");
@@ -251,11 +259,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let budgetHeaderColumn = document.createElement("div");
         let productTypeHeaderColumn = document.createElement("div");
-
         let budgetGroupName = document.createElement("div");
         let budgetGroupNameContainer = document.createElement("div");
         budgetGroupNameContainer.className = "budget-group-header__column";
-
+        
+        let settingsDiv = document.createElement("div");
+        let settingsImg = document.createElement("img");
 
         budgetHeaderColumn.textContent = "Budget";
         budgetHeaderColumn.className = "budget-group-header__column";
@@ -265,11 +274,43 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         budgetGroupName.textContent = name;
         budgetGroupName.className = "budget-group-header__tab";
+        
+        settingsImg.src = "./product_card/img/icon_vertical-ellipsis.png";
+        settingsDiv.className = "budget-group__settings";
+        
+        let settingsList = document.createElement("div");
+        settingsList.className = "budget-group-settings__list";
+        settingsList.classList.add("hidden");
+        let deleteCategory = document.createElement("a");
+        deleteCategory.textContent = "Delete category";
+        deleteCategory.addEventListener("click", function(event) {
+            let category = findAncestor(event.target, "budget-group");
+            let id = category.id.split("-");
+            let URL = categoriesURL + id[1];
+            console.log(URL);
+            fetch(URL, {
+                method: 'delete'
+            })
+            .then(results => deleteCategoryById(id[1]))
+            .catch(error => console.log("Fetch crashed due to " + error));
+        });
+        
 
         budgetGroupNameContainer.appendChild(budgetGroupName);
+        settingsDiv.appendChild(settingsImg);
+        settingsList.appendChild(deleteCategory);
+        settingsDiv.appendChild(settingsList);
+        
+        settingsDiv.addEventListener("click", function(event) {
+            let div = findAncestor(event.target, "budget-group__settings");
+            let list = div.querySelector(".budget-group-settings__list");
+            list.classList.toggle("hidden");
+        }); 
+        
         budgetGroupHeader.appendChild(budgetGroupNameContainer);
         budgetGroupHeader.appendChild(productTypeHeaderColumn);
         budgetGroupHeader.appendChild(budgetHeaderColumn);
+        budgetGroupHeader.appendChild(settingsDiv);
 
         return budgetGroupHeader;
     }

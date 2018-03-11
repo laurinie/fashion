@@ -10,37 +10,43 @@
     margin-bottom: 2.5rem;
 }
 
+
 .budget-group-header {
     background-color: var(--tabcolor);
     display: grid;
     text-transform: uppercase;
     font-weight: bold;
-    grid-template-columns: auto 100px 100px;
+    grid-template-columns: auto 150px 100px 32px;
     border-bottom: 3px solid var(--tabcolor);
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
     border-top-left-radius: 0.3em;
     border-top-right-radius: 0.3em;
 }
+.budget-group-header__column {
+    padding-left: 20px;
+}
 
 .budget-item-row {
     display: grid;
     background-color: #FFFFFF;
-    grid-template-columns: auto 100px 100px;
+    grid-template-columns: auto 150px 100px 32px 5px;
+    border-bottom: 1px solid var(--backgroundcolor);
+    cursor: pointer;
 }
 
 .budget-item-row:hover{
     background-color: rgba(139, 253, 215, 0.274) !important;
 }
 
-#budget input[type=text], input[type=number], textarea {
+#budget input[type=text], #budget input[type=number], #budget textarea {
     width: 100%;
     padding: 12px 20px;
     box-sizing: border-box;
     border: none;
     border-radius: inherit;
     margin: 0;
-    border-bottom: 1px solid var(--backgroundcolor);
+
     background-color: transparent;
     outline: none;
 }
@@ -117,12 +123,8 @@
 .delete-div {
     width: 0px;
     height: 41px;
-    position: absolute;
-    right: 8px;
-    transition: 0.15s;
+    transition: 0.2s;
 }
-
-
 
 .img-delete {
     opacity: 0.2;
@@ -130,11 +132,39 @@
 }
 
 .img-delete__show {
-    height: ;
     width: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.budget-group__settings img {
+    height: 1.3rem;
+}
 
+.budget-group__settings {
+    cursor: pointer;
+}
+
+.budget-group-settings__list {
+    position: absolute;
+    right: 32px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.budget-group-settings__list a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-transform: initial;
+    font-weight: normal;
+}
+
+.budget-group-settings__list a:hover {
+    background-color: #ddd
+}

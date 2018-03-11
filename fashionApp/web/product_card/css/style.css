@@ -5,7 +5,6 @@
     font-family: 'Raleway', sans-serif;
 }
 
-/*Emily css file*/
 
 :root {
     --btncolor: #5a7ced;
@@ -95,10 +94,6 @@ nav ul li>a {
 nav ul li>a:hover {
     background-color: var(--navhover);
 }
-#sub-menu{
-    padding-left: 50px;
-    border-bottom: solid var(--btncolor);
-}
 
 #project-logo {
     height: 80px;
@@ -111,8 +106,38 @@ nav ul li>a:hover {
 
 main {
     grid-area: main;
-    padding: 2rem;
     background-color: var(--backgroundcolor);
+}
+
+.content {
+    padding: 2rem;
+}
+
+#sub-menu {
+    background-color: var(--footercolor);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--lighttext);
+    margin: 0;
+    list-style: none;
+}
+
+#sub-menu li a {
+    display: block;
+    justify-content: space-around;
+    align-content: space-around;
+    
+    width: inherit;
+    padding: 1em;
+    color: #dfdfdf;
+    text-decoration: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 footer {
@@ -313,12 +338,7 @@ footer p {
         background-color: var(--footercolor);
         transition: 0.15s;
     }
-    #sub-menu{
-        padding: 1px;
-        /* background-color: var(--footercolor); */
-        border-bottom: solid var(--btncolor);
-
-    }
+    
 }
 
 
@@ -363,12 +383,5 @@ footer p {
         border-bottom: solid var(--btncolor);
 
     }
-    #sub-menu{
-        padding: 1px;
-        float: none;
-        /* background-color: var(--footercolor); */
-        border-top: solid var(--btncolor);
-        border-bottom: solid var(--btncolor);
-
-    }
+    
 }

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     const startElement = document.querySelector("#start");
     let navElements = document.querySelectorAll("nav li");
+    let subMenuElements = document.querySelectorAll("#sub-menu li");
     let selectedCollection = document.querySelector(".selected-collection");
     toggleSubMenu();
     /* this loop adds listeners for clicks of the navigation elements to change the
@@ -35,8 +36,32 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 dropdown.classList.remove("display");
             }
         });
+        
+        
         startElement.classList.remove("hidden");
     }
+    
+    for (let navElement of subMenuElements) {
+        hideElements(".content");
+        navElement.addEventListener('click', function (event) {
+            let e = event.target.parentNode;
+            let target = e.getAttribute('data-target-section');
+            console.log(target);
+            hideElements(".content");
+            event.preventDefault();
+            let targetElement = document.querySelector(target);
+            targetElement.classList.remove("hidden");
+        
+            if (smallScreen) {
+                console.log("smallScreen");
+                dropdown.classList.remove("display");
+            }
+        });
+        
+        
+        startElement.classList.remove("hidden");
+    }
+    
     function hideElements(selector) {
         let elements = document.querySelectorAll(selector);
         for (let element of elements) {
@@ -66,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             smallScreen = false;
         }
     }
+    
     const addNewCollection = document.querySelector("#add-new-collection");
     addNewCollection.addEventListener('click', function (event) {
         event.preventDefault();
@@ -79,11 +105,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
             body: JSON.stringify(data),
             method: 'post'
         })
-            .then(function (result) { fetchCollections(); return true; })
+            .then(function (result) { fetchCollections(); return true; });
         // .then(newResult => closeCard());
     });
 
-    var x = window.matchMedia("(max-width: 500px)")
+    var x = window.matchMedia("(max-width: 500px)");
     dropMenu(x);
     x.addListener(dropMenu);
 
@@ -99,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
 
     //----fech collections to modal-----//
 
@@ -113,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         while (selectBudgetElem.firstChild) {
             selectBudgetElem.removeChild(selectBudgetElem.firstChild);
         }
-        noCollection = document.createElement("option");
+        let noCollection = document.createElement("option");
         noCollection.text = "No collection";
         noCollection.id = "no-collection";
         selectBudgetElem.appendChild(noCollection);
@@ -137,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             let select = event.target;
             let selectedOption = select[select.selectedIndex];
             let idString = selectedOption.id.split("-");
-            collectionID = idString[1];
+            let collectionID = idString[1];
             selectedCollection = document.querySelector(".selected-collection");
             selectedCollection.id = collectionID;
             selectedCollection.textContent = selectedOption.text;
