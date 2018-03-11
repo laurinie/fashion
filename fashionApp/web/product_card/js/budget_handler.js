@@ -281,13 +281,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let settingsList = document.createElement("div");
         settingsList.className = "budget-group-settings__list";
         settingsList.classList.add("hidden");
-        let deleteCategory = document.createElement("a");
-        deleteCategory.textContent = "Delete category";
+        let deleteCategory = document.createElement("a"); // this is for deleting just the category, but not the products in this category
+        let deleteCategoryAll = document.createElement("a"); // this is for not only deleting the category, but also product cards linked to the items in the budget category
+        deleteCategory.textContent = "Remove category";
+        deleteCategoryAll.textContent = "Remove category and products";
         deleteCategory.addEventListener("click", function(event) {
             let category = findAncestor(event.target, "budget-group");
             let id = category.id.split("-");
             let URL = categoriesURL + id[1];
-            console.log(URL);
+
             fetch(URL, {
                 method: 'delete'
             })
@@ -295,6 +297,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             .catch(error => console.log("Fetch crashed due to " + error));
         });
         
+        //--- NOT READY YET --//
+        deleteCategoryAll.addEventListener("click", function(event) {
+            let category = findAncestor(event.target, "budget-group");
+            let id = category.id.split("-");
+            let URL = categoriesURL + id[1];
+            fetch(URL, {
+                method: 'delete'
+            })
+            .then(results => function () {
+                return fetch()
+                deleteCategoryById(id[1]);
+            })
+            .catch(error => console.log("Fetch crashed due to " + error));
+        });
 
         budgetGroupNameContainer.appendChild(budgetGroupName);
         settingsDiv.appendChild(settingsImg);
