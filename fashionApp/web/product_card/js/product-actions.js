@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const description = document.querySelector("#description").value;
         //const priceRange = document.querySelector("#price-range").value;
         const category = document.querySelector("#category-input").value;
-        console.log(category);
+
 
         const color = document.querySelector("#color").value;
         const quantity = document.querySelector("#quantity").value;
@@ -113,68 +113,115 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const retailPrice = document.querySelector("#retail-price").value;
         const categoryDataList = document.querySelector("#categories").options;
         const typeDataList = document.querySelector("#types").options;
-        let idOfCategory = findID(category,categoryDataList,"Category");
-        let idOfType = findID(type,typeDataList,"Type");
+        // let idOfType= findID(type, typeDataList, "Type");
+        // let idOfCategory= findID(category, categoryDataList, "Category");
 
-        if(idOfCategory||idOfType){
-            
-        }else{
-            let toCategory = idOfCategory;
-            let toType = idOfType;
-        
-        
-
-
-        let data = {
-            name: name,
-            color: color,
-            totalqty: quantity,
-            category:toCategory,
-            type:toType,
-            price: price,
-            wholesaleprice: wholesalePrice,
-            retailprice: retailPrice
-        };
-        console.log(data);
-        const idFromHeader = document.querySelector("#card-header").firstChild;
-        let dataID = "id";
-        if (idFromHeader !== null) {
-            let splited = idFromHeader.nodeValue.split(" ");
-            data[dataID] = splited[1];
-            return fetch(addUrl + splited[1], {
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(data),
-                method: 'put'
-            })
-                .then(function (result) { getCards(); return true; })
-                .then(newResult => closeCard());
-        } else {
-            return fetch(addUrl, {
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(data),
-                method: 'post'
-            })
-                .then(function (result) { getCards(); return true; })
-                .then(newResult => closeCard());
+        function typeAndCategory() {
+            return Promise.all([findID(type, typeDataList, "Type"), findID(category, categoryDataList, "Category")])
         }
-    }
+
+        // When this Promise resolves, both values will be available.
+        typeAndCategory()
+            .then(([idOfType, idOfCategory]) => {
+                // both have loaded!
+                console.log(idOfType, idOfCategory);
+
+
+                ///----------------------------------------------//
+                let toCategory = idOfCategory;
+                let toType = idOfType;
+
+                let data = {
+                    name: name,
+                    color: color,
+                    totalqty: quantity,
+                    category: toCategory,
+                    type: toType,
+                    price: price,
+                    wholesaleprice: wholesalePrice,
+                    retailprice: retailPrice
+                };
+                console.log(data);
+                const idFromHeader = document.querySelector("#card-header").firstChild;
+                let dataID = "id";
+                if (idFromHeader !== null) {
+                    let splited = idFromHeader.nodeValue.split(" ");
+                    data[dataID] = splited[1];
+                    return fetch(addUrl + splited[1], {
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify(data),
+                        method: 'put'
+                    })
+                        .then(function (result) { getCards(); return true; })
+                        .then(newResult => closeCard());
+                } else {
+                    return fetch(addUrl, {
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify(data),
+                        method: 'post'
+                    })
+                        .then(function (result) { getCards(); return true; })
+                        .then(newResult => closeCard());
+                }
+            })
+
     });
-    function findID(what, where,input) {
-        console.log("what "+what+ " where "+where);
-        for (let i of where) {
-            console.log("i"+i.value);
-            if (i.value == what) {
-                console.log(parseInt(i.id));
-                return parseInt(i.id);
+    function findID(what, where, input) {
+
+        if (what !== null) {
+            for (let i of where) {
+                if (i.value == what) {
+                    console.log("id " + parseInt(i.id));
+                    return parseInt(i.id);
+                }
+            }
+            console.log("input=" + input);
+            if (input === "Type" && confirm("Do you want to create new Type named as " + what)) {
+                console.log("else if Type");
+                const addUrl = URLbase + "web/typename";
+                let data = {
+                    name: `${what}`
+                };
+
+                return fetch(addUrl, {
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(data),
+                    method: 'post'
+                })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (json) {
+                        console.log("id from json " + json.id);
+                        return json.id;
+                    })
+
+
+
+
+            } else if (input === "Category" && confirm("Do you want to create new Category named as " + what)) {
+                console.log("else if Cat");
+                let data = {
+                    name: `${what}`
+                };
+
+                const addUrl = URLbase + "web/categoryname";
+                return fetch(addUrl, {
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(data),
+                    method: 'post'
+                })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (json) {
+                        console.log("id from json " + json.id);
+                        return json.id;
+                    })
 
             }
-        }if(what == ""){
-            alert(input+ "can't be empty. Try creating new by typing or select existing");
-            return true;
         }
-        else if (confirm(`Do you want to create new ${input} named as ${what}`)) {
-            console.log("CREATED"+what);
-        }
+
 
     }
     /*-----Clears all cards from page------*/
@@ -301,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function deleteCard(cardId) {
-        const url =  "http://localhost:8080/fashionApp/web/productcard/";
+        const url = "http://localhost:8080/fashionApp/web/productcard/";
         let delUrl = url + cardId;
         return fetch(delUrl, {
             method: 'delete'

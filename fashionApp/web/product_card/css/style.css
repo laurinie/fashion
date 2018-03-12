@@ -28,7 +28,7 @@ html {
 body {
     margin: 0;
     background-color: white;
-    height: inherit;
+    height: 100%;
     display: grid;
     grid-template-columns: 200px auto;
     grid-template-rows: 20% auto 70px;
@@ -122,6 +122,8 @@ main {
     color: var(--lighttext);
     margin: 0;
     list-style: none;
+    border-top: solid var(--btncolor);
+    border-bottom: solid var(--btncolor);
 }
 
 #sub-menu li a {
@@ -155,7 +157,7 @@ footer p {
 }
 
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 .dropbtn {
@@ -270,7 +272,7 @@ footer p {
     body {
         margin: 0;
         background-color: white;
-        height: inherit;
+        height: 100%;
         display: grid;
         grid-template-columns: 100%;
         grid-template-areas: 
