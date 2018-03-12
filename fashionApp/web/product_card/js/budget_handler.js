@@ -220,13 +220,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
         addButton.addEventListener('click', function (event) {
             let target = event.target;
             let budgetGroup = target.parentNode.parentNode;
+            let categoryID = (budgetGroup.id.split("-"))[1];
             let itemsContainer = budgetGroup.querySelector(".budget-items-container");
+            
             
             let data = {
                 name: null,
                 typeID: null,
                 budget: null
             };
+
             fetch(itemsURL, {
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(data), // add variable name here!!
@@ -235,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             .then(item => {
                 let newItem = createBudgetItemRow(categoryID, item.id);
                 itemsContainer.appendChild(newItem);
+                return newItem;
             }).catch(error => (console.log("Fetch crashed due to " + error)));
 
             
@@ -410,7 +414,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let typeDiv = document.createElement("div");
         typeDiv.className = "budget-item-row__column";
 
-        // typeDiv.appendChild(typeDatalist);
         typeInput.appendChild(typeDatalist);
         typeDiv.appendChild(typeInput);
 
@@ -465,19 +468,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let itemID = cell.parentNode.id;
         let changedProperty = event.target.name;
         let newValue = event.target.value;
-        console.log("ID: " + itemID + ", new value of " + changedProperty + ": " + newValue);
-
+        let categoryID = (budgetGroup.id.split("-"))[1];
 
         let update;
         fetch(itemsURL + itemID)
             .then(response => response.json())
             .then(item => {
                 update = item;
-                console.log(update);
                 switch (changedProperty) {
                     case "name":
                         update.name = newValue;
-                        fetch(itemsURL + itemID, {
+                        return fetch(itemsURL + itemID, {
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify(update),
                             method: 'put'
@@ -485,22 +486,82 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         break;
                     case "type":
                         let types = event.target.querySelectorAll("option");
-                        for (let type of types) {
+                        for (let type of types) { // checks if typename already exists. if it does, it will add the typename id to the update
                             if (type.value === newValue) {
                                 let id = type.id.split("-");
                                 update.typeID = parseInt(id[1]);
-                                console.log(update);
-                            }
-                        }                        
-                        fetch(itemsURL + itemID, {
-                            headers: { 'content-type': 'application/json' },
-                            body: JSON.stringify(update),
-                            method: 'put'
-                        }).catch(error => (console.log("Fetch crashed due to " + error)));
+                                return fetch(itemsURL + itemID, {
+                                    headers: { 'content-type': 'application/json' },
+                                    body: JSON.stringify(update),
+                                    method: 'put'
+                                }).then(console.log("item updated")).catch(error => (console.log("Fetch crashed due to " + error)));
+                            } 
+                        }
+                        
+                        if (update.value == null) { // if type name didn't exist
+                            let newTypeName = {
+                                name: newValue
+                            };
+                            return fetch(typenameURL, { // creates new typename
+                                headers: { 'content-type': 'application/json' },
+                                body: JSON.stringify(newTypeName),
+                                method: 'post'
+                            }).then(response => response.json())
+                            .then(response => {
+                                let newType = {
+                                    name: parseInt(response.id),
+                                    categoryID: parseInt(categoryID)
+                                };
+                                // creates new type
+                                return fetch(typesURL, { 
+                                    headers: { 'content-type': 'application/json' },
+                                    body: JSON.stringify(newType),
+                                    method: 'post'
+                                }).catch(error => console.log("Fetch crashed due to " + error));
+                            }).then(response => response.json())
+                            .then(response => {
+                                update.typeID = response.name.id;
+                                console.log("update typeID after creating a new type" + update.typeID);
+                                 if(update.name == null ) {
+                                     update.name = "";
+                                 }
+                                 
+                                 let productData = {
+                                    category: parseInt(categoryID),
+                                    type: update.typeID,
+                                    name: update.name
+                                 };
+                                 console.log(productData);
+                                 return productData;
+                            }).then(productData => {
+                                return fetch(productsURL, {
+                                    headers: { 'content-type': 'application/json' },
+                                    body: JSON.stringify(productData),
+                                    method: 'post'
+                                }).then(response => response.json())
+                                .then(response => {
+                                    update.productcardID = response.id;
+                                    console.log("new product created");
+                                }).catch(error => console.log("Fetch crashed due to " + error));
+                            }).then(function(){
+                                return fetch(itemsURL + itemID, {
+                                    headers: { 'content-type': 'application/json' },
+                                    body: JSON.stringify(update),
+                                    method: 'put'
+                                }).then(console.log("item updated"))
+                                .catch(error => (console.log("Fetch crashed due to " + error)));
+                            }).catch(error => console.log("Fetch crashed due to " + error));
+                        }
+                        
                         break;
                     case "budget":
                         updateBudget(budgetGroup);
                         update.budget = parseFloat(newValue);
+                        return fetch(itemsURL + itemID, {
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify(update),
+                            method: 'put'
+                        }).catch(error => (console.log("Fetch crashed due to " + error)));
                         break;
                 }
             }).catch(error => (console.log("Fetch crashed due to " + error)));

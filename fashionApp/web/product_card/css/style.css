@@ -212,11 +212,33 @@ footer p {
 }
 #collection-form{
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
 }
 .collection-form-content{
-    padding: 20px;
+    display: grid;
+    grid-template-columns: 150px auto;
+    cursor: pointer;
+    margin-bottom: 10px
+    
 }
+
+.collection-form-content input {
+    background-color: white !important;
+    border: 1px solid var(--tabcolor);
+    margin: 0;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.collection-form-content button {
+    border: none;
+    border-radius: 0px 5px 5px 0px;
+    height: inherit !important;
+    cursor: pointer;
+}
+
 .card-style-input{
     padding: 12px 20px;
     margin: 8px 0;
@@ -264,6 +286,10 @@ footer p {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.modal h2 {
+    text-align: center;
 }
 
 @media(max-width:499px){
