@@ -10,6 +10,26 @@
     margin-bottom: 2.5rem;
 }
 
+#add-new-category {
+    display: grid;
+    grid-template-columns: 150px auto;
+    cursor: pointer;
+    margin-bottom: 10px
+}
+
+#add-new-category input[type=text] {
+    background-color: white !important;
+    border-radius: 0px 5px 5px 0px !important;
+    border: 1px solid var(--tabcolor) !important;
+    margin: 5px 5px 5px 0px !important;
+}
+
+button#new-category {
+    border-radius: 10px 0px 0px 10px;
+    margin: 5px 0px 5px 0px;
+    border: 0;
+    background-color: var(--tabcolor);
+}
 
 .budget-group-header {
     background-color: var(--tabcolor);
