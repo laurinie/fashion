@@ -6,7 +6,7 @@ Application Development Methods course 2018.
 
 ## Quick Start
 
-Try on [Demo](http://www.dmn666.cloudapp.net:8080/fashionApp/) page.<br>
+Try on [Demo](http://dmn666.cloudapp.net:8080/fashionApp/) page.<br>
 Or Install on your local PC. Check [Guide](http://www.oracle.com/technetwork/java/javaee/documentation/ee8-install-guide-3894351.html) to how to install.
  
  
